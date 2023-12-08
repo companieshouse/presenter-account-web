@@ -1,13 +1,7 @@
 
-# Typescript Web Starter for Companies House
+# presenter-account-web
 
-This web-starter is designed to allow you to very quickly create a GOV_UK web app using Typescript/Node.js. It provides you with the essential building blocks (or scaffolding) for piecing together a Typescript web app and to dictate your overall project structure.
-
-A corresponding web-starter, in native Javascript, can be found [here](https://github.com/companieshouse/node-review-web-starter-js).
-
-#### Quick Note:
-
-There's a **To-do** list at the bottom of this document. Please take a moment to have a quick look through at what remains to be done, and feel free to complete one or more items on this list or add items that you feel were omitted, or would be useful to have.
+A web service for creating presenter accounts. A presenter account is needed to file via the XMLGW.
 
 ## Node Versions
 
@@ -21,7 +15,7 @@ There's a **To-do** list at the bottom of this document. Please take a moment to
 
 Having cloned the project into your project root, run the following commands:
 
-``` cd node-web-starter-ts```
+``` cd presenter-account-web```
 
 ```npm install```
 
@@ -129,20 +123,4 @@ Empty directories and files, wherever you find them, are only there for complete
 ### 6. Coding Standards
 
 - Companies House follows the [StandardJS](https://standardjs.com/) coding conventions for both JavaScript and Typescript. Details about these guidelines are documented internally [here](https://github.com/companieshouse/styleguides/blob/main/javascript_node.md).
-
-
-
-## To-do
-
-- [x] Ensure compatibility with Node v16
-- [x] Upgrade to Node v18 at appropriate time
-- [x] Revise linting rule-set
-- [x] Add pre-commit GIT hooks
-- [x] Lock down major dependencies to specific versions that are proven to work well
-- [x] Include sample page displays on start-up with CH headers, CH footers and GOV_UK error flows
-- [x] Resolve all vulnerability warnings and errors flagged by `npm audit`
-- [ ] ~~Bump up test coverage to meet set thresholds~~~ _This is not necessary as the code in this starter is only for illustration purposes_
-- [ ] ~~Assign non-typed objects (and also replace the `any` type) with well-defined types and interfaces across class definitions and methods~~ _This is not necessary as the code in this starter is only for illustration purposes_
-- [ ] ~~Add OWASP's `dependency-check` to detect publicly disclosed vulnerabilities contained within dependencies~~ _We'll be using `npm audit` to perform vulnerability checks. These checks will also be baked into all pipelines going forward._
-- [ ] ~~Squelch SASS compilation deprecation warnings coming from the `govuk-frontend` toolkit. These deprecation warnings are a known issue [here](https://github.com/alphagov/govuk-frontend/issues/2238).~~ _We're using a lower version of the `sass` package to suppress these deprecation warnings that are outside of our control_  
   
