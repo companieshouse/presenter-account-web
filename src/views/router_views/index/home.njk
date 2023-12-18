@@ -1,10 +1,40 @@
 {% extends "layouts/default.njk" %}
 
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
 {% block main_content %}
+    <h1 class="govuk-heading-xl">
+        Presenter Account Web Service
+    </h1>
 
-  <div class="generic-class-name">
-    <h3>Index Router: Home page</h3>
-    <p>{{ sampleKey }}</p>
-  </div>
+    <p class="govuk-body">
+        Use this service for presenter account WebFiling and creating a presenter ID and presenter auth code.
+    </p>
 
+    <p class="govuk-body">
+        You can use this service to provide required details for the presenter account entity:
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li>ECharge – Lender Accounts</li>
+        <li>Standard - Standard Accounts
+
+</li>
+    </ul>
+
+    {{ govukButton({
+        text: "Start now",
+        href: submitLink,
+        classes: "govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8",
+        isStartButton: true
+    }) }}
+
+    <p class="govuk-body">
+        For full details and information on validation rules, email <a href="mailto:support@companieshouse.gov.uk">support@companieshouse.gov.uk</a> to request the Companies House Account Submission Guide.
+    </p>
+
+    <p class="govuk-body">
+        You can find details of all available taxonomies and guidance for filers and developers on the <a href="https://www.frc.org.uk/accountants/frc-taxonomies">Financial Reporting Council (FRC) website</a>.
+    </p>
 {% endblock %}
