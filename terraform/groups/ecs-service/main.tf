@@ -80,15 +80,6 @@ module "ecs-service" {
   # Cloudwatch
   cloudwatch_alarms_enabled = var.cloudwatch_alarms_enabled
 
-  # Eric variables
-  use_eric_reverse_proxy  = local.use_eric_reverse_proxy
-  eric_port               = local.eric_port
-  eric_version            = local.eric_version
-  eric_cpus               = var.required_cpus
-  eric_memory             = var.required_memory
-  eric_environment        = local.eric_environment
-  eric_secrets            = local.eric_secrets
-
   depends_on = [module.secrets]
 
 }
