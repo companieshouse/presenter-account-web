@@ -1,11 +1,17 @@
 import { Request, Response } from "express";
 import { GenericHandler, HomeViewData, ViewModel, defaultBaseViewData } from "./../generic";
 import logger from "../../../lib/Logger";
-import { homeDefaultViewData } from "../../../utils/constants/home";
+
+const title = "Home handler for index router";
+const backURL = "#";
+
+const homeDefaultViewData: HomeViewData = {
+    title,
+    backURL
+};
 
 export class HomeHandler extends GenericHandler {
     private title: string;
-    private sampleKey: string | undefined;
     private backURL: string | null;
     private homeViewData: ViewModel<HomeViewData>;
 
@@ -20,7 +26,6 @@ export class HomeHandler extends GenericHandler {
         });
 
         this.title = data.viewData.title;
-        this.sampleKey = data.viewData.sampleKey;
         this.backURL = data.viewData.backURL;
         this.homeViewData = data;
     }

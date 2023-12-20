@@ -9,7 +9,6 @@ export interface BaseViewData {
     title: string
     isSignedIn: boolean
     backURL: string | null
-    sampleKey?: string
 }
 
 export const defaultBaseViewData = {
@@ -17,7 +16,7 @@ export const defaultBaseViewData = {
     isSignedIn: false
 };
 
-type BasicHomeViewInfo = Pick<BaseViewData, "title" | "backURL" | "sampleKey">;
+type BasicHomeViewInfo = Pick<BaseViewData, "title" | "backURL" >;
 
 export interface HomeViewData extends BasicHomeViewInfo {
 }
