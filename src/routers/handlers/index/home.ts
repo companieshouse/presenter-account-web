@@ -17,8 +17,7 @@ export class HomeHandler extends GenericHandler {
     constructor () {
         super({
             ...defaultBaseViewData,
-            title: homeDefaultViewData.viewData.title,
-            backURL: homeDefaultViewData.viewData.backURL
+            ...homeDefaultViewData.viewData
         });
     }
 
