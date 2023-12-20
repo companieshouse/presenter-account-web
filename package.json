@@ -8,6 +8,7 @@
     "npm": "^10.2.4"
   },
   "scripts": {
+    "dev": "sh dev_nodemon.sh",
     "prebuild": "rm -rf ./dist",
     "build:assets": "gulp build",
     "build:server": "tsc && cp -r src/views dist/ && cp -r src/config dist/",
