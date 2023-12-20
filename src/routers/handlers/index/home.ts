@@ -1,38 +1,30 @@
 import { Request, Response } from "express";
 import { GenericHandler, HomeViewData, ViewModel, defaultBaseViewData } from "./../generic";
-import logger from "../../../lib/Logger";
+import { logger } from "../../../utils/logger";
 
 const title = "Home handler for index router";
-const backURL = "#";
+const backURL = null;
+const routeViews = "router_views/index/home";
 
-const homeDefaultViewData: HomeViewData = {
-    title,
-    backURL
+const homeDefaultViewData: ViewModel<HomeViewData> = {
+    templatePath: routeViews,
+    viewData: {
+        title,
+        backURL }
 };
 
 export class HomeHandler extends GenericHandler {
-    private title: string;
-    private backURL: string | null;
-    private homeViewData: ViewModel<HomeViewData>;
-
-    constructor (data: ViewModel<HomeViewData> = {
-        templatePath: ``,
-        viewData: homeDefaultViewData
-    }) {
+    constructor () {
         super({
             ...defaultBaseViewData,
-            title: data.viewData.title,
-            backURL: data.viewData.backURL
+            title: homeDefaultViewData.viewData.title,
+            backURL: homeDefaultViewData.viewData.backURL
         });
-
-        this.title = data.viewData.title;
-        this.backURL = data.viewData.backURL;
-        this.homeViewData = data;
     }
 
-    public execute (req: Request, response: Response): ViewModel<HomeViewData> {
+    public execute (_req: Request, _response: Response): ViewModel<HomeViewData> {
         logger.info(`GET request for to serve home page`);
         // ...process request here and return data for the view
-        return this.homeViewData;
+        return homeDefaultViewData;
     }
-};
+}
