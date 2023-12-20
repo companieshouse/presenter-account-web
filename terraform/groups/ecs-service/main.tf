@@ -58,8 +58,7 @@ module "ecs-service" {
   # Service configuration
   service_name    = local.service_name
   name_prefix     = local.name_prefix
-  use_fargate     = var.use_fargate
-  fargate_subnets = local.application_subnet_ids
+  use_fargate     = false
 
   # Service performance and scaling configs
   desired_task_count                 = var.desired_task_count
