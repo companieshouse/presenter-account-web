@@ -148,22 +148,22 @@ const boolValidator = strValidator
     .map<string>((s) => s.trim().toLowerCase())
     .map<boolean>((s) => {
         switch (s) {
-        case "true":
-        case "1":
-        case "yes":
-        case "y":
-        case "on":
-            return true;
-        case "false":
-        case "0":
-        case "no":
-        case "n":
-        case "off":
-            return false;
-        default:
-            throw new Error(
-                `Invalid boolean value '${s}'. Expected true/false, 1/0, yes/no, y/n, on/off.`
-            );
+                case "true":
+                case "1":
+                case "yes":
+                case "y":
+                case "on":
+                    return true;
+                case "false":
+                case "0":
+                case "no":
+                case "n":
+                case "off":
+                    return false;
+                default:
+                    throw new Error(
+                        `Invalid boolean value '${s}'. Expected true/false, 1/0, yes/no, y/n, on/off.`
+                    );
         }
     });
 
