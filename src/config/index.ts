@@ -4,7 +4,7 @@ const { str, url, bool, port } = Validators;
 
 export const env = readEnv(process.env, {
     API_URL: url.describe("API base URL for service interaction"),
-    APP_NAME: str.describe("Name of the application").default("accounts-filing-web"),
+    APP_NAME: str.describe("Name of the application").default("presenter-account-web"),
     CACHE_SERVER: str.describe("Cache server URL"),
     CDN_HOST: str.map(addProtocolIfMissing).describe("URL for the CDN"),
     CDN_URL_CSS: str.describe("CDN URL for the CSS files").default("/css"),
