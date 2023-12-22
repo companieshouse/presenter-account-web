@@ -1,25 +1,40 @@
 {% extends "layouts/default.njk" %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% block main_content %}
     <h1 class="govuk-heading-xl">
-        Presenter Account Web Service
+        Apply for a Companies House presenter account for online filing (prototype)
     </h1>
 
     <p class="govuk-body">
-        Use this service for presenter account WebFiling and creating a presenter ID and presenter auth code.
+        Use this service to apply for a presenter account to file online with Companies House using third-party software.
+        You can only use a presenter account to file documents without a fee.
     </p>
 
-    <p class="govuk-body">
-        You can use this service to provide required details for the presenter account entity:
-    </p>
+     {{ govukDetails({
+            summaryText: "If you've lost your preseter account details",
+            html: "You'll need to use this service to apply for a new account. <br> <a href={{'#'}} class='govuk-link'>Contact us</a> if you have any questions about your account."
+        }) 
+    }}
+
+    <h6 class="govuk-heading-s">
+        You cannot use this service to:
+    </h6>
 
     <ul class="govuk-list govuk-list--bullet">
-        <li>ECharge – Lender Accounts</li>
-        <li>Standard - Standard Accounts</li>
+        <li>apply for a presenter credit account to file documents with a fee</li>
+        <li>register as a lender to file electronic charge documents</li>
     </ul>
+
+    <p class="govuk-body">
+        For these, you will need to <a href={{'#'}}>complete an application form.</a>
+    </p>
+
+     <p class="govuk-body">
+        You'll need to sign in or create a Companies House account to use this service. It takes around 5 minutes to apply.
+    </p>
 
     {{ govukButton({
         text: "Start now",
@@ -29,10 +44,10 @@
     }) }}
 
     <p class="govuk-body">
-        For full details and information on validation rules, email <a href="mailto:support@companieshouse.gov.uk">support@companieshouse.gov.uk</a> to request the Companies House Account Submission Guide.
+       <a href={{'#'}}>Read advice from AbilityNet on how to adapt your device to meet your needs.</a>
     </p>
 
     <p class="govuk-body">
-        You can find details of all available taxonomies and guidance for filers and developers on the <a href="https://www.frc.org.uk/accountants/frc-taxonomies">Financial Reporting Council (FRC) website</a>.
+        For example changing the background colour or text size.
     </p>
 {% endblock %}
