@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="lte-ie8" lang="en"><![endif]-->
+<!--[(if gt IE 8) | (!IE)]><!--><html lang="en" class="govuk-template"><!--<![endif]-->
+  {% from "govuk/components/button/macro.njk" import govukButton %}
+  {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+  {% include "partials/__meta_header.njk" %}
+
+  <body class="govuk-template__body" >
+
+    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+    {#    {% include "partials/cookie_consent_banner.njk" %}#}
+    <a href="#main-page-content" class="govuk-skip-link">Skip to main content</a>
+    {% include "partials/__header.njk" %}
+
+    <div class="govuk-width-container ">
+
+      <main class="govuk-main-wrapper " id="main-content">
+
+        <div class="govuk-grid-row">
+          {% include "partials/error_summary.njk" %}
+          <div class="govuk-grid-column-two-thirds" id="main-page-content">
+            {% block main_content %}
+              <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                  <!-- Check for error -->
+                  {% if errorEmail or errorPassword %}
+                    {{ govukErrorSummary({
+                        titleText: "There is a problem",
+                        errorList: errorList
+                      }) }}
+                  {% endif %}
+                  <h1 class="govuk-heading-xl">Sign in to Companies House</h1>
+                  <p class="govuk-body">You cannot use your WebFiling details to sign in. You must sign in to or register a Companies House account.</p>
+
+                  <form action="/company/signin" method="get">
+
+                    <!-- Check for error -->
+                    {% if errorEmail %}
+                    <div class="govuk-form-group govuk-form-group--error">
+                    {% else %}
+                    <div class="govuk-form-group">
+                    {% endif %} 
+                      <label class="govuk-label" for="emailAddress">
+                        Email address
+                      </label>
+                      <!-- Check for error -->
+                      {% if errorEmail %}
+                      <p id="emailAddress-error" class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span> Enter your email address
+                      </p>
+                      {% endif %} 
+                      <input class="govuk-input govuk-input--width-30" id="emailAddress" name="emailAddress" type="text">
+                    </div>
+                  
+                    <!-- Check for error -->
+                    {% if errorPassword %}
+                    <div class="govuk-form-group govuk-form-group--error">
+                    {% else %}
+                    <div class="govuk-form-group">
+                    {% endif %} 
+                      <label class="govuk-label" for="password">
+                        Password
+                      </label>
+                      <!-- Check for error -->
+                      {% if errorPassword %}
+                      <p id="password-error" class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span> Enter your password
+                      </p>
+                      {% endif %} 
+                      <input class="govuk-input govuk-input--width-30" id="password" name="password" type="text">
+                    </div>
+
+                    {{ govukButton({
+                    text: "Sign in"
+                    }) }}
+                    <p>
+                      <a href="" class="govuk-link govuk-link--no-visited-state">Register</a>
+                    </p>
+                    <p>
+                      <a href="" class="govuk-link govuk-link--no-visited-state">Forgotten your password?</a>
+                    </p>
+                    <p>
+                      <a href="" class="govuk-link govuk-link--no-visited-state">Shortcut:Account already exists</a>
+                    </p>
+                  </form>
+                </div>
+              </div>
+
+            {% endblock %}
+          </div>
+        </div>
+
+      </main>
+    </div>
+
+    {% include "partials/__footer.njk" %}
+
+  </body>
+</html>
+
+
