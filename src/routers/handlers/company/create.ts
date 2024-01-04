@@ -15,7 +15,7 @@ export class CreateHandler extends GenericHandler {
     }
 
     // process request here and return data for the view
-    public async execute (req: Request, response: Response, method: string = "GET"): Promise<any> {
+    public async execute (req: Request, response: Response, method: string): Promise<any> {
         logger.info(`${method} request to create a company`);
         try {
             if (method !== "POST") {

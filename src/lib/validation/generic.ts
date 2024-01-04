@@ -34,6 +34,14 @@ export class GenericValidator {
         return false;
     }
 
+    isValidPassword (password: string): boolean {
+        logger.info(`Request to validate password`);
+        if (password.length > 0 || password.length < 12) {
+            return true;
+        }
+        return false;
+    }
+
     isValidCompanyName (companyName: string): boolean {
         logger.info(`Request to validate company name: ${companyName}`);
         // eslint-disable-next-line

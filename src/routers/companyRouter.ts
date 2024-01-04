@@ -8,7 +8,7 @@ const routeViews: string = "router_views/company";
 
 router.get("/create", async (req: Request, res: Response, next: NextFunction) => {
     const handler = new CreateHandler();
-    const viewData = await handler.execute(req, res);
+    const viewData = await handler.execute(req, res, "GET");
     res.render(`${routeViews}/create`, viewData);
 });
 
@@ -26,8 +26,15 @@ router.get("/details/:id", async (req: Request, res: Response, next: NextFunctio
 
 router.get("/signin", async (req: Request, res: Response, next: NextFunction) => {
     const handler = new SignInHandler();
-    const viewData = await handler.execute(req, res);
+    const viewData = await handler.execute(req, res, "GET");
     res.render(`${routeViews}/signin`, viewData);
 });
+
+router.post("/signin", async (req: Request, res: Response, next: NextFunction) => {
+    const handler = new SignInHandler();
+    const viewData = await handler.execute(req, res, "POST");
+    res.render(`${routeViews}/signin`, viewData);
+});
+
 
 export default router;
