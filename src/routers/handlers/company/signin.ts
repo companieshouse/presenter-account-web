@@ -33,8 +33,8 @@ export class SignInHandler extends GenericHandler {
 
     private save (payload: any): Object {
         logger.info(`I am in save method.`);
-        //const {emailAddress, password} = payload;
-        if(payload.email ==='test@abc.com' && payload.password === 'password'){
+        // const {emailAddress, password} = payload;
+        if (payload.email === "test@abc.com" && payload.password === "password") {
             return Promise.resolve(true);
         }
         logger.info(`I am in leaving save method.`);

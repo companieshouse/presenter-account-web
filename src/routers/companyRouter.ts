@@ -36,5 +36,4 @@ router.post("/signin", async (req: Request, res: Response, next: NextFunction) =
     res.render(`${routeViews}/signin`, viewData);
 });
 
-
 export default router;
