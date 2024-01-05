@@ -14,7 +14,7 @@
     "build:server": "tsc && cp -r src/views dist/ && cp -r src/config dist/",
     "build": "npm run build:assets && npm run build:server",
     "lint": "eslint 'src/*.ts' 'src/**/*.ts' 'test/**/*.ts'",
-    "lint:fix": "eslint 'src/*' 'src/**/*.ts' 'test/**/*.ts' --fix",
+    "lint:fix": "eslint 'src/*.ts' 'src/**/*.ts' 'test/**/*.ts' --fix",
     "coverage": "sh ./scripts/jest_coverage.sh",
     "test": "jest",
     "test:coverage": "sh ./scripts/jest_coverage.sh",
