@@ -21,6 +21,10 @@ const routerDispatch = (app: Application) => {
     const userAuthRegex = /^\/.+/;
     router.use(userAuthRegex, authenticationMiddleware);
 
+    router.get('/post-sign', (req, res) => {
+        return res.render('Welcome presenter account service');
+    });
+
     app.use(commonTemplateVariablesMiddleware);
     app.use(errorHandler);
     app.use("*", pageNotFound);

@@ -3,6 +3,7 @@ import nunjucks from "nunjucks";
 import path from "path";
 import { logger } from "./utils/logger";
 import routerDispatch from "./router.dispatch";
+import cookieParser from "cookie-parser";
 import { env } from './config';
 
 const app = express();
@@ -40,6 +41,9 @@ njk.addGlobal("chsUrl", env.CHS_URL);
 // parse body into req.body
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// apply middleware
+app.use(cookieParser());
 
 // Unhandled errors
 app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
