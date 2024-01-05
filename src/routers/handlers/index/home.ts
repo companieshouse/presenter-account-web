@@ -2,15 +2,21 @@ import { Request, Response } from "express";
 import { GenericHandler, HomeViewData, ViewModel, defaultBaseViewData } from "./../generic";
 import { logger } from "../../../utils/logger";
 
-const title = "Home handler for index router";
+const title = "Apply for a Companies House presenter account for online filing (prototype)";
 const backURL = null;
 const routeViews = "router_views/index/home";
+const pageLinks = {};
+const contactUs = "https://www.gov.uk/contact-companies-house";
+const applicationPresenterAccountLink = "https://www.gov.uk/government/publications/apply-for-a-companies-house-online-filing-presenter-account";
+const abilityNetLink = "https://mcmw.abilitynet.org.uk/";
 
 const homeDefaultViewData: ViewModel<HomeViewData> = {
     templatePath: routeViews,
     viewData: {
         title,
-        backURL }
+        backURL,
+        pageLinks: { ...pageLinks, contactUs, applicationPresenterAccountLink, abilityNetLink }
+    }
 };
 
 export class HomeHandler extends GenericHandler {

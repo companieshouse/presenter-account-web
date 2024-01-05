@@ -13,13 +13,16 @@
     "build:assets": "gulp build",
     "build:server": "tsc && cp -r src/views dist/ && cp -r src/config dist/",
     "build": "npm run build:assets && npm run build:server",
-    "lint": "eslint 'src/*.ts' 'src/**/*.ts' 'test/src/**/*.ts'",
-    "lint:fix": "eslint 'src/*.ts' 'src/**/*.ts' 'test/src/**/*.ts' --fix",
+    "lint": "eslint 'src/*.ts' 'src/**/*.ts' 'test/**/*.ts'",
+    "lint:fix": "eslint 'src/*.ts' 'src/**/*.ts' 'test/**/*.ts' --fix",
     "coverage": "sh ./scripts/jest_coverage.sh",
     "test": "jest",
     "test:coverage": "sh ./scripts/jest_coverage.sh",
     "start": "npm run build && source ./dist/config/.env && node dist/server.js",
-    "start:watch": "nodemon"
+    "start:watch": "nodemon",
+    "sonarqube-base-branch": "sonar-scanner",
+    "sonarqube-pull-request": "sonar-scanner -D sonar.pullrequest.base=main",
+    "sonarqube": "sh ./scripts/sonarqube.sh"
   },
   "husky": {
     "hooks": {

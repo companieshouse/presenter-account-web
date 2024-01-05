@@ -22,7 +22,7 @@ const routerDispatch = (app: Application) => {
     router.use(userAuthRegex, authenticationMiddleware);
 
     router.get('/post-sign', (req, res) => {
-        return res.render('Welcome presenter account service');
+        return res.send('Welcome presenter account service');
     });
 
     app.use(commonTemplateVariablesMiddleware);
