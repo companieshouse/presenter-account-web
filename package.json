@@ -19,7 +19,10 @@
     "test": "jest",
     "test:coverage": "sh ./scripts/jest_coverage.sh",
     "start": "npm run build && source ./dist/config/.env && node dist/server.js",
-    "start:watch": "nodemon"
+    "start:watch": "nodemon",
+    "sonarqube-base-branch": "sonar-scanner",
+    "sonarqube-pull-request": "sonar-scanner -D sonar.pullrequest.base=main",
+    "sonarqube": "sh ./scripts/sonarqube.sh"
   },
   "husky": {
     "hooks": {
