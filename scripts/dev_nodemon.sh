@@ -1,0 +1,1 @@
+nodemon --signal SIGTERM --watch src --ignore 'src/**/*.unit.ts' --ext ts --exec 'node --require ts-node/register --inspect=0.0.0.0:9229 ./src/server.ts'

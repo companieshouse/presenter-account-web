@@ -124,3 +124,6 @@ Empty directories and files, wherever you find them, are only there for complete
 
 - Companies House follows the [StandardJS](https://standardjs.com/) coding conventions for both JavaScript and Typescript. Details about these guidelines are documented internally [here](https://github.com/companieshouse/styleguides/blob/main/javascript_node.md).
   
+### 7. Docker Support
+
+- The repository supports docker and the docker architecture can be modified by modifying the Dockerfile. The dockerignore file can be used to specifying which files will be copied into the container. 

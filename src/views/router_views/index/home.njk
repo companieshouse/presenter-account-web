@@ -1,10 +1,53 @@
 {% extends "layouts/default.njk" %}
 
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
 {% block main_content %}
+    <h1 class="govuk-heading-xl">
+        {{title}}
+    </h1>
 
-  <div class="generic-class-name">
-    <h3>Index Router: Home page</h3>
-    <p>{{ sampleKey }}</p>
-  </div>
+    <p class="govuk-body">
+        Use this service to apply for a presenter account to file online with Companies House using third-party software.
+        You can only use a presenter account to file documents without a fee.
+    </p>
 
+     {{ govukDetails({
+            summaryText: "If you've lost your preseter account details",
+            html: "You'll need to use this service to apply for a new account. <br> <a href=" + pageLinks.contactUs + " class='govuk-link'>Contact us</a> if you have any questions about your account."
+        }) 
+    }}
+
+    <h6 class="govuk-heading-s">
+        You cannot use this service to:
+    </h6>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li>apply for a presenter credit account to file documents with a fee</li>
+        <li>register as a lender to file electronic charge documents</li>
+    </ul>
+
+    <p class="govuk-body">
+        For these, you will need to <a href={{pageLinks.applicationPresenterAccountLink}}>complete an application form.</a>
+    </p>
+
+     <p class="govuk-body">
+        You'll need to sign in or create a Companies House account to use this service. It takes around 5 minutes to apply.
+    </p>
+
+    {{ govukButton({
+        text: "Start now",
+        href: "#",
+        classes: "govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8",
+        isStartButton: true
+    }) }}
+
+    <p class="govuk-body">
+       <a href={{pageLinks.abilityNetLink}}>Read advice from AbilityNet on how to adapt your device to meet your needs.</a>
+    </p>
+
+    <p class="govuk-body">
+        For example changing the background colour or text size.
+    </p>
 {% endblock %}
