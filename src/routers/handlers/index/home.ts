@@ -7,13 +7,15 @@ const backURL = null;
 const routeViews = "router_views/index/home";
 const pageLinks = {};
 const contactUs = "https://www.gov.uk/contact-companies-house";
+const applicationPresenterAccountLink = "https://www.gov.uk/government/publications/apply-for-a-companies-house-online-filing-presenter-account";
+const abilityNetLink = "https://mcmw.abilitynet.org.uk/";
 
 const homeDefaultViewData: ViewModel<HomeViewData> = {
     templatePath: routeViews,
     viewData: {
         title,
         backURL,
-        pageLinks: { ...pageLinks, contactUs }
+        pageLinks: { ...pageLinks, contactUs, applicationPresenterAccountLink, abilityNetLink }
     }
 };
 
