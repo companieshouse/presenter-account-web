@@ -5,7 +5,7 @@
 
 {% block main_content %}
     <h1 class="govuk-heading-xl">
-        Apply for a Companies House presenter account for online filing (prototype)
+        {{title}}
     </h1>
 
     <p class="govuk-body">
@@ -15,7 +15,7 @@
 
      {{ govukDetails({
             summaryText: "If you've lost your preseter account details",
-            html: "You'll need to use this service to apply for a new account. <br> <a href={{'#'}} class='govuk-link'>Contact us</a> if you have any questions about your account."
+            html: "You'll need to use this service to apply for a new account. <br> <a href=" + pageLinks.contactUs + " class='govuk-link'>Contact us</a> if you have any questions about your account."
         }) 
     }}
 
