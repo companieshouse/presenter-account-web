@@ -112,8 +112,3 @@ variable "log_level" {
   type        = string
   description = "The log level for services to use: trace, debug, info or error"
 }
-
-variable "authentication_service_version" {
-  type        = string
-  description = "The version of the authentication-service container to run."
-}
