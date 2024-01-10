@@ -16,6 +16,7 @@ locals {
   stack_secrets              = jsondecode(data.vault_generic_secret.stack_secrets.data_json)
   application_subnet_pattern = local.stack_secrets["application_subnet_pattern"]
   use_set_environment_files  = var.use_set_environment_files
+  s3_config_bucket           = data.vault_generic_secret.shared_s3.data["config_bucket_name"]
   app_environment_filename   = "presenter-account-web.env"
   vpc_name                   = data.aws_ssm_parameter.secret[format("/%s/%s", local.name_prefix, "vpc-name")].value
 

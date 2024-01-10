@@ -95,20 +95,25 @@ variable "ssm_version_prefix" {
   description = "String to use as a prefix to the names of the variables containing variables and secrets version."
   default     = "SSM_VERSION_"
 }
+
 variable "use_set_environment_files" {
   type        = bool
   default     = false
   description = "Toggle default global and shared  environment files"
 }
+
 variable "presenter_account_web_version" {
   type        = string
   description = "The version of the presenter account web container to run."
 }
+
 variable "log_level" {
   default     = "info"
   type        = string
   description = "The log level for services to use: trace, debug, info or error"
 }
-variable "api_url" {
-  type = string
+
+variable "authentication_service_version" {
+  type        = string
+  description = "The version of the authentication-service container to run."
 }
