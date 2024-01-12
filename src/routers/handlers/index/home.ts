@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { GenericHandler, HomeViewData, ViewModel, defaultBaseViewData } from "./../generic";
 import { logger } from "../../../utils/logger";
 
-const title = "Apply for a Companies House presenter account for online filing (prototype)";
+const title = "Apply to file with Companies House using software";
 const backURL = null;
 const routeViews = "router_views/index/home";
 const pageLinks = {};
