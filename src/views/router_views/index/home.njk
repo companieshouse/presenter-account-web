@@ -4,35 +4,34 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% block main_content %}
-    <h1 class="govuk-heading-xl">
-        {{title}}
-    </h1>
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl" id="presenter-account--title">
+            {{title}}
+        </h1>
 
-    <p class="govuk-body">
-        Use this service to apply for a presenter account to file company accounts and documents with Companies House using software.
-    </p>
+        <p class="govuk-body">
+            Use this service to apply for a presenter account to file company accounts and documents with Companies House using software.
+        </p>
 
-     {{ govukInsetText({
-            html: "You can only use this to file company accounts and documents that <strong>do not have a filing fee</strong>."
-        }) 
-    }}
+        {{ govukInsetText({
+                html: "You can only use this to file company accounts and documents that <strong>do not have a filing fee</strong>."
+            }) 
+        }}
 
-     <p class="govuk-body">
-        You'll need to sign in or create a Companies House account to use this service. It takes around 5 minutes to apply.
-    </p>
+        <p class="govuk-body">
+            You'll need to sign in or create a Companies House account to use this service. It takes around 5 minutes to apply.
+        </p>
 
-    {{ govukButton({
-        text: "Start now",
-        href: "#",
-        classes: "govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8",
-        isStartButton: true
-    }) }}
+        {{ govukButton({
+            text: "Start now",
+            href: "/filter",
+            classes: "govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8",
+            isStartButton: true
+        }) }}
 
-    <p class="govuk-body">
-       <a href={{pageLinks.abilityNetLink}} target="_blank">Read advice from AbilityNet on how to adapt your device to meet your needs.</a>
-    </p>
-
-    <p class="govuk-body">
-        For example changing the background colour or text size.
-    </p>
+        <p class="govuk-body">
+            <a href={{pageLinks.abilityNetLink}} target="_blank">Read advice from AbilityNet on how to adapt your device to meet your needs</a>. 
+            For example, changing the background colour or text size.
+        </p>
+    </div>
 {% endblock %}
