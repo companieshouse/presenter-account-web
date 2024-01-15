@@ -2,8 +2,8 @@ $govuk-global-styles: true;
 
 @import "node_modules/govuk-frontend/govuk/all";
 
-html {
-  font-family: arial;
+* {
+  font-family: arial, sans-serif;
 }
 body {
   .govuk-header__logo {
