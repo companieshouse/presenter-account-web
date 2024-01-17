@@ -36,8 +36,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
         req: Request,
         _response: Response
     ): ViewModel<CheckDetailsViewData> {
-        logger.info(`GET request for to serve check details page`);
-
+        logger.info(`CheckDetailsHandler execute called`);
         const viewData = this.getViewData(req);
 
         return {
