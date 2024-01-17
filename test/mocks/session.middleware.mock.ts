@@ -6,7 +6,7 @@ import { sessionMiddleware } from "../../src/middleware/session.middleware";
 import { Session } from "@companieshouse/node-session-handler";
 
 // get handle on mocked function
-const mockSessionMiddleware = sessionMiddleware as jest.Mock;
+export const mockSessionMiddleware = sessionMiddleware as jest.Mock;
 
 export const session = new Session();
 
@@ -16,5 +16,3 @@ mockSessionMiddleware.mockImplementation((req: Request, res: Response, next: Nex
     req.session.data.extra_data["payment-nonce"] = "123456";
     next();
 });
-
-export default mockSessionMiddleware;
