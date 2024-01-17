@@ -1,0 +1,51 @@
+{% extends "layouts/default.njk" %}
+
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block pageTitle %}
+  Apply to file with Companies House using software
+{% endblock %}
+
+{% block main_content %}
+    <h1 class="govuk-heading-l">Check your answers before submitting your application</h1>
+
+    {% macro renderAddress(address) %}
+        <dd class="govuk-summary-list__value">
+            {{ address.premises }}<br>
+            {{ address.addressLine1 }}<br>
+            {% if address.addressLine2 %}
+                {{ address.addressLine2 }}<br>
+            {% endif %}
+            {{ address.townOrCity }}<br>
+            {{ address.country }}<br>
+            {{ address.postCode }}
+        </dd>
+    {% endmacro %}
+
+
+    {{ govukSummaryList({
+        "rows": [
+            {
+                "key": {
+                    "text": "Address"
+                },
+                "value": {
+                    "html": renderAddress(address)
+                },
+                "actions": {
+                    "items": [
+                        {
+                                "href": Urls.ENTER_YOUR_DETAILS,
+                                "text": "Change",
+                                "visuallyHiddenText": "address"
+                        }
+                    ]
+                }
+            }
+        ]
+    }) }}
+
+    <a href="{{Urls.SUBMITTED}}" class="govuk-button" data-module="govuk-button" role="button">
+        Submit
+    </a>
+{% endblock %}

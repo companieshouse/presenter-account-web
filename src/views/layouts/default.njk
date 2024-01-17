@@ -12,12 +12,18 @@
     {% include "partials/__header.njk" %}
 
     <div class="govuk-width-container ">
+        {% if isSignedIn %}
+            {% include "partials/signout-bar.njk" %}
+        {% endif %}
 
-      <main class="govuk-main-wrapper " id="main-content">
+      <main class="govuk-main-wrapper govuk-!-padding-top-0" id="main-content">
 
         <div class="govuk-grid-row">
           {% include "partials/error_summary.njk" %}
           <div class="govuk-grid-column" id="main-page-content">
+            {% if backURL %}
+                <a href="{{ backURL }}" class="govuk-back-link">Back</a>
+            {% endif %}
             {% block main_content %}
             {% endblock %}
           </div>
