@@ -1,35 +1,26 @@
 import { Request, Response } from "express";
-import { GenericHandler, HomeViewData, ViewModel, defaultBaseViewData } from "./../generic";
+import { BaseViewData, GenericHandler, ViewModel } from "./../generic";
 import { logger } from "../../../utils/logger";
 
-const title = "Apply to file with Companies House using software";
-const backURL = null;
-const routeViews = "router_views/index/home";
-const pageLinks = {};
-const contactUs = "https://www.gov.uk/contact-companies-house";
-const applicationPresenterAccountLink = "https://www.gov.uk/government/publications/apply-for-a-companies-house-online-filing-presenter-account";
-const abilityNetLink = "https://mcmw.abilitynet.org.uk/";
+export class HomeHandler extends GenericHandler<BaseViewData> {
+    public static templatePath = "router_views/index/home";
 
-const homeDefaultViewData: ViewModel<HomeViewData> = {
-    templatePath: routeViews,
-    viewData: {
-        title,
-        backURL,
-        pageLinks: { ...pageLinks, contactUs, applicationPresenterAccountLink, abilityNetLink }
-    }
-};
+    public getViewData(req: Request): BaseViewData {
+        const baseViewData = super.getViewData(req);
 
-export class HomeHandler extends GenericHandler {
-    constructor () {
-        super({
-            ...defaultBaseViewData,
-            ...homeDefaultViewData.viewData
-        });
+        return {
+            ...baseViewData,
+            backURL: null,
+            title: "Apply to file with Companies House using software",
+        }
     }
 
-    public execute (_req: Request, _response: Response): ViewModel<HomeViewData> {
+    public execute (req: Request, _response: Response): ViewModel<BaseViewData> {
         logger.info(`GET request for to serve home page`);
         // ...process request here and return data for the view
-        return homeDefaultViewData;
+        return {
+            templatePath: HomeHandler.templatePath,
+            viewData: this.getViewData(req),
+        }
     }
 }

@@ -4,7 +4,7 @@ import https from "https";
 import { logger } from "./utils/logger";
 import app from "./app";
 import { env } from './config';
-import { servicePathPrefix } from "./utils/constants/urls";
+import { servicePathPrefix } from "./constants";
 
 // start the HTTP server
 const httpServer = http.createServer(app);
