@@ -2,7 +2,7 @@ import app from "../../../../src/app";
 import request from "supertest";
 import { PrefixedUrls } from "../../../../src/constants";
 import { session } from "../../../mocks/session.middleware.mock";
-import { PRESENRER_ACCOUNT_SESSION_KEY } from "../../../../src/utils/session";
+import { PRESENTER_ACCOUNT_SESSION_KEY } from "../../../../src/utils/session";
 import { type Details } from "private-api-sdk-node/src/services/presenter-account/types";
 
 const examplePresenterAccountDetails: Details = {
@@ -27,7 +27,7 @@ describe("check details tests", () => {
     const changeButtonHtml = `a class="govuk-link" href="/presenter-account/enter-your-details"`;
 
     it("renderCheckDetailsPageWithCorrectStatus", async () => {
-        session.setExtraData(PRESENRER_ACCOUNT_SESSION_KEY, examplePresenterAccountDetails);
+        session.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, examplePresenterAccountDetails);
 
         const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
 
@@ -35,7 +35,7 @@ describe("check details tests", () => {
     });
 
     it("checkPageHeading", async () => {
-        session.setExtraData(PRESENRER_ACCOUNT_SESSION_KEY, examplePresenterAccountDetails);
+        session.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, examplePresenterAccountDetails);
 
         const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
 
@@ -43,7 +43,7 @@ describe("check details tests", () => {
     });
 
     it("checkChangeButtonLinkExists", async () => {
-        session.setExtraData(PRESENRER_ACCOUNT_SESSION_KEY, examplePresenterAccountDetails);
+        session.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, examplePresenterAccountDetails);
 
         const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
 
@@ -51,7 +51,7 @@ describe("check details tests", () => {
     });
 
     it("checkPresenterAccountDetailsRenderedOnPage", async () => {
-        session.setExtraData(PRESENRER_ACCOUNT_SESSION_KEY, examplePresenterAccountDetails);
+        session.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, examplePresenterAccountDetails);
 
         const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
 
