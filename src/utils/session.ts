@@ -2,7 +2,7 @@ import { Request } from "express";
 import { isDetails } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { type Details } from "private-api-sdk-node/src/services/presenter-account/types";
 
-const PRESENRER_ACCOUNT_SESSION_KEY = "presenter_account_details";
+export const PRESENRER_ACCOUNT_SESSION_KEY = "presenter_account_details";
 
 export function getPresenterAccountDetails(req: Request): Details {
     const presenterAccountDetails = req.session?.getExtraData(PRESENRER_ACCOUNT_SESSION_KEY);
