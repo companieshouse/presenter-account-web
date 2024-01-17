@@ -1,5 +1,5 @@
+import { servicePathPrefix } from "../constants";
 import { Handler, Request } from "express";
-import { servicePathPrefix } from "./constants/urls";
 
 type Predicate<T> = (x: T) => boolean;
 
