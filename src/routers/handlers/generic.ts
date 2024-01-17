@@ -4,13 +4,12 @@
 import { PrefixedUrls, servicePathPrefix } from "../../constants";
 import errorManifest from "../../utils/error_manifests/default";
 import { Request } from "express";
-import { Urls } from "../../constants";
 
 const pageLinks = {
     contactUs: "https://www.gov.uk/contact-companies-house",
     applicationPresenterAccountLink: "https://www.gov.uk/government/publications/apply-for-a-companies-house-online-filing-presenter-account",
     abilityNetLink: "https://mcmw.abilitynet.org.uk/"
-};  
+};
 
 export interface BaseViewData {
     errors: any
@@ -36,11 +35,11 @@ export const defaultBaseViewData: Partial<BaseViewData> = {
 
 export abstract class GenericHandler<T extends BaseViewData> {
     errorManifest: any;
-    private _viewData: T
+    private viewData: T;
 
     constructor() {
         this.errorManifest = errorManifest;
-        this._viewData = {
+        this.viewData = {
             ...defaultBaseViewData
         } as T;
     }
@@ -57,22 +56,22 @@ export abstract class GenericHandler<T extends BaseViewData> {
     populateViewData(req: Request) {
         const { signin_info } = req.session?.data ?? {};
         const isSignedIn = signin_info?.signed_in !== undefined;
-        this._viewData.isSignedIn = isSignedIn;
+        this.viewData.isSignedIn = isSignedIn;
 
-        if (!isSignedIn) return;
+        if (!isSignedIn) {return;}
 
         const userEmail = signin_info?.user_profile?.email;
         if (!userEmail) {
-            throw new Error("GenericHandler unable to get email. Email is undefined.")
+            throw new Error("GenericHandler unable to get email. Email is undefined.");
         }
 
-        this._viewData.userEmail = userEmail;
+        this.viewData.userEmail = userEmail;
     }
 
 
     getViewData(req: Request): T {
         this.populateViewData(req);
-        return this._viewData;
+        return this.viewData;
     }
 }
 

@@ -12,7 +12,7 @@ export class HomeHandler extends GenericHandler<BaseViewData> {
             ...baseViewData,
             backURL: null,
             title: "Apply to file with Companies House using software",
-        }
+        };
     }
 
     public execute (req: Request, _response: Response): ViewModel<BaseViewData> {
@@ -21,6 +21,6 @@ export class HomeHandler extends GenericHandler<BaseViewData> {
         return {
             templatePath: HomeHandler.templatePath,
             viewData: this.getViewData(req),
-        }
+        };
     }
 }

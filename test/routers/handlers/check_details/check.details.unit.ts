@@ -21,7 +21,7 @@ const examplePresenterAccountDetails: Details = {
         country: "Cymru",
         postCode: "SA1 1ZZ"
     }
-}
+};
 
 describe("check details tests", () => {
     const changeButtonHtml = `a class="govuk-link" href="/presenter-account/enter-your-details"`;

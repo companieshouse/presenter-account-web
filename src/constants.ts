@@ -6,7 +6,7 @@ export const Urls = {
     ENTER_YOUR_DETAILS: "/enter-your-details",
     CHECK_DETAILS: "/check_details",
     SUBMITTED: "/submitted"
-}
+};
 
 export const PrefixedUrls = {
     HOME: servicePathPrefix + Urls.HOME,
@@ -14,4 +14,4 @@ export const PrefixedUrls = {
     ENTER_YOUR_DETAILS: servicePathPrefix + Urls.ENTER_YOUR_DETAILS,
     CHECK_DETAILS: servicePathPrefix + Urls.CHECK_DETAILS,
     SUBMITTED: servicePathPrefix + Urls.SUBMITTED
-}
+};
