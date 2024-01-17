@@ -22,9 +22,6 @@ const routerDispatch = (app: Application) => {
     const userAuthRegex = /^\/.+/;
     router.use(userAuthRegex, authenticationMiddleware);
 
-    // TODO: remove befiore committed
-    router.use(detailsRouter);
-
     router.use(CheckDetailsRouter);
 
     // TODO: this endpoint is a dummy authenticated endpoint used for testing AOAF-280. Remove this endpoint once AOAF-280 has completed testing.
