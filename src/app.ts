@@ -37,7 +37,6 @@ njk.addGlobal("cdnUrlCss", env.CDN_URL_CSS);
 njk.addGlobal("cdnUrlJs", env.CDN_URL_JS);
 njk.addGlobal("cdnHost", env.CDN_HOST);
 njk.addGlobal("chsUrl", env.CHS_URL);
-njk.addGlobal("releaseVersion", env.REALEASE_VERSION);
 
 // parse body into req.body
 app.use(express.json());

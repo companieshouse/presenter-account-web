@@ -58,7 +58,5 @@ export const env = readEnv(process.env, {
             "Flag to enable or disable watching for file changes in the Nunjucks loader"
         )
         .default(false),
-    PORT: port.describe("Port to run the web server on").default(3000),
-    REALEASE_VERSION: str.
-        describe("Prototype kit release version").default("v13.15.0")
+    PORT: port.describe("Port to run the web server on").default(3000)
 });
