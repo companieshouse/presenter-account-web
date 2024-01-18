@@ -25,11 +25,6 @@ const routerDispatch = (app: Application) => {
 
     router.use(Urls.CHECK_DETAILS, CheckDetailsRouter);
 
-    // TODO: this endpoint is a dummy authenticated endpoint used for testing AOAF-280. Remove this endpoint once AOAF-280 has completed testing.
-    router.get('/post-sign', (req, res) => {
-        return res.send('Welcome presenter account service');
-    });
-
     app.use(commonTemplateVariablesMiddleware);
     app.use(errorHandler);
     app.use("*", pageNotFound);

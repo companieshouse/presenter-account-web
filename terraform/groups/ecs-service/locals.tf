@@ -7,7 +7,7 @@ locals {
   container_port             = "3000" # default port required here until prod docker container is built allowing port change via env var
   docker_repo                = "presenter-account-web"
   lb_listener_rule_priority  = 12
-  lb_listener_paths          = ["/presenter-account/*"]
+  lb_listener_paths          = ["/presenter-account*"]
   healthcheck_path           = "/presenter-account/healthcheck" #healthcheck path for presenter-account-web
   healthcheck_matcher        = "200"
   application_subnet_ids     = data.aws_subnets.application.ids
