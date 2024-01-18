@@ -1,0 +1,13 @@
+{% extends "layouts/default.njk" %}
+
+{% block main_content %}
+    <h1 class="govuk-heading-xl">You need to complete an application form</h1>
+    <p class="govuk-body">If you need to file (any of the following):</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>accounts and documents with a filing fee</li>
+        <li>electronic charge documents</li>
+    </ul>
+    <p class="govuk-body">
+    You will need to <a href="{{applicationFormLink}}" class="govuk-link">complete an application form</a>.
+    </p>
+{% endblock %}

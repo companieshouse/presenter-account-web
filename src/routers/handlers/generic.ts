@@ -33,6 +33,11 @@ export const defaultBaseViewData: Partial<BaseViewData> = {
     pageLinks
 };
 
+
+export interface Redirect {
+    redirect: string
+}
+
 export abstract class GenericHandler<T extends BaseViewData> {
     errorManifest: any;
     private viewData: T;
