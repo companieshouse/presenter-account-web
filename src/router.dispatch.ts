@@ -1,6 +1,6 @@
 // Do Router dispatch here, i.e. map incoming routes to appropriate router
 import { Application, Router } from "express";
-import { HomeRouter, HealthCheckRouter, CheckDetailsRouter } from "./routers";
+import { HomeRouter, HealthCheckRouter, CheckDetailsRouter, ApplyToFileOptionsRouter, YouCannotUseThisServiceRouter } from "./routers";
 import { errorHandler, pageNotFound } from "./routers/handlers/errors";
 import { sessionMiddleware } from "./middleware/session.middleware";
 import { authenticationMiddleware } from "./middleware/authentication.middleware";
@@ -14,6 +14,8 @@ const routerDispatch = (app: Application) => {
 
     router.use(Urls.HOME, HomeRouter);
     router.use(Urls.HEALTHCHECK, HealthCheckRouter);
+    router.use(Urls.APPLY_TO_FILE_OPTIONS, ApplyToFileOptionsRouter);
+    router.use(Urls.YOU_CANNOT_USE_THIS_SERVICE, YouCannotUseThisServiceRouter);
 
     router.use("/", sessionMiddleware);
 
@@ -21,7 +23,7 @@ const routerDispatch = (app: Application) => {
     const userAuthRegex = /^\/.+/;
     router.use(userAuthRegex, authenticationMiddleware);
 
-    router.use(CheckDetailsRouter);
+    router.use(Urls.CHECK_DETAILS, CheckDetailsRouter);
 
     // TODO: this endpoint is a dummy authenticated endpoint used for testing AOAF-280. Remove this endpoint once AOAF-280 has completed testing.
     router.get('/post-sign', (req, res) => {
