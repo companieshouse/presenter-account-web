@@ -21,11 +21,13 @@
         <div class="govuk-grid-row">
           {% include "partials/error_summary.njk" %}
           <div class="govuk-grid-column" id="main-page-content">
-            {% if backURL %}
-                <a href="{{ backURL }}" class="govuk-back-link">Back</a>
-            {% endif %}
-            {% block main_content %}
-            {% endblock %}
+            <div class="govuk-grid-column-two-thirds">
+                {% if backURL %}
+                    <a href="{{ backURL }}" class="govuk-back-link">Back</a>
+                {% endif %}
+                {% block main_content %}
+                {% endblock %}
+            </div>
           </div>
         </div>
 

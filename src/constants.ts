@@ -6,8 +6,8 @@ export const Urls = {
     APPLY_TO_FILE_OPTIONS: "/what-do-you-need-to-file",
     ENTER_YOUR_DETAILS: "/enter-your-details",
     CHECK_DETAILS: "/check_details",
-    SUBMITTED: "/submitted",
-    YOU_CANNOT_USE_THIS_SERVICE: '/you-cannot-use-this-service'
+    YOU_CANNOT_USE_THIS_SERVICE: "/you-cannot-use-this-service",
+    CONFIRMATION: "/confirmation"
 };
 
 export const PrefixedUrls = {
@@ -16,6 +16,6 @@ export const PrefixedUrls = {
     HEALTHCHECK: servicePathPrefix + Urls.HEALTHCHECK,
     ENTER_YOUR_DETAILS: servicePathPrefix + Urls.ENTER_YOUR_DETAILS,
     CHECK_DETAILS: servicePathPrefix + Urls.CHECK_DETAILS,
-    SUBMITTED: servicePathPrefix + Urls.SUBMITTED,
-    YOU_CANNOT_USE_THIS_SERVICE: servicePathPrefix + Urls.YOU_CANNOT_USE_THIS_SERVICE
+    YOU_CANNOT_USE_THIS_SERVICE: servicePathPrefix + Urls.YOU_CANNOT_USE_THIS_SERVICE,
+    CONFIRMATION: servicePathPrefix + Urls.CONFIRMATION
 };

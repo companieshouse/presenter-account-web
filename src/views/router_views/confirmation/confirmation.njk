@@ -1,0 +1,24 @@
+{% extends "layouts/default.njk" %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+
+{% block main_content %}
+    {{ govukPanel({
+        titleText: "Application submitted",
+        classes: "govuk-!-margin-top-9"
+    }) }}
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+
+    <p class="govuk-body">We'll create your presenter account. We'll send an email to <span class="govuk-!-font-weight-bold">{{ userEmail }}</span> with your:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li>presenter ID</li>
+        <li>presenter code</li>
+    </ul>
+
+    <p class="govuk-body">If you have not received an email within an hour, check your spam or junk folder. If it still has not arrived, you should <a href="{{ Urls.HOME }}">submit another application</a>.&nbsp;&nbsp;</p>
+
+    <p class="govuk-body">You must keep your presenter ID and code secure. You will need them to file using software. </p>
+{% endblock %}
