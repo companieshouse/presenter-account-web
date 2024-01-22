@@ -45,7 +45,9 @@
         ]
     }) }}
 
-    <a href="{{Urls.CONFIRMATION}}" class="govuk-button" data-module="govuk-button" role="button">
-        Submit
-    </a>
+    <form action="{{Urls.CHECK_DETAILS}}" method="POST">
+        <button class="govuk-button" data-module="govuk-button" type="submit">
+            Submit
+        </button>
+    </form>
 {% endblock %}
