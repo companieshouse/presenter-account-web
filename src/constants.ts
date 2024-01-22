@@ -1,3 +1,5 @@
+import { env } from "./config";
+
 export const servicePathPrefix = "/presenter-account";
 
 export const Urls = {
@@ -19,3 +21,8 @@ export const PrefixedUrls = {
     SUBMITTED: servicePathPrefix + Urls.SUBMITTED,
     YOU_CANNOT_USE_THIS_SERVICE: servicePathPrefix + Urls.YOU_CANNOT_USE_THIS_SERVICE
 };
+
+
+export const ExternalUrls = {
+    FEEDBACK: env.FEEDBACK_URL,
+}

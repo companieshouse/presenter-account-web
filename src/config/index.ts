@@ -18,6 +18,7 @@ export const env = readEnv(process.env, {
     COOKIE_DOMAIN: str.describe("Domain for cookies"),
     COOKIE_NAME: str.describe("Name for the cookie"),
     COOKIE_SECRET: str.describe("Secret used for cookie encryption"),
+    FEEDBACK_URL: str.describe("Link for the user to give feedback on the service").default(""),
     INTERNAL_API_URL: url.describe("Internal API base URL for internal service interaction"),
     LOG_LEVEL: str
         .in([
