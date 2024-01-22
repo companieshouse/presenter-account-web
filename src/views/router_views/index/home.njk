@@ -4,34 +4,32 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% block main_content %}
-    <div class="govuk-grid-column-two-thirds govuk-!-margin-top-8">
-        <h1 class="govuk-heading-xl" id="presenter-account--title">
-            {{title}}
-        </h1>
+    <h1 class="govuk-heading-xl" id="presenter-account--title">
+        {{title}}
+    </h1>
 
-        <p class="govuk-body">
-            Use this service to apply for a presenter account to file company accounts and documents with Companies House using software.
-        </p>
+    <p class="govuk-body">
+        Use this service to apply for a presenter account to file company accounts and documents with Companies House using software.
+    </p>
 
-        {{ govukInsetText({
-                html: "You can only use a presenter account to file company accounts and documents that <strong>do not have a filing fee</strong>."
-            }) 
-        }}
+    {{ govukInsetText({
+            html: "You can only use a presenter account to file company accounts and documents that <strong>do not have a filing fee</strong>."
+        }) 
+    }}
 
-        <p class="govuk-body">
-            You'll need to sign in or create a Companies House account to use this service. It takes around 5 minutes to apply.
-        </p>
+    <p class="govuk-body">
+        You'll need to sign in or create a Companies House account to use this service. It takes around 5 minutes to apply.
+    </p>
 
-        {{ govukButton({
-            text: "Start now",
-            href: Urls.APPLY_TO_FILE_OPTIONS,
-            classes: "govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8",
-            isStartButton: true
-        }) }}
+    {{ govukButton({
+        text: "Start now",
+        href: Urls.APPLY_TO_FILE_OPTIONS,
+        classes: "govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8",
+        isStartButton: true
+    }) }}
 
-        <p class="govuk-body">
-            <a href="{{ExternalUrls.ABILITY_NET}}" target="_blank">Read advice from AbilityNet on how to adapt your device to meet your needs</a>. 
-            For example, changing the background colour or text size.
-        </p>
-    </div>
+    <p class="govuk-body">
+        <a href="{{ExternalUrls.ABILITY_NET}}" target="_blank">Read advice from AbilityNet on how to adapt your device to meet your needs</a>. 
+        For example, changing the background colour or text size.
+    </p>
 {% endblock %}

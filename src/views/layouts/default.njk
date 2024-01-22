@@ -17,20 +17,19 @@
             {% include "partials/signout-bar.njk" %}
         {% endif %}
 
-      <main class="govuk-main-wrapper" id="main-content">
+        {% if backURL %}
+            <a href="{{ backURL }}" class="govuk-back-link">Back</a>
+        {% endif %}
+        <main class="govuk-main-wrapper" id="main-content">
+            <div class="govuk-grid-row">
+                {% include "partials/error_summary.njk" %}
+                <div class="govuk-grid-column-two-thirds" id="main-page-content">
+                    {% block main_content %}
+                    {% endblock %}
+                </div>
+            </div>
 
-        <div class="govuk-grid-row govuk-!-margin-0">
-          {% include "partials/error_summary.njk" %}
-          <div class="govuk-grid-column" id="main-page-content">
-            {% if backURL %}
-                <a href="{{ backURL }}" class="govuk-back-link">Back</a>
-            {% endif %}
-            {% block main_content %}
-            {% endblock %}
-          </div>
-        </div>
-
-      </main>
+        </main>
     </div>
 
     {% include "partials/__footer.njk" %}
