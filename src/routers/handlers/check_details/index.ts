@@ -72,11 +72,11 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
 
             return {
                 redirect: '' // TODO: replace with what to do next page
-            }
+            };
         }
 
         return {
             redirect: PrefixedUrls.CONFIRMATION
-        }
+        };
     }
 }

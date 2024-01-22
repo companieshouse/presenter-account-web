@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
 import { BaseViewData, GenericHandler, ViewModel } from "../generic";
-import { env } from "../../../config";
 import { PrefixedUrls } from "../../../constants";
-
 
 interface ConfirmationViewData extends BaseViewData {
 }

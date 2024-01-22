@@ -11,7 +11,7 @@ router.get("/", (req: Request, res: Response, _next: NextFunction) => {
 router.post("/", async (req: Request, res: Response, _next: NextFunction) => {
     const handler = new CheckDetailsHandler();
     const { redirect } = await handler.executePost(req, res);
-    
+
     res.redirect(redirect);
 });
 
