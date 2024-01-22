@@ -44,8 +44,9 @@ describe("apply to file optons page tests", () => {
             .post(PrefixedUrls.APPLY_TO_FILE_OPTIONS)
             .send(formObj);
 
-        expect(resp.status).toBe(500);
-        expect(resp.text).toContain("Internal server error");
+        expect(resp.status).toBe(200);
+        const errorMessage = "Select yes if you need to file accounts or documents that have a filing fee";
+        expect(resp.text).toContain(errorMessage);
     });
 });
 

@@ -12,19 +12,20 @@
     {% include "partials/__header.njk" %}
 
     <div class="govuk-width-container ">
+        <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
         {% if isSignedIn %}
             {% include "partials/signout-bar.njk" %}
         {% endif %}
 
-      <main class="govuk-main-wrapper govuk-!-padding-top-0" id="main-content">
+        {% if backURL %}
+            <a href="{{ backURL }}" class="govuk-back-link">Back</a>
+        {% endif %}
+      <main class="govuk-main-wrapper" id="main-content">
 
         <div class="govuk-grid-row">
           {% include "partials/error_summary.njk" %}
           <div class="govuk-grid-column" id="main-page-content">
             <div class="govuk-grid-column-two-thirds">
-                {% if backURL %}
-                    <a href="{{ backURL }}" class="govuk-back-link">Back</a>
-                {% endif %}
                 {% block main_content %}
                 {% endblock %}
             </div>
@@ -38,3 +39,4 @@
 
   </body>
 </html>
+

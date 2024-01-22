@@ -3,10 +3,15 @@ import { Validators, readEnv, addProtocolIfMissing } from "./validator";
 const { str, url, bool, port } = Validators;
 
 export const env = readEnv(process.env, {
+    ABILITY_NET_LINK: url.default("https://mcmw.abilitynet.org.uk/"),
     API_URL: url.describe("API base URL for service interaction"),
-    APP_NAME: str.describe("Name of the application").default("presenter-account-web"),
+    APP_NAME: str
+        .describe("Name of the application")
+        .default("presenter-account-web"),
     APPLICATION_FORM_LINK: str
-        .default("https://www.gov.uk/government/publications/apply-for-a-companies-house-online-filing-presenter-account")
+        .default(
+            "https://www.gov.uk/government/publications/apply-for-a-companies-house-online-filing-presenter-account"
+        )
         .describe("Link to complete an application form"),
     CACHE_SERVER: str.describe("Cache server URL"),
     CDN_HOST: str.map(addProtocolIfMissing).describe("URL for the CDN"),
@@ -15,14 +20,43 @@ export const env = readEnv(process.env, {
     CHS_API_KEY: str.describe("API key for CHS service"),
     CHS_INTERNAL_API_KEY: str.describe("API key with internal app privileges"),
     CHS_URL: url.describe("This host URL for CHS"),
+    CONTACT_US_LINK: str
+        .describe("Link to contact us")
+        .default(
+            "https://www.gov.uk/government/organisations/companies-house#org-contacts"
+        ),
     COOKIE_DOMAIN: str.describe("Domain for cookies"),
     COOKIE_NAME: str.describe("Name for the cookie"),
     COOKIE_SECRET: str.describe("Secret used for cookie encryption"),
-    INTERNAL_API_URL: url.describe("Internal API base URL for internal service interaction"),
+    DEVELOPERS_LINK: str
+        .describe("Link for developers")
+        .default("https://developer.companieshouse.gov.uk/"),
+    FEEDBACK_URL: str
+        .describe("Link for the user to give feedback on the service")
+        .default(""),
+    INTERNAL_API_URL: url.describe(
+        "Internal API base URL for internal service interaction"
+    ),
     LOG_LEVEL: str
         .in([
-            "ALL", "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL", "MARK", "OFF",
-            "all", "trace", "debug", "info", "warn", "error", "fatal", "mark", "off"
+            "ALL",
+            "TRACE",
+            "DEBUG",
+            "INFO",
+            "WARN",
+            "ERROR",
+            "FATAL",
+            "MARK",
+            "OFF",
+            "all",
+            "trace",
+            "debug",
+            "info",
+            "warn",
+            "error",
+            "fatal",
+            "mark",
+            "off",
         ])
         .describe(
             "Defines the level of events to be logged. Options are: " +
@@ -42,9 +76,13 @@ export const env = readEnv(process.env, {
     NODE_HOSTNAME: str
         .describe("Host name the server is hosted on")
         .default(""),
-    NODE_HOSTNAME_SECURE: str.describe("Hostname for the secure HTTPS server").default("localhost"),
+    NODE_HOSTNAME_SECURE: str
+        .describe("Hostname for the secure HTTPS server")
+        .default("localhost"),
     NODE_PORT_SSL: port.describe("Port for the HTTPS server").default(3001),
-    NODE_SSL_CERTIFICATE: str.describe("Path to the SSL certificate file").default(""),
+    NODE_SSL_CERTIFICATE: str
+        .describe("Path to the SSL certificate file")
+        .default(""),
     NODE_SSL_ENABLED: str
         .describe("Flag to enable SSL for the server")
         .default(false),
@@ -61,5 +99,13 @@ export const env = readEnv(process.env, {
             "Flag to enable or disable watching for file changes in the Nunjucks loader"
         )
         .default(false),
-    PORT: port.describe("Port to run the web server on").default(3000)
+    OPEN_GOVERNMENT_LICENSE_LINK: str
+        .describe("Link to the open government license")
+        .default(
+            "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        ),
+    POLICIES_LINK: str
+        .describe("Link to policies")
+        .default("http://resources.companieshouse.gov.uk/legal/termsAndConditions.shtml"),
+    PORT: port.describe("Port to run the web server on").default(3000),
 });

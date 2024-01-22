@@ -1,26 +1,19 @@
 // Generic handler is the base handler that is extended by all other handlers
 // It contains methods that are common to multiple route handlers
 
-import { PrefixedUrls, servicePathPrefix } from "../../constants";
+import { ExternalUrls, PrefixedUrls, servicePathPrefix } from "../../constants";
 import errorManifest from "../../utils/error_manifests/default";
 import { Request } from "express";
-
-const pageLinks = {
-    contactUs: "https://www.gov.uk/contact-companies-house",
-    applicationPresenterAccountLink: "https://www.gov.uk/government/publications/apply-for-a-companies-house-online-filing-presenter-account",
-    abilityNetLink: "https://mcmw.abilitynet.org.uk/"
-};
 
 export interface BaseViewData {
     errors: any
     title: string
     isSignedIn: boolean
     backURL: string | null
-    pageLinks: typeof pageLinks
     servicePathPrefix: string
     Urls: typeof PrefixedUrls
+    ExternalUrls: typeof ExternalUrls
     userEmail: string | null
-    [key: string]: any
 }
 
 export const defaultBaseViewData: Partial<BaseViewData> = {
@@ -29,8 +22,8 @@ export const defaultBaseViewData: Partial<BaseViewData> = {
     backURL: null,
     servicePathPrefix: servicePathPrefix,
     Urls: PrefixedUrls,
-    userEmail: null,
-    pageLinks
+    ExternalUrls: ExternalUrls,
+    userEmail: null
 };
 
 
