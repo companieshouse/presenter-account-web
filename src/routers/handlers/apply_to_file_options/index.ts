@@ -86,7 +86,7 @@ export class ApplyToFileOptionsHandler extends GenericHandler<ApplyToFileOptions
      * Handle POST request to serve the apply to file options page.
      * @param {Request} req - The request object.
      * @param {Response} _res - The response object.
-     * @returns {Redirect} - The redirect object.
+     * @returns {Redirect | ViewModel<ApplyToFileOptionsViewData> } - The response object. Either a redirect to the next page, or an error message on the readio button.
      */
     public executePost(req: Request, _res: Response): Redirect | ViewModel<ApplyToFileOptionsViewData> {
         logger.info("POST request to serve the 'apply to file options page'");
@@ -102,15 +102,19 @@ export class ApplyToFileOptionsHandler extends GenericHandler<ApplyToFileOptions
                     return { redirect: PrefixedUrls.YOU_CANNOT_USE_THIS_SERVICE };
                 default:
                     logger.debug(`User did not select a valid option. Showing error message.`);
-                    
-                    const viewData = this.getViewData(req);
-                    viewData.radioNotSelected = true;
+                    return this.showPageWithRadioError(req);
 
-                    return {
-                        templatePath: ApplyToFileOptionsHandler.templatePath,
-                        viewData: viewData,
-                    };
         }
+    }
+
+    private showPageWithRadioError(req: Request) {
+        const viewData = this.getViewData(req);
+        viewData.radioNotSelected = true;
+
+        return {
+            templatePath: ApplyToFileOptionsHandler.templatePath,
+            viewData: viewData,
+        };
     }
 }
 
