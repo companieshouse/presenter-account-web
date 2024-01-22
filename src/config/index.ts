@@ -3,6 +3,7 @@ import { Validators, readEnv, addProtocolIfMissing } from "./validator";
 const { str, url, bool, port } = Validators;
 
 export const env = readEnv(process.env, {
+    ABILITY_NET_LINK: url.default("https://mcmw.abilitynet.org.uk/"),
     API_URL: url.describe("API base URL for service interaction"),
     APP_NAME: str
         .describe("Name of the application")

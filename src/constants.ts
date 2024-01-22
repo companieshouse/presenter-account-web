@@ -24,8 +24,8 @@ export const PrefixedUrls = {
     YOU_CANNOT_USE_THIS_SERVICE: servicePathPrefix + Urls.YOU_CANNOT_USE_THIS_SERVICE
 };
 
-
 export const ExternalUrls = {
+    ABILITY_NET: env.ABILITY_NET_LINK,
     CONTACT_US: env.CONTACT_US_LINK,
     COOKIES: env.COOKIE_LINK,
     DEVELOPERS: env.DEVELOPERS_LINK,

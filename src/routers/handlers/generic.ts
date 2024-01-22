@@ -5,18 +5,11 @@ import { ExternalUrls, PrefixedUrls, servicePathPrefix } from "../../constants";
 import errorManifest from "../../utils/error_manifests/default";
 import { Request } from "express";
 
-const pageLinks = {
-    contactUs: "https://www.gov.uk/contact-companies-house",
-    applicationPresenterAccountLink: "https://www.gov.uk/government/publications/apply-for-a-companies-house-online-filing-presenter-account",
-    abilityNetLink: "https://mcmw.abilitynet.org.uk/"
-};
-
 export interface BaseViewData {
     errors: any
     title: string
     isSignedIn: boolean
     backURL: string | null
-    pageLinks: typeof pageLinks
     servicePathPrefix: string
     Urls: typeof PrefixedUrls
     ExternalUrls: typeof ExternalUrls
@@ -31,8 +24,7 @@ export const defaultBaseViewData: Partial<BaseViewData> = {
     servicePathPrefix: servicePathPrefix,
     Urls: PrefixedUrls,
     ExternalUrls: ExternalUrls,
-    userEmail: null,
-    pageLinks
+    userEmail: null
 };
 
 
