@@ -26,12 +26,12 @@ export const env = readEnv(process.env, {
             "https://www.gov.uk/government/organisations/companies-house#org-contacts"
         ),
     COOKIE_DOMAIN: str.describe("Domain for cookies"),
-    COOKIE_LINK: str.describe("Link to cookies").default("javascript:void(0)"),
+    COOKIE_LINK: str.describe("Link to cookies").default("http://chs.local/help/cookies"),
     COOKIE_NAME: str.describe("Name for the cookie"),
     COOKIE_SECRET: str.describe("Secret used for cookie encryption"),
     DEVELOPERS_LINK: str
         .describe("Link for developers")
-        .default("javascript:void(0)"),
+        .default("https://developer.companieshouse.gov.uk/"),
     FEEDBACK_URL: str
         .describe("Link for the user to give feedback on the service")
         .default(""),
@@ -107,6 +107,6 @@ export const env = readEnv(process.env, {
         ),
     POLICIES_LINK: str
         .describe("Link to policies")
-        .default("javascript:void(0)"),
+        .default("http://resources.companieshouse.gov.uk/legal/termsAndConditions.shtml"),
     PORT: port.describe("Port to run the web server on").default(3000),
 });
