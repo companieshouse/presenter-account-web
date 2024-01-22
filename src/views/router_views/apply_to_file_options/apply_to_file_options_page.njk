@@ -6,6 +6,14 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block main_content %}
+    {% if radioNotSelected %}
+      {% set errorMessage = {
+        text: "Select yes if you need to file accounts or documents that have a filing fee"
+      } %}
+    {% else %}
+      {% set errorMessage = undefined %}
+    {% endif %}
+
     <form method="POST" action="{{Urls.APPLY_TO_FILE_OPTIONS}}">
         {{ govukRadios({
             name: filingFeeFieldName,
@@ -19,14 +27,14 @@
             items: [
                 {
                     value: "no",
-                    html: "No - I only need to file accounts and documents <strong>without a filing fee</strong>",
-                    checked: true
+                    html: "No - I only need to file accounts and documents <strong>without a filing fee</strong>"
                 },
                 {
                     value: "yes",
                     html: "Yes - I need to file accounts and documents <strong>with a filing fee</strong>"
                 }
-            ]
+            ],
+            errorMessage: errorMessage
         }) }}
     
 

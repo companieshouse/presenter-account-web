@@ -6,14 +6,19 @@ const router: Router = Router();
 router.get("/", (req: Request, res: Response, _next: NextFunction) => {
     const handler = new ApplyToFileOptionsHandler();
     const { templatePath, viewData } = handler.executeGet(req, res);
-    res.render(templatePath, viewData);
+    return res.render(templatePath, viewData);
 });
 
 router.post("/", (req: Request, res: Response, _next: NextFunction) => {
     const handler = new ApplyToFileOptionsHandler();
-    const { redirect } = handler.executePost(req, res);
+    const response = handler.executePost(req, res);
 
-    return res.redirect(redirect);
+    if ('redirect' in response) {
+        return res.redirect(response.redirect);
+    }
+
+    const { templatePath, viewData }  = response;
+    return res.render(templatePath, viewData);
 });
 
 export default router;
