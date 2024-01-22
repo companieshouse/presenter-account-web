@@ -3,6 +3,7 @@ import { env } from "./config";
 export const servicePathPrefix = "/presenter-account";
 
 export const Urls = {
+    ACCESSIBILITY_STATEMENT: "/accessibility-statement",
     HOME: "/",
     HEALTHCHECK: "/healthcheck",
     APPLY_TO_FILE_OPTIONS: "/what-do-you-need-to-file",
@@ -13,6 +14,7 @@ export const Urls = {
 };
 
 export const PrefixedUrls = {
+    ACCESSIBILITY_STATEMENT: servicePathPrefix + Urls.ACCESSIBILITY_STATEMENT,
     HOME: servicePathPrefix + Urls.HOME,
     APPLY_TO_FILE_OPTIONS: servicePathPrefix + Urls.APPLY_TO_FILE_OPTIONS,
     HEALTHCHECK: servicePathPrefix + Urls.HEALTHCHECK,
@@ -24,5 +26,10 @@ export const PrefixedUrls = {
 
 
 export const ExternalUrls = {
+    CONTACT_US: env.CONTACT_US_LINK,
+    COOKIES: env.COOKIE_LINK,
+    DEVELOPERS: env.DEVELOPERS_LINK,
     FEEDBACK: env.FEEDBACK_URL,
+    OPEN_GOVERNMENT_LICENSE: env.OPEN_GOVERNMENT_LICENSE_LINK,
+    POLICIES: env.POLICIES_LINK,
 }
