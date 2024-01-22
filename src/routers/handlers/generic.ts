@@ -14,7 +14,6 @@ export interface BaseViewData {
     Urls: typeof PrefixedUrls
     ExternalUrls: typeof ExternalUrls
     userEmail: string | null
-    [key: string]: any
 }
 
 export const defaultBaseViewData: Partial<BaseViewData> = {
