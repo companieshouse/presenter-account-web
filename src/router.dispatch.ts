@@ -7,7 +7,6 @@ import {
     ApplyToFileOptionsRouter,
     YouCannotUseThisServiceRouter,
     ConfirmationRouter,
-    ErrorSubmittingRouter,
 } from "./routers";
 import { errorHandler, pageNotFound } from "./routers/handlers/errors";
 import { sessionMiddleware } from "./middleware/session.middleware";
@@ -32,7 +31,6 @@ const routerDispatch = (app: Application) => {
 
     router.use(Urls.CHECK_DETAILS, CheckDetailsRouter);
     router.use(Urls.CONFIRMATION, ConfirmationRouter);
-    router.use(Urls.ERROR_SUBMITTING, ErrorSubmittingRouter);
 
     app.use(commonTemplateVariablesMiddleware);
     app.use(errorHandler);

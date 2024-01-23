@@ -11,8 +11,7 @@ export const Urls = {
     CHECK_DETAILS: "/check_details",
     YOU_CANNOT_USE_THIS_SERVICE: "/you-cannot-use-this-service",
     CONFIRMATION: "/confirmation",
-    SUBMITTED: "/submitted",
-    ERROR_SUBMITTING: "/error-submitting"
+    SUBMITTED: "/submitted"
 } as const;
 
 export const PrefixedUrls = {
@@ -25,7 +24,6 @@ export const PrefixedUrls = {
     YOU_CANNOT_USE_THIS_SERVICE: servicePathPrefix + Urls.YOU_CANNOT_USE_THIS_SERVICE,
     CONFIRMATION: servicePathPrefix + Urls.CONFIRMATION,
     SUBMITTED: servicePathPrefix + Urls.SUBMITTED,
-    ERROR_SUBMITTING: servicePathPrefix + Urls.ERROR_SUBMITTING,
     COOKIES: "/help/cookies"
 } as const;
 
