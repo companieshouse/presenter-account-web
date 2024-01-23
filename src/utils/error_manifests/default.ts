@@ -11,8 +11,8 @@ export const errorManifest = {
         },
         applyToFileOptions: {
             blank: {
-                summary: "Select yes if you need to file accounts or documents that have a filing fee",
-                inline: "Select yes if you need to file accounts or documents that have a filing fee"
+                summary: "Tell us if you want to file accounts and documents with or without a fee",
+                inline: "Tell us if you want to file accounts and documents with or without a fee"
             }
         },
         email: {
