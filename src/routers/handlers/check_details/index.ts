@@ -68,11 +68,9 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
 
         const submitResult = await this.submitDetails(req);
         if (submitResult.isFailure()) {
-            logger.error(`Error submitting details to the presenter-account-api: ${submitResult.value.message}`);
-
-            return {
-                redirect: PrefixedUrls.ERROR_SUBMITTING
-            };
+            const errorMessage = `Error submitting details to the presenter-account-api: ${submitResult.value.message}`;
+            logger.error(errorMessage);
+            throw new Error(errorMessage);
         }
 
         return {
