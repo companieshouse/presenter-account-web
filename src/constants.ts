@@ -11,8 +11,9 @@ export const Urls = {
     CHECK_DETAILS: "/check_details",
     YOU_CANNOT_USE_THIS_SERVICE: "/you-cannot-use-this-service",
     CONFIRMATION: "/confirmation",
-    SUBMITTED: "/submitted"
-};
+    SUBMITTED: "/submitted",
+    ERROR_SUBMITTING: "/error-submitting"
+} as const;
 
 export const PrefixedUrls = {
     ACCESSIBILITY_STATEMENT: servicePathPrefix + Urls.ACCESSIBILITY_STATEMENT,
@@ -24,8 +25,9 @@ export const PrefixedUrls = {
     YOU_CANNOT_USE_THIS_SERVICE: servicePathPrefix + Urls.YOU_CANNOT_USE_THIS_SERVICE,
     CONFIRMATION: servicePathPrefix + Urls.CONFIRMATION,
     SUBMITTED: servicePathPrefix + Urls.SUBMITTED,
+    ERROR_SUBMITTING: servicePathPrefix + Urls.ERROR_SUBMITTING,
     COOKIES: "/help/cookies"
-};
+} as const;
 
 export const ExternalUrls = {
     ABILITY_NET: env.ABILITY_NET_LINK,
@@ -34,4 +36,4 @@ export const ExternalUrls = {
     FEEDBACK: env.FEEDBACK_URL,
     OPEN_GOVERNMENT_LICENSE: env.OPEN_GOVERNMENT_LICENSE_LINK,
     POLICIES: env.POLICIES_LINK,
-};
+} as const;

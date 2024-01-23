@@ -1,0 +1,21 @@
+{% extends "layouts/default.njk" %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% block main_content %}
+    <h1 class="govuk-heading-l">We have not been able to create your online presenter filing account.</h1>
+    <div class="govuk-body">
+        <p>What to do next</p>
+        <p>You can submit a new application if the information you gave was incorrect:</p>
+        <a class="govuk-link" href="https://www.gov.uk/apply-for-presenter-account">https://www.gov.uk/apply-for-presenter-account</a>
+        <p>Contact Companies House if you have any questions about your application:</p>
+        <a class="govuk-link" href="https://www.gov.uk/government/organisations/companies-house#org-contacts">https://www.gov.uk/government/organisations/companies-house#org-contacts</a>
+    </div>
+    <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+            <span class="govuk-warning-text__assistive">Warning</span>
+          This email was sent from a notification-only email address which cannot accept incoming mail. Please do not reply directly to this message.
+        </strong>
+    </div>
+{% endblock %}

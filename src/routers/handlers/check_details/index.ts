@@ -71,7 +71,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
             logger.error(`Error submitting details to the presenter-account-api: ${submitResult.value.message}`);
 
             return {
-                redirect: '' // TODO: replace with what to do next page
+                redirect: PrefixedUrls.ERROR_SUBMITTING
             };
         }
 
