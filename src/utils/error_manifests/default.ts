@@ -1,4 +1,4 @@
-const errorManifest = {
+export const errorManifest = {
     generic: {
         serverError: {
             summary: "There was an error processing your request. Please try again."
@@ -8,6 +8,12 @@ const errorManifest = {
         default: {
             summary: "Your request contains validation errors",
             inline: "Your request contains validation errors"
+        },
+        applyToFileOptions: {
+            blank: {
+                summary: "Select yes if you need to file accounts or documents that have a filing fee",
+                inline: "Select yes if you need to file accounts or documents that have a filing fee"
+            }
         },
         email: {
             blank: {
@@ -40,6 +46,6 @@ const errorManifest = {
             }
         }
     }
-};
+} as const;
 
 export default errorManifest;

@@ -24,7 +24,7 @@ export const defaultBaseViewData: Partial<BaseViewData> = {
     Urls: PrefixedUrls,
     ExternalUrls: ExternalUrls,
     userEmail: null
-};
+} as const;
 
 
 export interface Redirect {
@@ -32,14 +32,12 @@ export interface Redirect {
 }
 
 export abstract class GenericHandler<T extends BaseViewData> {
-    errorManifest: any;
+    protected errorManifest: typeof errorManifest;
     private viewData: T;
 
     constructor() {
         this.errorManifest = errorManifest;
-        this.viewData = {
-            ...defaultBaseViewData
-        } as T;
+        this.viewData = structuredClone(defaultBaseViewData) as T;
     }
 
     processHandlerException (err: any): Object {
