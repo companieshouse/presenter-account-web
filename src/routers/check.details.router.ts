@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import { CheckDetailsHandler } from "./handlers/check_details";
-import { wrapAsyncHandlerWithErrorHandler } from "utils/async.handler";
+import { wrapAsyncHandlerWithErrorHandler } from "../utils/async.handler";
 const router: Router = Router();
 
 router.get("/", wrapAsyncHandlerWithErrorHandler(async (req: Request, res: Response) => {
