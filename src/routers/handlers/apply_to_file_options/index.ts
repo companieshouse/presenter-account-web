@@ -16,14 +16,13 @@ interface ApplyToFileOptionsViewData extends BaseViewData {
     applyToRegisterAsLenderLink: string
     filingFeeFieldName: string
     FilingFeeOptions: typeof FilingFeeOptions
-    radioNotSelected: boolean
 }
 
 /**
  * The field name for the filing fee.
  * @type {string}
  */
-export const filingFeeFieldName = 'filingFee';
+export const filingFeeFieldName = 'filing-fee';
 
 /**
  * The options for filing fee.
@@ -63,8 +62,7 @@ export class ApplyToFileOptionsHandler extends GenericHandler<ApplyToFileOptions
             title: "Apply to file with Companies House using software",
             applyToRegisterAsLenderLink: env.APPLICATION_FORM_LINK,
             filingFeeFieldName,
-            FilingFeeOptions: FilingFeeOptions,
-            radioNotSelected: false
+            FilingFeeOptions: FilingFeeOptions
         };
     }
 
@@ -109,7 +107,7 @@ export class ApplyToFileOptionsHandler extends GenericHandler<ApplyToFileOptions
 
     private showPageWithRadioError(req: Request) {
         const viewData = this.getViewData(req);
-        viewData.radioNotSelected = true;
+        viewData.errors[filingFeeFieldName] = this.errorManifest.validation.applyToFileOptions.blank;
 
         return {
             templatePath: ApplyToFileOptionsHandler.templatePath,
