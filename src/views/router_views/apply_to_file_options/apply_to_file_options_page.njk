@@ -6,9 +6,9 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block main_content %}
-    {% if radioNotSelected %}
+    {% if errors[filingFeeFieldName] %}
       {% set errorMessage = {
-        text: "Select yes if you need to file accounts or documents that have a filing fee"
+        text: errors[filingFeeFieldName].summary
       } %}
     {% else %}
       {% set errorMessage = undefined %}
