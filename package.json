@@ -46,7 +46,7 @@
     "js-yaml": "^4.1.0",
     "npm": "^10.3.0",
     "nunjucks": "3.2.4",
-    "private-api-sdk-node": "file:../private-api-sdk-node",
+    "private-api-sdk-node": "github:companieshouse/private-api-sdk-node#1.0.6",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
