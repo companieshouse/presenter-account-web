@@ -63,14 +63,14 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
     public async executePost(
         req: Request,
         _response: Response
-    ): Promise<Redirect> {
+    ): Promise<Redirect | Error> {
         logger.info(`CheckDetailsHandler executePost called`);
 
         const submitResult = await this.submitDetails(req);
         if (submitResult.isFailure()) {
             const errorMessage = `Error submitting details to the presenter-account-api: ${submitResult.value.message}`;
             logger.error(errorMessage);
-            throw new Error(errorMessage);
+            return new Error(errorMessage);
         }
 
         return {
