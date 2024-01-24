@@ -16,8 +16,8 @@ export class ConfirmationHandler extends GenericHandler<ConfirmationViewData> {
 
         return {
             ...baseViewData,
-            backURL: PrefixedUrls.CHECK_DETAILS,
-            title: "Apply to file with Companies House using software"
+            title: "Application submitted - Apply for a Companies House online filing presenter account - GOV.UK",
+            backURL: PrefixedUrls.CHECK_DETAILS
         };
     }
 
