@@ -11,12 +11,12 @@ router.get("/", handleExceptions(async (req: Request, res: Response) => {
 
 router.post("/", handleExceptions(async (req: Request, res: Response, next: NextFunction) => {
     const handler = new CheckDetailsHandler();
-    const resp = await handler.executePost(req, res);
-    if (resp instanceof Error) {
-        return next(resp);
+    const submitDetailsResult = await handler.executePost(req, res);
+    if (submitDetailsResult instanceof Error) {
+        return next(submitDetailsResult);
     }
 
-    return res.redirect(resp.redirect);
+    return res.redirect(submitDetailsResult.redirect);
 }));
 
 
