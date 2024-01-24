@@ -1,12 +1,15 @@
 import { Handler, NextFunction, Request, Response } from "express";
 
+
 /**
- * Wraps an async handler and passes any error to the next middleware in the chain.
+ * The `handleExceptions` function is an Express.js handler wrapper that ensures exceptions within handlers are caught and passed to error handling middleware.
+ * Without it, uncaught exceptions would crash the service. It takes a handler function as an argument, returns a new function that wraps the original in a try/catch block.
+ * If an exception is thrown, it's caught and passed to the next middleware. This can't be implemented as a regular middleware due to Express.js's setup, hence the need for a wrapper function.
  *
- * @param fn The async handler function to be wrapped
- * @returns A new handler function that will catch and pass on any exceptions thrown by the wrapped function
+ * @param {function} fn - The handler function to be wrapped.
+ * @return {function} A new handler that wraps the original in a try/catch block.
  */
-export function wrapAsyncHandlerWithErrorHandler(fn: (req: Request, res: Response, next: NextFunction) => Promise<void>): Handler {
+export function handleExceptions(fn: (req: Request, res: Response, next: NextFunction) => Promise<void>): Handler {
     return async (req, res, next) => {
         try {
             await fn(req, res, next);

@@ -1,16 +1,16 @@
 import { Request, Response, Router, NextFunction } from "express";
 import { ApplyToFileOptionsHandler } from "./handlers/apply_to_file_options";
-import { wrapAsyncHandlerWithErrorHandler } from "../utils/async.handler";
+import { handleExceptions } from "../utils/async.handler";
 
 const router: Router = Router();
 
-router.get("/", wrapAsyncHandlerWithErrorHandler(async (req: Request, res: Response, _next: NextFunction) => {
+router.get("/", handleExceptions(async (req: Request, res: Response, _next: NextFunction) => {
     const handler = new ApplyToFileOptionsHandler();
     const { templatePath, viewData } = handler.executeGet(req, res);
     return res.render(templatePath, viewData);
 }));
 
-router.post("/", wrapAsyncHandlerWithErrorHandler(async (req: Request, res: Response, _next: NextFunction) => {
+router.post("/", handleExceptions(async (req: Request, res: Response, _next: NextFunction) => {
     const handler = new ApplyToFileOptionsHandler();
     const response = handler.executePost(req, res);
 
