@@ -1,5 +1,4 @@
-// Do Router dispatch here, i.e. map incoming routes to appropriate router
-import { Application, Router, Request, Response, NextFunction } from "express";
+import { Application, Router } from "express";
 import { HomeRouter, HealthCheckRouter, CheckDetailsRouter, ApplyToFileOptionsRouter, YouCannotUseThisServiceRouter, ConfirmationRouter } from "./routers";
 import { errorHandler, pageNotFound } from "./routers/handlers/errors";
 import { sessionMiddleware } from "./middleware/session.middleware";
@@ -11,12 +10,6 @@ const routerDispatch = (app: Application) => {
 
     const router = Router();
     app.use(servicePathPrefix, router);
-
-    // ------------- Error handler middleware -----------------
-    router.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-        console.error(err.stack);
-        res.status(500).send('Something broke!');
-    });
 
     router.use(Urls.HOME, HomeRouter);
     router.use(Urls.HEALTHCHECK, HealthCheckRouter);

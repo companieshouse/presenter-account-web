@@ -17,7 +17,6 @@ export function getSessionRequest(): Session {
     });
 }
 
-
 export const getEmptySessionRequest = (): Session => {
     return new Session();
 };
