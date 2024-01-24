@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 import { CheckDetailsHandler } from "./handlers/check_details";
 import { wrapAsyncHandlerWithErrorHandler } from "../utils/async.handler";
 const router: Router = Router();
@@ -9,11 +9,14 @@ router.get("/", wrapAsyncHandlerWithErrorHandler(async (req: Request, res: Respo
     res.render(templatePath, viewData);
 }));
 
-router.post("/", wrapAsyncHandlerWithErrorHandler(async (req: Request, res: Response) => {
+router.post("/", wrapAsyncHandlerWithErrorHandler(async (req: Request, res: Response, next: NextFunction) => {
     const handler = new CheckDetailsHandler();
-    const { redirect } = await handler.executePost(req, res);
+    const resp = await handler.executePost(req, res);
+    if (resp instanceof Error) {
+        return next(resp);
+    }
 
-    res.redirect(redirect);
+    return res.redirect(resp.redirect);
 }));
 
 
