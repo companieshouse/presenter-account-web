@@ -1,6 +1,5 @@
-// Do Router dispatch here, i.e. map incoming routes to appropriate router
 import { Application, Router } from "express";
-import { HomeRouter, HealthCheckRouter, CheckDetailsRouter, ApplyToFileOptionsRouter, YouCannotUseThisServiceRouter } from "./routers";
+import { HomeRouter, HealthCheckRouter, CheckDetailsRouter, ApplyToFileOptionsRouter, YouCannotUseThisServiceRouter, ConfirmationRouter } from "./routers";
 import { errorHandler, pageNotFound } from "./routers/handlers/errors";
 import { sessionMiddleware } from "./middleware/session.middleware";
 import { authenticationMiddleware } from "./middleware/authentication.middleware";
@@ -24,6 +23,7 @@ const routerDispatch = (app: Application) => {
     router.use(userAuthRegex, authenticationMiddleware);
 
     router.use(Urls.CHECK_DETAILS, CheckDetailsRouter);
+    router.use(Urls.CONFIRMATION, ConfirmationRouter);
 
     app.use(commonTemplateVariablesMiddleware);
     app.use(errorHandler);
