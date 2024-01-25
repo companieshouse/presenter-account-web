@@ -41,7 +41,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
             title: this.title,
             backURL: PrefixedUrls.SIGN_IN,
             address: req.body as Address,
-            countries: [{ value: 'Select a country', text: 'Select a country', selected: true }, ...Countries]
+            countries: [{ value: 'Select a country', text: 'Select a country', selected: true }, ...Countries()]
         };
     }
 

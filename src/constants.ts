@@ -38,7 +38,7 @@ export const ExternalUrls = {
     POLICIES: env.POLICIES_LINK,
 } as const;
 
-const selectCountryData = [
+export const selectCountryData = [
     { value: 'Aruba', text: 'Aruba' },
     { value: 'Afghanistan', text: 'Afghanistan' },
     { value: 'Angola', text: 'Angola' },
@@ -290,4 +290,4 @@ const selectCountryData = [
     { value: 'Zimbabwe', text: 'Zimbabwe' },
 ];
 
-export const Countries = selectCountryData.sort((country1, country2) => country1.text.localeCompare(country2.text));
+export const Countries = () => selectCountryData.sort((country1, country2) => country1.text.localeCompare(country2.text));
