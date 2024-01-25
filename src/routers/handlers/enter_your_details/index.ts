@@ -4,8 +4,9 @@ import { logger } from "../../../utils/logger";
 import { Details, type Address } from "private-api-sdk-node/src/services/presenter-account/types";
 import { PrefixedUrls, Countries } from "../../../constants";
 import { addressToQueryString } from "./../../../utils";
-import { setPresenterAccountDetails } from "./../../../utils/session";
+import { PRESENTER_ACCOUNT_SESSION_KEY } from "./../../../utils/session";
 import { Result, ValidationError, validationResult } from "express-validator";
+import { Session } from "@companieshouse/node-session-handler";
 
 type CountryType = {
     value: string,
@@ -61,8 +62,8 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         details.address = req.body as Address;
         const queryString = addressToQueryString(details.address);
         const redirect: string = `${PrefixedUrls.CHECK_DETAILS}?${queryString}`;
-
-        setPresenterAccountDetails(req, details);
+        const session = new Session();
+        session.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, details);
         const errors = this.validateRequest(req);
 
         if (!errors.isEmpty()){

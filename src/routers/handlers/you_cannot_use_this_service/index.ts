@@ -49,7 +49,7 @@ export class YouCannotUseThisServiceHandler extends GenericHandler<YouCannotUseT
      * @returns {ViewModel<YouCannotUseThisServiceViewData>} - The view model for the page.
      */
     public execute (req: Request, _response: Response): ViewModel<YouCannotUseThisServiceViewData> {
-        logger.info(`GET request for to serve home page`);
+        logger.info(`GET request to serve the 'you cannot use this service' page.`);
         return {
             templatePath: YouCannotUseThisServiceHandler.templatePath,
             viewData: this.getViewData(req),

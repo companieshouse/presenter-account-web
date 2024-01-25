@@ -9,10 +9,11 @@ export const Urls = {
     APPLY_TO_FILE_OPTIONS: "/what-do-you-need-to-file",
     ENTER_YOUR_DETAILS: "/enter-your-details",
     CHECK_DETAILS: "/check_details",
-    SUBMITTED: "/submitted",
-    YOU_CANNOT_USE_THIS_SERVICE: '/you-cannot-use-this-service',
-    SIGN_IN: "/sign-in"
-};
+    SIGN_IN: "/sign-in",
+    YOU_CANNOT_USE_THIS_SERVICE: "/you-cannot-use-this-service",
+    CONFIRMATION: "/confirmation",
+    SUBMITTED: "/submitted"
+} as const;
 
 export const PrefixedUrls = {
     ACCESSIBILITY_STATEMENT: servicePathPrefix + Urls.ACCESSIBILITY_STATEMENT,
@@ -21,11 +22,12 @@ export const PrefixedUrls = {
     HEALTHCHECK: servicePathPrefix + Urls.HEALTHCHECK,
     ENTER_YOUR_DETAILS: servicePathPrefix + Urls.ENTER_YOUR_DETAILS,
     CHECK_DETAILS: servicePathPrefix + Urls.CHECK_DETAILS,
-    SUBMITTED: servicePathPrefix + Urls.SUBMITTED,
     YOU_CANNOT_USE_THIS_SERVICE: servicePathPrefix + Urls.YOU_CANNOT_USE_THIS_SERVICE,
     SIGN_IN: servicePathPrefix + Urls.SIGN_IN,
+    CONFIRMATION: servicePathPrefix + Urls.CONFIRMATION,
+    SUBMITTED: servicePathPrefix + Urls.SUBMITTED,
     COOKIES: "/help/cookies"
-};
+} as const;
 
 export const ExternalUrls = {
     ABILITY_NET: env.ABILITY_NET_LINK,
@@ -34,7 +36,7 @@ export const ExternalUrls = {
     FEEDBACK: env.FEEDBACK_URL,
     OPEN_GOVERNMENT_LICENSE: env.OPEN_GOVERNMENT_LICENSE_LINK,
     POLICIES: env.POLICIES_LINK,
-};
+} as const;
 
 const selectCountryData = [
     { value: 'Aruba', text: 'Aruba' },

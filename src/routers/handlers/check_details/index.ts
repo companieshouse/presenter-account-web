@@ -2,12 +2,15 @@ import { Request, Response } from "express";
 import {
     BaseViewData,
     GenericHandler,
+    Redirect,
     ViewModel,
 } from "./../generic";
 import { logger } from "../../../utils/logger";
 import { type Address } from "private-api-sdk-node/src/services/presenter-account/types";
 import { getPresenterAccountDetails } from "../../../utils/session";
 import { PrefixedUrls } from "../../../constants";
+import { createOauthPrivateApiClient } from "../../../service/api.client.service";
+import { Result, failure } from "@companieshouse/api-sdk-node/dist/services/result";
 
 interface CheckDetailsViewData extends BaseViewData {
     address: Address;
@@ -32,7 +35,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
         };
     }
 
-    public execute(
+    public executeGet(
         req: Request,
         _response: Response
     ): ViewModel<CheckDetailsViewData> {
@@ -42,6 +45,36 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
         return {
             templatePath: CheckDetailsHandler.templatePath,
             viewData
+        };
+    }
+
+    private async submitDetails(req: Request): Promise<Result<void, Error>> {
+        try {
+            const details = getPresenterAccountDetails(req);
+
+            const apiClient = createOauthPrivateApiClient(req);
+            return await apiClient.presenterAccountService.submitPresenterAccountDetails(details);
+        } catch (e: any) {
+            const errorMessage = e.message ?? `${e}`;
+            return failure(new Error(`Error submitting the presenter account details: ${errorMessage}`));
+        }
+    }
+
+    public async executePost(
+        req: Request,
+        _response: Response
+    ): Promise<Redirect | Error> {
+        logger.info(`CheckDetailsHandler executePost called`);
+
+        const submitResult = await this.submitDetails(req);
+        if (submitResult.isFailure()) {
+            const errorMessage = `Error submitting details to the presenter-account-api: ${submitResult.value.message}`;
+            logger.error(errorMessage);
+            return new Error(errorMessage);
+        }
+
+        return {
+            redirect: PrefixedUrls.CONFIRMATION
         };
     }
 }

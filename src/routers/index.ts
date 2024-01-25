@@ -4,5 +4,5 @@ import CheckDetailsRouter from "./check.details.router";
 import ApplyToFileOptionsRouter from "./apply.to.file.options.router";
 import YouCannotUseThisServiceRouter  from "./you.cannot.use.this.service.router";
 import EnterYourDetailsRouter from "./enter.your.details.router";
-
-export { HealthCheckRouter, HomeRouter, CheckDetailsRouter, ApplyToFileOptionsRouter, YouCannotUseThisServiceRouter, EnterYourDetailsRouter };
+import ConfirmationRouter from "./confirmation.router";
+export { HealthCheckRouter, HomeRouter, CheckDetailsRouter, ApplyToFileOptionsRouter, YouCannotUseThisServiceRouter, EnterYourDetailsRouter, ConfirmationRouter };
