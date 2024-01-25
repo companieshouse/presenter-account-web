@@ -16,7 +16,7 @@ export class HomeHandler extends GenericHandler<BaseViewData> {
     }
 
     public execute (req: Request, _response: Response): ViewModel<BaseViewData> {
-        logger.info(`GET request for to serve home page`);
+        logger.info(`GET request to serve home page`);
         // ...process request here and return data for the view
         return {
             templatePath: HomeHandler.templatePath,

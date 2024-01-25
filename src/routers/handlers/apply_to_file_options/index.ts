@@ -22,7 +22,7 @@ interface ApplyToFileOptionsViewData extends BaseViewData {
  * The field name for the filing fee.
  * @type {string}
  */
-export const filingFeeFieldName = 'filingFee';
+export const filingFeeFieldName = 'filing-fee';
 
 /**
  * The options for filing fee.
@@ -72,7 +72,7 @@ export class ApplyToFileOptionsHandler extends GenericHandler<ApplyToFileOptions
      * @param {Response} _res - The response object.
      * @returns {ViewModel<BaseViewData>} - The view model for the page.
      */
-    public executeGet(req: Request, _res: Response): ViewModel<BaseViewData> {
+    public executeGet(req: Request, _res: Response): ViewModel<ApplyToFileOptionsViewData> {
         logger.info("GET request to serve the 'apply to file options page'");
         return {
             templatePath: ApplyToFileOptionsHandler.templatePath,
@@ -84,9 +84,9 @@ export class ApplyToFileOptionsHandler extends GenericHandler<ApplyToFileOptions
      * Handle POST request to serve the apply to file options page.
      * @param {Request} req - The request object.
      * @param {Response} _res - The response object.
-     * @returns {Redirect} - The redirect object.
+     * @returns {Redirect | ViewModel<ApplyToFileOptionsViewData> } - The response object. Either a redirect to the next page, or an error message on the readio button.
      */
-    public executePost(req: Request, _res: Response): Redirect {
+    public executePost(req: Request, _res: Response): Redirect | ViewModel<ApplyToFileOptionsViewData> {
         logger.info("POST request to serve the 'apply to file options page'");
 
         const filingFeeResponse = req.body[filingFeeFieldName] as string;
@@ -99,8 +99,20 @@ export class ApplyToFileOptionsHandler extends GenericHandler<ApplyToFileOptions
                     logger.debug(`User selected '${FilingFeeOptions.NO}' on the 'what-do-you-need-to-file' page.`);
                     return { redirect: PrefixedUrls.YOU_CANNOT_USE_THIS_SERVICE };
                 default:
-                    throw new Error(`Invalid field value [${filingFeeResponse}] for field [${filingFeeFieldName}] on the "what-do-you-need-to-file" page.`);
+                    logger.debug(`User did not select a valid option. Showing error message.`);
+                    return this.showPageWithRadioError(req);
+
         }
+    }
+
+    private showPageWithRadioError(req: Request) {
+        const viewData = this.getViewData(req);
+        viewData.errors[filingFeeFieldName] = this.errorManifest.validation.applyToFileOptions.blank;
+
+        return {
+            templatePath: ApplyToFileOptionsHandler.templatePath,
+            viewData: viewData,
+        };
     }
 }
 

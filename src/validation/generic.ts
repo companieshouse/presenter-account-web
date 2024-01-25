@@ -6,13 +6,12 @@ import { logger } from "./../utils/logger";
 import errorManifest from "../utils/error_manifests/default";
 
 export class GenericValidator {
-
-    errors: any;
+    errors: Record<string, string>;
     payload: any;
     errorManifest: any;
 
     constructor () {
-        this.errors = this.getErrorSignature();
+        this.errors = {};
         this.errorManifest = errorManifest;
     }
 

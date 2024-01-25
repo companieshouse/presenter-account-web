@@ -2,6 +2,7 @@ import app from "../../../../src/app";
 import request from "supertest";
 import { PrefixedUrls } from "../../../../src/constants";
 import { FilingFeeOptions, filingFeeFieldName } from "../../../../src/routers/handlers/apply_to_file_options";
+import errorManifest from "../../../../src/utils/error_manifests/default";
 
 describe("apply to file optons page tests", () => {
     it("should render the apply to file options page", async () => {
@@ -44,8 +45,9 @@ describe("apply to file optons page tests", () => {
             .post(PrefixedUrls.APPLY_TO_FILE_OPTIONS)
             .send(formObj);
 
-        expect(resp.status).toBe(500);
-        expect(resp.text).toContain("Internal server error");
+        expect(resp.status).toBe(200);
+        const errorMessage = errorManifest.validation.applyToFileOptions.blank.summary;
+        expect(resp.text).toContain(errorMessage);
     });
 });
 

@@ -1,6 +1,6 @@
 // Do Router dispatch here, i.e. map incoming routes to appropriate router
 import { Application, Router } from "express";
-import { HomeRouter, HealthCheckRouter, CheckDetailsRouter, ApplyToFileOptionsRouter, YouCannotUseThisServiceRouter } from "./routers";
+import { HomeRouter, HealthCheckRouter, CheckDetailsRouter, ApplyToFileOptionsRouter, YouCannotUseThisServiceRouter, EnterYourDetailsRouter } from "./routers";
 import { errorHandler, pageNotFound } from "./routers/handlers/errors";
 import { sessionMiddleware } from "./middleware/session.middleware";
 import { authenticationMiddleware } from "./middleware/authentication.middleware";
@@ -22,7 +22,7 @@ const routerDispatch = (app: Application) => {
     // ------------- Enable login redirect -----------------
     const userAuthRegex = /^\/.+/;
     router.use(userAuthRegex, authenticationMiddleware);
-
+    router.use(Urls.ENTER_YOUR_DETAILS, EnterYourDetailsRouter);
     router.use(Urls.CHECK_DETAILS, CheckDetailsRouter);
 
     app.use(commonTemplateVariablesMiddleware);
