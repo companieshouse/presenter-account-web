@@ -10,8 +10,8 @@ export class HomeHandler extends GenericHandler<BaseViewData> {
 
         return {
             ...baseViewData,
-            backURL: null,
-            title: "Apply to file with Companies House using software",
+            title: "Apply to file with Companies House using software - GOV.UK",
+            backURL: null
         };
     }
 

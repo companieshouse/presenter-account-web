@@ -36,8 +36,8 @@ export class YouCannotUseThisServiceHandler extends GenericHandler<YouCannotUseT
 
         return {
             ...baseViewData,
+            title: "You cannot use this service - Apply for a Companies House online filing presenter account - GOV.UK",
             backURL: PrefixedUrls.APPLY_TO_FILE_OPTIONS,
-            title: "Apply to file with Companies House using software",
             applicationFormLink: env.APPLICATION_FORM_LINK
         };
     }
