@@ -1,13 +1,10 @@
 import { Request, Response, Router, NextFunction } from "express";
 import { EnterYourDetailsHandler } from "./handlers/enter_your_details";
-import { Session } from "@companieshouse/node-session-handler";
 import { blank_field_validations } from "./../validation/enter.your.details.validation";
 
 const router: Router = Router();
 
 router.get("/", (req: Request, res: Response, _next: NextFunction) => {
-    const session = new Session();
-    res.setHeader('session', JSON.stringify(session));
     const handler = new EnterYourDetailsHandler();
     const { templatePath, viewData } = handler.executeGet(req, res);
     res.render(templatePath, viewData);

@@ -4,9 +4,8 @@ import { logger } from "../../../utils/logger";
 import { Details, type Address } from "private-api-sdk-node/src/services/presenter-account/types";
 import { PrefixedUrls, Countries } from "../../../constants";
 import { addressToQueryString } from "./../../../utils";
-import { PRESENTER_ACCOUNT_SESSION_KEY } from "./../../../utils/session";
+import { setPresenterAccountDetails, getPresenterAccountDetails } from "./../../../utils/session";
 import { Result, ValidationError, validationResult } from "express-validator";
-import { Session } from "@companieshouse/node-session-handler";
 
 type CountryType = {
     value: string,
@@ -46,10 +45,11 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
     }
 
     public executeGet(req: Request, _response: Response): ViewModel<EnterYourDetailsViewData>{
+        const details = getPresenterAccountDetails(req);
         logger.info(`${this.constructor.name} get execute called`);
 
         const viewData = this.getViewData(req);
-
+        viewData.address = details ? details.address : viewData.address;
         return {
             templatePath: EnterYourDetailsHandler.templatePath,
             viewData
@@ -58,31 +58,37 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
 
     public executePost(req: Request, _response: Response): Redirect | ViewModel<EnterYourDetailsViewData> {
         logger.info(`${this.constructor.name} post execute called`);
-        const details: Details = {} as Details;
-        details.address = req.body as Address;
+
+        // retrieve details using session key
+        const details: Details = getPresenterAccountDetails(req);
+        console.log("AAA", details);
+        // adding the address field to the details obj
+        const address = req.body as Address;
+        details.address = address;
+        // converting the address object to query strings
         const queryString = addressToQueryString(details.address);
+        // generate the redirect query string
         const redirect: string = `${PrefixedUrls.CHECK_DETAILS}?${queryString}`;
-        const session = new Session();
-        session.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, details);
+        // validating the form using the req object
         const errors = this.validateRequest(req);
 
         if (!errors.isEmpty()){
             const viewData = this.getViewData(req);
+            // if validation errors exists, get them as an array
             viewData.errors = errors.array();
+            // @Todo: this line will be replaced with a nunjucks filter moving forward
             viewData.errors.map((error: { [x: string]: any; path: string; }) => error["fieldId"] = error.path.split(/(?=[A-Z0-9])/).join('-').toLocaleLowerCase());
             return {
                 templatePath: EnterYourDetailsHandler.templatePath,
                 viewData
             };
         }
+        // set updated session object back to the session
+        setPresenterAccountDetails(req, details);
         return { redirect };
     }
 
     private validateRequest(req: Request): Result<ValidationError>{
         return validationResult(req);
-    }
-
-    private splitAtUpperCasesAndNumbers(str: string){
-        return str.split(/(?=[A-Z0-9])/).join('-');
     }
 }

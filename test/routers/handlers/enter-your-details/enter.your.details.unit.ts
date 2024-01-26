@@ -1,75 +1,59 @@
 import app from "../../../../src/app";
 import request from "supertest";
 import { PrefixedUrls } from "../../../../src/constants";
+import { Address } from "private-api-sdk-node/src/services/presenter-account/types";
+import { EnterYourDetailsErrorMessages } from "../../../../src/utils/error_manifests/enter.your.details.errors";
+import { examplePresenterAccountDetails } from "../../../mocks/example.presenter.account.details.mock";
 
-describe("Enter correct form details for address fields", () => {
+describe("validate form fields", async () => {
+    const resp = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send({} as Address);
+    const resp2 = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send(examplePresenterAccountDetails.address as Address);
+
     it("should render the enter your details page", async () => {
-
         const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS);
         expect(resp.status).toBe(200);
         expect(resp.text).toContain("What is your correspondence address?");
-
     });
 
-    describe("throw errors for any mandatory fields not set", () => {
-        it("should throw error if premises empty", () => {
 
-        });
-
-        it("should throw error if address line 1 empty", () => {
-
-        });
-
-        it("should throw error if town or city empty", () => {
-
-        });
-
-        it("should throw error if post code empty", () => {
-
-        });
-
-        it("should throw error if country empty", () => {
-
-        });
+    it("should display error after post if premises querystring field empty",  async () => {
+        expect(resp.text).toContain(EnterYourDetailsErrorMessages.PREMISES_BLANK);
     });
 
-    describe("throw no errors for any optional field not set", () => {
-        it("should not throw error if address line 2 empty", () => {
-
-        });
-
-        it("should not throw error if county empty", () => {
-
-        });
+    it("should display error if address line 1 empty", () => {
+        expect(resp.text).toContain(EnterYourDetailsErrorMessages.ADDRESS_LINE_1_BLANK);
     });
 
-    describe("validate data entered in any field", () => {
-        describe("should validate data entered for premises", () => {
-
-        });
-
-        describe("should validate data entered for address line 1", () => {
-
-        });
-
-        describe("should validate data entered for address line 2", () => {
-
-        });
-
-        describe("should validate data entered for town or city", () => {
-
-        });
-
-        describe("should validate data entered for county", () => {
-
-        });
-
-        describe("should validate data entered for post code", () => {
-
-        });
-
-        describe("should validate data entered for country", () => {
-
-        });
+    it("should display error if town or city empty", () => {
+        expect(resp.text).toContain(EnterYourDetailsErrorMessages.TOWN_OR_CITY_BLANK);
     });
+
+    it("should display error if post code empty", () => {
+        expect(resp.text).toContain(EnterYourDetailsErrorMessages.POST_CODE_BLANK);
+    });
+
+    it("should display error if country empty", () => {
+        expect(resp.text).toContain(EnterYourDetailsErrorMessages.COUNTRY_BLANK);
+    });
+
+    it("should display error after post if premises querystring field empty",  async () => {
+        expect(resp2.text).not.toContain(EnterYourDetailsErrorMessages.PREMISES_BLANK);
+    });
+
+    it("should display error if address line 1 empty", () => {
+        expect(resp2.text).not.toContain(EnterYourDetailsErrorMessages.ADDRESS_LINE_1_BLANK);
+    });
+
+    it("should display error if town or city empty", () => {
+        expect(resp2.text).not.toContain(EnterYourDetailsErrorMessages.TOWN_OR_CITY_BLANK);
+    });
+
+    it("should display error if post code empty", () => {
+        expect(resp2.text).not.toContain(EnterYourDetailsErrorMessages.POST_CODE_BLANK);
+    });
+
+    it("should display error if country empty", () => {
+        expect(resp2.text).not.toContain(EnterYourDetailsErrorMessages.COUNTRY_BLANK);
+    });
+
 });
