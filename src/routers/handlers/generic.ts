@@ -7,7 +7,7 @@ import { Request } from "express";
 
 export interface BaseViewData {
     errors: any
-    title: string
+    title: string 
     isSignedIn: boolean
     backURL: string | null
     servicePathPrefix: string
@@ -23,7 +23,8 @@ export const defaultBaseViewData: Partial<BaseViewData> = {
     servicePathPrefix: servicePathPrefix,
     Urls: PrefixedUrls,
     ExternalUrls: ExternalUrls,
-    userEmail: null
+    userEmail: null,
+    title: 'Apply to file with Companies House using software'
 } as const;
 
 

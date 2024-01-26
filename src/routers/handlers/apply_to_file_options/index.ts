@@ -59,7 +59,7 @@ export class ApplyToFileOptionsHandler extends GenericHandler<ApplyToFileOptions
         return {
             ...baseViewData,
             backURL: PrefixedUrls.HOME,
-            title: "Apply to file with Companies House using software",
+            title: "What do you want to do? - Apply for a Companies House online filing presenter account - GOV.UK",
             applyToRegisterAsLenderLink: env.APPLICATION_FORM_LINK,
             filingFeeFieldName,
             FilingFeeOptions: FilingFeeOptions
