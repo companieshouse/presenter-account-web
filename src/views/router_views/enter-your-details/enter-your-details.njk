@@ -28,10 +28,6 @@
                 {% set townOrCityField = {
                     text: error.msg
                 }%}
-            {% elseif error.path === "county" %}
-                {% set countyField = {
-                    text: error.msg
-                }%}
             {% elseif error.path === "country" %}
                 {% set countryField = {
                     text: error.msg
@@ -99,17 +95,6 @@
                     name: "townOrCity",
                     value: address.townOrCity,
                     errorMessage: townOrCityField
-                    }) 
-                }}
-                 {{ govukInput({
-                    label: {
-                        text: "County (optional)"
-                    },
-                    classes: "govuk-!-width-two-thirds",
-                    id: "county",
-                    name: "county",
-                    value: address.county,
-                    errorMessage: countyField
                     }) 
                 }}
                  {{ govukInput({

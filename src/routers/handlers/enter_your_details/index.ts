@@ -1,25 +1,20 @@
 import { BaseViewData, GenericHandler, Redirect, ViewModel } from "./../generic";
 import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
-import { Details, type Address } from "private-api-sdk-node/src/services/presenter-account/types";
+import { Details, type Address, isDetails, isAddress } from "private-api-sdk-node/src/services/presenter-account/types";
 import { PrefixedUrls, Countries } from "../../../constants";
 import { addressToQueryString } from "./../../../utils";
 import { setPresenterAccountDetails, getPresenterAccountDetails } from "./../../../utils/session";
 import { Result, ValidationError, validationResult } from "express-validator";
 
-type CountryType = {
+interface CountryType {
     value: string,
     text: string,
     selected?: boolean
-};
-
-interface AddressType extends Address
-{
-    county?: string
 }
 
 interface EnterYourDetailsViewData extends BaseViewData{
-    address: AddressType ;
+    address: Address ;
     countries: CountryType[];
 }
 
@@ -34,22 +29,21 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
      */
     public getViewData(req: Request): EnterYourDetailsViewData {
         const baseViewData = super.getViewData(req);
+        const details = getPresenterAccountDetails(req);
 
         return {
             ...baseViewData,
             title: this.title,
-            backURL: PrefixedUrls.SIGN_IN,
-            address: req.body as Address,
+            backURL: PrefixedUrls.APPLY_TO_FILE_OPTIONS,
+            address: isDetails(details) ? details.address : {} as Address,
             countries: [{ value: 'Select a country', text: 'Select a country', selected: true }, ...Countries()]
         };
     }
 
     public executeGet(req: Request, _response: Response): ViewModel<EnterYourDetailsViewData>{
-        const details = getPresenterAccountDetails(req);
         logger.info(`${this.constructor.name} get execute called`);
 
         const viewData = this.getViewData(req);
-        viewData.address = details ? details.address : viewData.address;
         return {
             templatePath: EnterYourDetailsHandler.templatePath,
             viewData
@@ -58,17 +52,14 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
 
     public executePost(req: Request, _response: Response): Redirect | ViewModel<EnterYourDetailsViewData> {
         logger.info(`${this.constructor.name} post execute called`);
-
+        const retrieveDetails = getPresenterAccountDetails(req);
         // retrieve details using session key
-        const details: Details = getPresenterAccountDetails(req);
-        console.log("AAA", details);
+        const details: Details = isDetails(retrieveDetails) ? retrieveDetails : {} as Details;
         // adding the address field to the details obj
-        const address = req.body as Address;
+        const address = isAddress(req.body as Address) ? req.body as Address : {} as Address;
         details.address = address;
-        // converting the address object to query strings
-        const queryString = addressToQueryString(details.address);
         // generate the redirect query string
-        const redirect: string = `${PrefixedUrls.CHECK_DETAILS}?${queryString}`;
+        const redirect: string = `${PrefixedUrls.CHECK_DETAILS}`;
         // validating the form using the req object
         const errors = this.validateRequest(req);
 

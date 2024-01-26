@@ -9,7 +9,6 @@ export const Urls = {
     APPLY_TO_FILE_OPTIONS: "/what-do-you-need-to-file",
     ENTER_YOUR_DETAILS: "/enter-your-details",
     CHECK_DETAILS: "/check_details",
-    SIGN_IN: "/sign-in",
     YOU_CANNOT_USE_THIS_SERVICE: "/you-cannot-use-this-service",
     CONFIRMATION: "/confirmation",
     SUBMITTED: "/submitted"
@@ -23,7 +22,6 @@ export const PrefixedUrls = {
     ENTER_YOUR_DETAILS: servicePathPrefix + Urls.ENTER_YOUR_DETAILS,
     CHECK_DETAILS: servicePathPrefix + Urls.CHECK_DETAILS,
     YOU_CANNOT_USE_THIS_SERVICE: servicePathPrefix + Urls.YOU_CANNOT_USE_THIS_SERVICE,
-    SIGN_IN: servicePathPrefix + Urls.SIGN_IN,
     CONFIRMATION: servicePathPrefix + Urls.CONFIRMATION,
     SUBMITTED: servicePathPrefix + Urls.SUBMITTED,
     COOKIES: "/help/cookies"
@@ -38,7 +36,7 @@ export const ExternalUrls = {
     POLICIES: env.POLICIES_LINK,
 } as const;
 
-export const selectCountryData = [
+const selectCountryData = [
     { value: 'Aruba', text: 'Aruba' },
     { value: 'Afghanistan', text: 'Afghanistan' },
     { value: 'Angola', text: 'Angola' },

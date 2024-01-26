@@ -18,8 +18,7 @@ router.post("/", handleExceptions(async (req: Request, res: Response, _next: Nex
         return res.redirect(response.redirect);
     }
 
-    const { templatePath, viewData }  = response;
-    return res.render(templatePath, viewData);
+    return res.render(response.templatePath, response.viewData);
 }));
 
 export default router;
