@@ -1,7 +1,7 @@
 import { GenericValidator } from "./generic";
-import { blank_field_validations } from "./enter.your.details.validation";
+import { blankFieldValidations } from "./enter.your.details.validation";
 
-export const validator = {
+export default  {
     GenericValidator,
-    blank_field_validations
+    blankFieldValidations
 };

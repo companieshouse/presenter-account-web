@@ -5,42 +5,7 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 
 {% block main_content %}
-{% set premisesField = ""%}
-{% set addressLine1Field = ""%}
-{% set townOrCityField = ""%}
-{% set countryField = ""%}
-{% set postCodeField = ""%}
-    {% if errors %}
-        {% for error in errors %}
-            {% if error.path === "premises" %}
-                {% set premisesField = {
-                    text: error.msg
-                }%}
-            {% elseif error.path === "addressLine1" %}
-                {% set addressLine1Field = {
-                    text: error.msg
-                }%}
-            {% elseif error.path === "addressLine2" %}
-                {% set addressLine2Field = {
-                    text: error.msg
-                }%}
-            {% elseif error.path === "townOrCity" %}
-                {% set townOrCityField = {
-                    text: error.msg
-                }%}
-            {% elseif error.path === "country" %}
-                {% set countryField = {
-                    text: error.msg
-                }%}
-            {% elseif error.path === "postCode" %}
-                {% set postCodeField = {
-                    text: error.msg
-                }%}
-            {% endif %}
-        {% endfor %}
-        {% else %}
-            {% set errorMessage = undefined %}
-    {% endif %}
+
         <form class="form" action="{{Urls.ENTER_YOUR_DETAILS}}" method="POST">
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -60,52 +25,48 @@
                         id: "premises",
                         name: "premises",
                         value: address.premises,
-                        classes: "{% if premisesField !== '' ? 'govuk-input--error' else '' %}",
-                        errorMessage: premisesField
+                        errorMessage: { text: errors.premises.summary } if errors.premises.summary else null
                     }) 
                 }}
                 {{ govukInput({
                     label: {
                         text: "Address line 1"
                     },
-                    classes: "govuk-!-width-full {% if addressLine1Field !== '' ? 'govuk-input--error' else '' %}",
                     id: "address-line-1",
                     name: "addressLine1",
                     value: address.addressLine1,
-                    errorMessage: addressLine1Field
+                    errorMessage: { text: errors.addressLine1.summary } if errors.addressLine1 else null
                     }) 
                 }}
                 {{ govukInput({
                     label: {
-                        text: "Address line 2(optional)"
+                        text: "Address line 2 (optional)"
                     },
                     classes: "govuk-!-width-full",
                     id: "address-line-2",
                     name: "addressLine2",
                     value: address.addressLine2,
-                    errorMessage: addressLine2Field
+                    errorMessage: { text: errors.addressLine2.summary } if errors.addressLine2 else null
                     }) 
                 }}
                  {{ govukInput({
                     label: {
                         text: "Town or city"
                     },
-                    classes: "govuk-!-width-two-thirds {% if townOrCityField !== '' ? 'govuk-input--error' else '' %}",
                     id: "town-or-city",
                     name: "townOrCity",
                     value: address.townOrCity,
-                    errorMessage: townOrCityField
+                    errorMessage: { text: errors.townOrCity.summary } if errors.townOrCity else null
                     }) 
                 }}
                  {{ govukInput({
                     label: {
-                        text: "Postcode or zip Code"
+                        text: "Postcode or zip code"
                     },
-                    classes: "govuk-!-width-one-half {% if postCodeField !== '' ? 'govuk-input--error' else '' %}",
                     id: "post-code",
                     name: "postCode",
                     value: address.postCode,
-                    errorMessage: postCodeField
+                    errorMessage: { text: errors.postCode.summary } if errors.postCode else null
                     }) 
                 }}
                 {{ govukSelect({
@@ -116,7 +77,7 @@
                         text: "Country"
                     },
                     items: countries,
-                    errorMessage: countryField
+                    errorMessage: { text: errors.country.summary } if errors.country else null
                     }) 
                 }}
                 {{ govukButton({

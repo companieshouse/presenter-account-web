@@ -7,7 +7,7 @@ import { Request } from "express";
 
 export interface BaseViewData {
     errors: any
-    title: string 
+    title: string
     isSignedIn: boolean
     backURL: string | null
     servicePathPrefix: string

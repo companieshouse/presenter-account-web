@@ -1,4 +1,3 @@
-import { Session } from "@companieshouse/node-session-handler";
 import { Request } from "express";
 import { isDetails } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { type Details } from "private-api-sdk-node/src/services/presenter-account/types";
@@ -6,8 +5,7 @@ import { type Details } from "private-api-sdk-node/src/services/presenter-accoun
 export const PRESENTER_ACCOUNT_SESSION_KEY = "presenter_account_details";
 
 export function getPresenterAccountDetails(req: Request): Details {
-    const session = req.session as Session;
-    const presenterAccountDetails = session.getExtraData(PRESENTER_ACCOUNT_SESSION_KEY);
+    const presenterAccountDetails = req.session?.getExtraData(PRESENTER_ACCOUNT_SESSION_KEY);
 
     if (presenterAccountDetails === undefined) {
         throw new Error(`Presenter account details are undefined`);
@@ -22,6 +20,5 @@ export function getPresenterAccountDetails(req: Request): Details {
 
 
 export function setPresenterAccountDetails(req: Request, details: Details) {
-    const session = req.session as Session;
-    session.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, details);
+    req.session?.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, details);
 }

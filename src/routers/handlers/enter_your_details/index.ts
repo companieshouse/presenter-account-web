@@ -1,16 +1,19 @@
 import { BaseViewData, GenericHandler, Redirect, ViewModel } from "./../generic";
 import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
-import { Details, type Address, isDetails, isAddress } from "private-api-sdk-node/src/services/presenter-account/types";
+import { type Address } from "private-api-sdk-node/src/services/presenter-account/types";
 import { PrefixedUrls, Countries } from "../../../constants";
-import { addressToQueryString } from "./../../../utils";
 import { setPresenterAccountDetails, getPresenterAccountDetails } from "./../../../utils/session";
-import { Result, ValidationError, validationResult } from "express-validator";
+import { FieldValidationError, Result, ValidationError, validationResult } from "express-validator";
 
 interface CountryType {
     value: string,
     text: string,
     selected?: boolean
+}
+
+interface ErrorManifest {
+    [key: string]: any
 }
 
 interface EnterYourDetailsViewData extends BaseViewData{
@@ -29,21 +32,26 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
      */
     public getViewData(req: Request): EnterYourDetailsViewData {
         const baseViewData = super.getViewData(req);
+        // retrieve details using session key
         const details = getPresenterAccountDetails(req);
+        // adding the address field to the details obj
+        details.address = details.address || req.body as Address;
+        // set updated session object back to the session
+        setPresenterAccountDetails(req, details);
 
         return {
             ...baseViewData,
             title: this.title,
             backURL: PrefixedUrls.APPLY_TO_FILE_OPTIONS,
-            address: isDetails(details) ? details.address : {} as Address,
+            address: details.address || req.body,
             countries: [{ value: 'Select a country', text: 'Select a country', selected: true }, ...Countries()]
         };
     }
 
     public executeGet(req: Request, _response: Response): ViewModel<EnterYourDetailsViewData>{
         logger.info(`${this.constructor.name} get execute called`);
-
         const viewData = this.getViewData(req);
+
         return {
             templatePath: EnterYourDetailsHandler.templatePath,
             viewData
@@ -52,12 +60,6 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
 
     public executePost(req: Request, _response: Response): Redirect | ViewModel<EnterYourDetailsViewData> {
         logger.info(`${this.constructor.name} post execute called`);
-        const retrieveDetails = getPresenterAccountDetails(req);
-        // retrieve details using session key
-        const details: Details = isDetails(retrieveDetails) ? retrieveDetails : {} as Details;
-        // adding the address field to the details obj
-        const address = isAddress(req.body as Address) ? req.body as Address : {} as Address;
-        details.address = address;
         // generate the redirect query string
         const redirect: string = `${PrefixedUrls.CHECK_DETAILS}`;
         // validating the form using the req object
@@ -66,20 +68,27 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         if (!errors.isEmpty()){
             const viewData = this.getViewData(req);
             // if validation errors exists, get them as an array
-            viewData.errors = errors.array();
-            // @Todo: this line will be replaced with a nunjucks filter moving forward
-            viewData.errors.map((error: { [x: string]: any; path: string; }) => error["fieldId"] = error.path.split(/(?=[A-Z0-9])/).join('-').toLocaleLowerCase());
+            viewData.errors = this.convertValidationErrorsToErrorManifestType(errors.array());
             return {
                 templatePath: EnterYourDetailsHandler.templatePath,
                 viewData
             };
         }
-        // set updated session object back to the session
-        setPresenterAccountDetails(req, details);
         return { redirect };
     }
 
     private validateRequest(req: Request): Result<ValidationError>{
         return validationResult(req);
+    }
+
+    private convertValidationErrorsToErrorManifestType(errors: any){
+        const errorManifest: ErrorManifest = {};
+        errors.map((error: FieldValidationError) => {
+            // use element id as key
+            const key = error.path;
+            errorManifest[key].fileId = error.path.split(/(?=[A-Z0-9])/).join('-').toLocaleLowerCase();
+            errorManifest[key].summary = error.msg;
+        });
+        return errorManifest;
     }
 }

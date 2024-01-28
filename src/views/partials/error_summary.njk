@@ -10,16 +10,10 @@
                         <li>
                             {{ errors.serverError.summary }}
                         </li>
-                    {% elseif errors[0].msg is not undefined %}
-                        {% for error in errors %}
-                            <li>
-                                <a href="#{{ error.fieldId }}">{{ error.msg }}</a>
-                            </li>
-                        {% endfor %}
                     {% else %}
                         {% for key,err in errors %}
                             <li>
-                                <a href="#{{ key }}">{{ err.summary }}</a>
+                                <a href="#{{ err.fileId if err.fileId else key}}">{{ err.summary }}</a>
                             </li>
                         {% endfor %}
                     {% endif %}
