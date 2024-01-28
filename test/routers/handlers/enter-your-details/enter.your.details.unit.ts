@@ -5,9 +5,9 @@ import { Address } from "private-api-sdk-node/src/services/presenter-account/typ
 import { EnterYourDetailsErrorMessages } from "../../../../src/utils/error_manifests/enter.your.details.errors";
 import { examplePresenterAccountDetails } from "../../../mocks/example.presenter.account.details.mock";
 
-describe("validate form fields", async () => {
-    const resp = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send({} as Address);
-    const resp2 = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send(examplePresenterAccountDetails.address as Address);
+describe("validate form fields", () => {
+    const resp = request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send({} as Address);
+    const resp2 = request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send(examplePresenterAccountDetails.address as Address);
 
     it("should render the enter your details page", async () => {
         const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS);
