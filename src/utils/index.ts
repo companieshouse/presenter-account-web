@@ -17,8 +17,3 @@ export function getRelativeUrl (req: Request): string {
     return (req.baseUrl + req.path).slice(servicePathPrefix.length);
 }
 
-export function addressToQueryString (address: Record<string, any>): string {
-    return Object.keys(address)
-        .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(address[key]))
-        .join('&');
-}
