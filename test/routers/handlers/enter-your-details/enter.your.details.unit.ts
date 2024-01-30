@@ -21,12 +21,12 @@ describe("validate form fields", () => {
 
     });
 
-    it.only("should render the enter your details page", async () => {
+    it("should render the enter your details page", async () => {
         const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS).expect(200);
         expect(resp.text).toContain("What is your correspondence address?");
     });
 
-    it.only("should display errors for missing mandatory fields",  async () => {
+    it("should display errors for missing mandatory fields",  async () => {
         const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send({ country: "Select a country" }).expect(200);
 
         expect(response.text).toContain(EnterYourDetailsErrorMessages.PREMISES_BLANK);
@@ -36,7 +36,7 @@ describe("validate form fields", () => {
         expect(response.text).toContain(EnterYourDetailsErrorMessages.COUNTRY_BLANK);
     });
 
-    it.only("should redirect when no errors displayed",  async () => {
+    it("should redirect when no errors displayed",  async () => {
         const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).query(details).send(details.address);
         expect(response.status).toBe(302);
     });
