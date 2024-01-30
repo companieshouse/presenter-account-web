@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
 import { type Address } from "private-api-sdk-node/src/services/presenter-account/types";
 import { PrefixedUrls, Countries } from "../../../constants";
-import { setPresenterAccountDetails, getPresenterAccountDetails } from "./../../../utils/session";
+import { setPresenterAccountDetails, getPresenterAccountDetails, generateUserDetails } from "./../../../utils/session";
 import { FieldValidationError, Result, ValidationError, validationResult } from "express-validator";
 
 interface CountryType {
@@ -34,16 +34,12 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         const baseViewData = super.getViewData(req);
         // retrieve details using session key
         const details = getPresenterAccountDetails(req);
-        // adding the address field to the details obj
-        details.address = details.address || req.body as Address;
-        // set updated session object back to the session
-        setPresenterAccountDetails(req, details);
 
         return {
             ...baseViewData,
             title: this.title,
             backURL: PrefixedUrls.APPLY_TO_FILE_OPTIONS,
-            address: details.address || req.body,
+            address: details?.address || req.body?.address,
             countries: [{ value: 'Select a country', text: 'Select a country', selected: true }, ...Countries()]
         };
     }
@@ -58,15 +54,15 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         };
     }
 
-    public executePost(req: Request, _response: Response): Redirect | ViewModel<EnterYourDetailsViewData> {
+    public executePost(req: Request, _response: Response): ViewModel<EnterYourDetailsViewData> | Redirect {
         logger.info(`${this.constructor.name} post execute called`);
+        const viewData = this.getViewData(req);
         // generate the redirect query string
         const redirect: string = `${PrefixedUrls.CHECK_DETAILS}`;
         // validating the form using the req object
         const errors = this.validateRequest(req);
 
         if (!errors.isEmpty()){
-            const viewData = this.getViewData(req);
             // if validation errors exists, get them as an array
             viewData.errors = this.convertValidationErrorsToErrorManifestType(errors.array());
             return {
@@ -74,6 +70,11 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
                 viewData
             };
         }
+
+        const details =  generateUserDetails(req);
+
+        setPresenterAccountDetails(req, details);
+
         return { redirect };
     }
 
@@ -86,7 +87,8 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         errors.map((error: FieldValidationError) => {
             // use element id as key
             const key = error.path;
-            errorManifest[key].fileId = error.path.split(/(?=[A-Z0-9])/).join('-').toLocaleLowerCase();
+            errorManifest[key] = {};
+            errorManifest[key].fileId = key.split(/(?=[A-Z0-9])/).join('-').toLocaleLowerCase();
             errorManifest[key].summary = error.msg;
         });
         return errorManifest;
