@@ -35,7 +35,7 @@
                     id: "address-line-1",
                     name: "addressLine1",
                     value: address.addressLine1,
-                    errorMessage: { text: errors.addressLine1.summary } if errors.addressLine1 else null
+                    errorMessage: { text: errors['address-line-1'].summary } if errors['address-line-1'] else null
                     }) 
                 }}
                 {{ govukInput({
@@ -46,7 +46,7 @@
                     id: "address-line-2",
                     name: "addressLine2",
                     value: address.addressLine2,
-                    errorMessage: { text: errors.addressLine2.summary } if errors.addressLine2 else null
+                    errorMessage: { text: errors['address-line-2'].summary } if errors['address-line-2']else null
                     }) 
                 }}
                  {{ govukInput({
@@ -56,7 +56,7 @@
                     id: "town-or-city",
                     name: "townOrCity",
                     value: address.townOrCity,
-                    errorMessage: { text: errors.townOrCity.summary } if errors.townOrCity else null
+                    errorMessage: { text: errors['town-or-city'].summary } if errors['town-or-city'] else null
                     }) 
                 }}
                  {{ govukInput({
@@ -66,7 +66,7 @@
                     id: "post-code",
                     name: "postCode",
                     value: address.postCode,
-                    errorMessage: { text: errors.postCode.summary } if errors.postCode else null
+                    errorMessage: { text: errors['post-code'].summary } if errors['post-code'] else null
                     }) 
                 }}
                 {{ govukSelect({

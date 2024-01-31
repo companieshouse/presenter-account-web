@@ -23,7 +23,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
         const baseViewData = super.getViewData(req);
 
         const details = getPresenterAccountDetails(req);
-        if (details === undefined) {
+        if (details.userId === undefined) {
             throw new Error("Presenter account details not found in session.");
         }
 

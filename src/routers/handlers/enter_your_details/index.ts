@@ -2,23 +2,21 @@ import { BaseViewData, GenericHandler, Redirect, ViewModel } from "./../generic"
 import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
 import { type Address } from "private-api-sdk-node/src/services/presenter-account/types";
-import { PrefixedUrls, Countries } from "../../../constants";
-import { setPresenterAccountDetails, getPresenterAccountDetails, generateUserDetails } from "./../../../utils/session";
-import { FieldValidationError, Result, ValidationError, validationResult } from "express-validator";
+import { PrefixedUrls, defaultAddress, countries } from "../../../constants";
+import { setPresenterAccountDetails, getPresenterAccountDetails, fetchUserDetails } from "./../../../utils/session";
+import { ValidationError, validationResult } from "express-validator";
+import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
+import { ErrorManifestValidationType } from "utils/error_manifests/default";
 
-interface CountryType {
+interface CountryOptions {
     value: string,
     text: string,
     selected?: boolean
 }
 
-interface ErrorManifest {
-    [key: string]: any
-}
-
 interface EnterYourDetailsViewData extends BaseViewData{
     address: Address ;
-    countries: CountryType[];
+    countries: CountryOptions[];
 }
 
 export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsViewData>{
@@ -35,17 +33,22 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         // retrieve details using session key
         const details = getPresenterAccountDetails(req);
 
+        if (details.userId === undefined) {
+            throw new Error("Presenter account details not found in session.");
+        }
+
         return {
             ...baseViewData,
             title: this.title,
             backURL: PrefixedUrls.APPLY_TO_FILE_OPTIONS,
             address: details?.address || req.body?.address,
-            countries: [{ value: 'Select a country', text: 'Select a country', selected: true }, ...Countries()]
+            countries: [{ value: 'Select a country', text: 'Select a country', selected: true }, ...countries]
         };
     }
 
     public executeGet(req: Request, _response: Response): ViewModel<EnterYourDetailsViewData>{
         logger.info(`${this.constructor.name} get execute called`);
+
         const viewData = this.getViewData(req);
 
         return {
@@ -56,13 +59,11 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
 
     public executePost(req: Request, _response: Response): ViewModel<EnterYourDetailsViewData> | Redirect {
         logger.info(`${this.constructor.name} post execute called`);
-        const viewData = this.getViewData(req);
-        // generate the redirect query string
-        const redirect: string = `${PrefixedUrls.CHECK_DETAILS}`;
         // validating the form using the req object
-        const errors = this.validateRequest(req);
+        const errors = validationResult(req);
 
         if (!errors.isEmpty()){
+            const viewData = this.getViewData(req);
             // if validation errors exists, get them as an array
             viewData.errors = this.convertValidationErrorsToErrorManifestType(errors.array());
             return {
@@ -70,26 +71,31 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
                 viewData
             };
         }
+        let details =  getPresenterAccountDetails(req);
+        const address = isAddress(details.address) ? details.address : req.body ;
 
-        const details =  generateUserDetails(req);
+        if (details.userId === undefined) {
+            details = fetchUserDetails(req, details);
+        }
 
+        details.address = address;
         setPresenterAccountDetails(req, details);
-
+        // generate the redirect query string
+        const redirect = PrefixedUrls.CHECK_DETAILS;
         return { redirect };
     }
 
-    private validateRequest(req: Request): Result<ValidationError>{
-        return validationResult(req);
-    }
-
-    private convertValidationErrorsToErrorManifestType(errors: any){
-        const errorManifest: ErrorManifest = {};
-        errors.map((error: FieldValidationError) => {
+    private convertValidationErrorsToErrorManifestType(errors: ValidationError[]){
+        const errorManifest: ErrorManifestValidationType = {};
+        errors.forEach((error) => {
             // use element id as key
-            const key = error.path;
-            errorManifest[key] = {};
-            errorManifest[key].fileId = key.split(/(?=[A-Z0-9])/).join('-').toLocaleLowerCase();
-            errorManifest[key].summary = error.msg;
+            if (error.type === 'field') {
+                const key = error.path.split(/(?=[A-Z0-9])/).join('-').toLocaleLowerCase();
+                errorManifest[key] = {
+                    inline: error.msg,
+                    summary: error.msg
+                };
+            }
         });
         return errorManifest;
     }
