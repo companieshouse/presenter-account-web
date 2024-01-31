@@ -2,7 +2,7 @@ import { BaseViewData, GenericHandler, Redirect, ViewModel } from "./../generic"
 import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
 import { type Address } from "private-api-sdk-node/src/services/presenter-account/types";
-import { PrefixedUrls, defaultAddress, countries } from "../../../constants";
+import { PrefixedUrls, countries } from "../../../constants";
 import { setPresenterAccountDetails, getPresenterAccountDetails, fetchUserDetails } from "./../../../utils/session";
 import { ValidationError, validationResult } from "express-validator";
 import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";

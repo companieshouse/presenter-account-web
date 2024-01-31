@@ -288,7 +288,7 @@ export const countries = [
     { value: 'Zimbabwe', text: 'Zimbabwe' },
 ] as const;
 
-export const defaultAddress = {
+const defaultAddress = {
     premises: '',
     postCode: '',
     country: '',
