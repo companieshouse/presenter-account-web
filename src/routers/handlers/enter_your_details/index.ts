@@ -73,12 +73,12 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         }
         let details =  getPresenterAccountDetails(req);
         const address = isAddress(details.address) ? details.address : req.body ;
+        details.address = address;
 
         if (details.userId === undefined) {
             details = fetchUserDetails(req, details);
         }
 
-        details.address = address;
         setPresenterAccountDetails(req, details);
         // generate the redirect query string
         const redirect = PrefixedUrls.CHECK_DETAILS;
