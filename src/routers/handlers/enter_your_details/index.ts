@@ -72,7 +72,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
             };
         }
         let details =  getPresenterAccountDetails(req);
-        details.address = {...req.body};
+        details.address = { ...req.body };
 
         if (details.userId === undefined) {
             details = fetchUserDetails(req, details);
