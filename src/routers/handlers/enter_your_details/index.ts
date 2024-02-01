@@ -5,7 +5,6 @@ import { type Address } from "private-api-sdk-node/src/services/presenter-accoun
 import { PrefixedUrls, countries } from "../../../constants";
 import { setPresenterAccountDetails, getPresenterAccountDetails, fetchUserDetails } from "./../../../utils/session";
 import { ValidationError, validationResult } from "express-validator";
-import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { ErrorManifestValidationType } from "utils/error_manifests/default";
 
 interface CountryOptions {
