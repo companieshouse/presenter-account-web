@@ -3,10 +3,10 @@ import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
 import { type Address } from "private-api-sdk-node/src/services/presenter-account/types";
 import { PrefixedUrls, countries } from "../../../constants";
-import { setPresenterAccountDetails, getPresenterAccountDetails } from "./../../../utils/session";
+import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault } from "./../../../utils/session";
 import { ValidationError, validationResult } from "express-validator";
 import { ErrorManifestValidationType } from "utils/error_manifests/default";
-import { isAddress, isDetails } from "private-api-sdk-node/dist/services/presenter-account/types";
+import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 
 interface CountryOptions {
     value: string,
@@ -30,8 +30,8 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
      */
     public getViewData(req: Request): EnterYourDetailsViewData {
         const baseViewData = super.getViewData(req);
-        // retrieve details using session key
-        const details = getPresenterAccountDetails(req);
+
+        const details = getPresenterAccountDetailsOrDefault(req);
 
         if (details.userId === "") {
             throw new Error("Presenter account details not found in session.");
@@ -41,7 +41,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
             ...baseViewData,
             title: this.title,
             backURL: PrefixedUrls.APPLY_TO_FILE_OPTIONS,
-            address: details?.address || req.body?.address,
+            address: details.address,
             countries: [{ value: 'Select a country', text: 'Select a country', selected: true }, ...countries]
         };
     }
@@ -71,18 +71,15 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
                 viewData
             };
         }
-        const details =  getPresenterAccountDetails(req);
+        const details =  getPresenterAccountDetailsOrDefault(req);
+        if (isAddress(req.body)){
+            details.address = req.body;
+        } else {
+            throw new Error("Incorrect Address format set for presenter account details");
+        }
 
-        if (isDetails(details)) {
-            if (isAddress(req.body)){
-                details.address = req.body;
-            } else {
-                throw new Error("Incorrect Address format set for presenter account details");
-            }
-
-            if (details.userId === "") {
-                throw new Error("Presenter account details not found in session.");
-            }
+        if (details.userId === "") {
+            throw new Error("Presenter account details not found in session.");
         }
 
         setPresenterAccountDetails(req, details);
