@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
 import { type Address } from "private-api-sdk-node/src/services/presenter-account/types";
 import { PrefixedUrls, countries } from "../../../constants";
-import { setPresenterAccountDetails, getPresenterAccountDetails, fetchUserDetails } from "./../../../utils/session";
+import { setPresenterAccountDetails, getPresenterAccountDetails } from "./../../../utils/session";
 import { ValidationError, validationResult } from "express-validator";
 import { ErrorManifestValidationType } from "utils/error_manifests/default";
 import { isAddress, isDetails } from "private-api-sdk-node/dist/services/presenter-account/types";
