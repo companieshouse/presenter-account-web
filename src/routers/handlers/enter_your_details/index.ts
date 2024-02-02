@@ -31,17 +31,10 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
     public getViewData(req: Request): EnterYourDetailsViewData {
         const baseViewData = super.getViewData(req);
 
-        const details = getPresenterAccountDetailsOrDefault(req);
-
-        if (details.userId === "") {
-            throw new Error("Presenter account details not found in session.");
-        }
-
         return {
             ...baseViewData,
             title: this.title,
             backURL: PrefixedUrls.APPLY_TO_FILE_OPTIONS,
-            address: details.address,
             countries: [{ value: 'Select a country', text: 'Select a country', selected: true }, ...countries]
         };
     }
@@ -49,7 +42,10 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
     public executeGet(req: Request, _response: Response): ViewModel<EnterYourDetailsViewData>{
         logger.info(`${this.constructor.name} get execute called`);
 
+        const details = getPresenterAccountDetailsOrDefault(req);
+
         const viewData = this.getViewData(req);
+        viewData.address = details.address;
 
         return {
             templatePath: EnterYourDetailsHandler.templatePath,
@@ -66,20 +62,19 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
             const viewData = this.getViewData(req);
             // if validation errors exists, get them as an array
             viewData.errors = this.convertValidationErrorsToErrorManifestType(errors.array());
+            viewData.address = req.body;
             return {
                 templatePath: EnterYourDetailsHandler.templatePath,
                 viewData
             };
         }
         const details =  getPresenterAccountDetailsOrDefault(req);
-        if (isAddress(req.body)){
-            details.address = req.body;
+
+        const address = { ...req.body };
+        if (isAddress(address)){
+            details.address = address;
         } else {
             throw new Error("Incorrect Address format set for presenter account details");
-        }
-
-        if (details.userId === "") {
-            throw new Error("Presenter account details not found in session.");
         }
 
         setPresenterAccountDetails(req, details);

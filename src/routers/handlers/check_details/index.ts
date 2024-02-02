@@ -23,7 +23,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
         const baseViewData = super.getViewData(req);
 
         const details = getPresenterAccountDetails(req);
-        if (details.userId === undefined) {
+        if (details === undefined) {
             throw new Error("Presenter account details not found in session.");
         }
 
@@ -51,6 +51,10 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
     private async submitDetails(req: Request): Promise<Result<void, Error>> {
         try {
             const details = getPresenterAccountDetails(req);
+
+            if (details === undefined) {
+                throw new Error("Presenter account details not found in session.");
+            }
 
             const apiClient = createOauthPrivateApiClient(req);
             return await apiClient.presenterAccountService.submitPresenterAccountDetails(details);
