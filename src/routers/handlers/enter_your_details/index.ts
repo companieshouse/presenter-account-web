@@ -33,7 +33,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         // retrieve details using session key
         const details = getPresenterAccountDetails(req);
 
-        if (details.userId === undefined) {
+        if (details.userId === "") {
             throw new Error("Presenter account details not found in session.");
         }
 
@@ -71,7 +71,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
                 viewData
             };
         }
-        let details =  getPresenterAccountDetails(req);
+        const details =  getPresenterAccountDetails(req);
 
         if (isDetails(details)) {
             if (isAddress(req.body)){
@@ -80,8 +80,8 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
                 throw new Error("Incorrect Address format set for presenter account details");
             }
 
-            if (details.userId === undefined) {
-                details = fetchUserDetails(req, details);
+            if (details.userId === "") {
+                throw new Error("Presenter account details not found in session.");
             }
         }
 

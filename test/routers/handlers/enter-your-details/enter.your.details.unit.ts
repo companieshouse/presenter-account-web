@@ -15,13 +15,13 @@ describe("validate form fields", () => {
         await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS).expect(500);
     });
 
-    it(`should set session when session ${PRESENTER_ACCOUNT_SESSION_KEY} not set`, async () => {
+    it(`should throw error when session ${PRESENTER_ACCOUNT_SESSION_KEY} not set`, async () => {
         session.setExtraData(
             'some random session',
             examplePresenterAccountDetails
         );
 
-        await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS).expect(200);
+        await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS).expect(500);
     });
 
     it(`should render the enter your details page when session ${PRESENTER_ACCOUNT_SESSION_KEY} set`, async () => {

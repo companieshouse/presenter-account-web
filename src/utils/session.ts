@@ -10,7 +10,7 @@ export function getPresenterAccountDetails(req: Request): Details {
         presenterAccountDetails =  fetchUserDetails(req, defaultDetails);
         setPresenterAccountDetails(req, defaultDetails);
     }
-    return presenterAccountDetails;
+    return presenterAccountDetails as Details;
 }
 
 
@@ -20,10 +20,10 @@ export function setPresenterAccountDetails(req: Request, details: Details) {
 
 export function fetchUserDetails(req: Request, details: Details): Details{
     const signinInfo = req.session?.data?.signin_info;
-    const email = signinInfo?.user_profile?.email;
-    const userId = signinInfo?.user_profile?.id;
-    const forename = signinInfo?.user_profile?.forename as string;
-    const surname = signinInfo?.user_profile?.surname as string;
+    const email = signinInfo?.user_profile?.email ?? "";
+    const userId = signinInfo?.user_profile?.id ?? "";
+    const forename = signinInfo?.user_profile?.forename ?? "";
+    const surname = signinInfo?.user_profile?.surname ?? "";
 
     const name: Name = { forename, surname };
 
