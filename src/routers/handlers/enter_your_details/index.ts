@@ -6,6 +6,7 @@ import { PrefixedUrls, countries } from "../../../constants";
 import { setPresenterAccountDetails, getPresenterAccountDetails, fetchUserDetails } from "./../../../utils/session";
 import { ValidationError, validationResult } from "express-validator";
 import { ErrorManifestValidationType } from "utils/error_manifests/default";
+import { isAddress, isDetails } from "private-api-sdk-node/dist/services/presenter-account/types";
 
 interface CountryOptions {
     value: string,
@@ -71,16 +72,21 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
             };
         }
         let details =  getPresenterAccountDetails(req);
-        details.address = { ...req.body };
 
-        if (details.userId === undefined) {
-            details = fetchUserDetails(req, details);
+        if (isDetails(details)) {
+            if (isAddress(req.body)){
+                details.address = req.body;
+            } else {
+                throw new Error("Incorrect Address format set for presenter account details");
+            }
+
+            if (details.userId === undefined) {
+                details = fetchUserDetails(req, details);
+            }
         }
 
         setPresenterAccountDetails(req, details);
-        // generate the redirect query string
-        const redirect = PrefixedUrls.CHECK_DETAILS;
-        return { redirect };
+        return { redirect: PrefixedUrls.CHECK_DETAILS };
     }
 
     private convertValidationErrorsToErrorManifestType(errors: ValidationError[]){

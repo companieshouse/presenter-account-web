@@ -5,23 +5,17 @@ import { Name, type Details } from "private-api-sdk-node/src/services/presenter-
 export const PRESENTER_ACCOUNT_SESSION_KEY = "presenter_account_details";
 
 export function getPresenterAccountDetails(req: Request): Details {
-    let presenterAccountDetails: Details | undefined;
-    if (req.session !== undefined){
-        presenterAccountDetails = req.session.getExtraData(PRESENTER_ACCOUNT_SESSION_KEY);
-        if (presenterAccountDetails === undefined) {
-            presenterAccountDetails =  fetchUserDetails(req, defaultDetails);
-            setPresenterAccountDetails(req, defaultDetails);
-        }
-        return presenterAccountDetails;
+    let presenterAccountDetails = req.session?.getExtraData(PRESENTER_ACCOUNT_SESSION_KEY);
+    if (presenterAccountDetails === undefined) {
+        presenterAccountDetails =  fetchUserDetails(req, defaultDetails);
+        setPresenterAccountDetails(req, defaultDetails);
     }
-    return fetchUserDetails(req, defaultDetails);
+    return presenterAccountDetails;
 }
 
 
 export function setPresenterAccountDetails(req: Request, details: Details) {
-    if (req.session !== undefined){
-        req.session.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, details);
-    }
+    req.session?.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, details);
 }
 
 export function fetchUserDetails(req: Request, details: Details): Details{
@@ -35,12 +29,10 @@ export function fetchUserDetails(req: Request, details: Details): Details{
 
     const createdDate = (new Date()).toISOString();
 
-    details = { ...details,
+    return { ...details,
         email,
         userId,
         name,
         createdDate
-    } as Details;
-
-    return details;
+    };
 }
