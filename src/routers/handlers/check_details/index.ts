@@ -52,6 +52,10 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
         try {
             const details = getPresenterAccountDetails(req);
 
+            if (details === undefined) {
+                throw new Error("Presenter account details not found in session.");
+            }
+
             const apiClient = createOauthPrivateApiClient(req);
             return await apiClient.presenterAccountService.submitPresenterAccountDetails(details);
         } catch (e: any) {

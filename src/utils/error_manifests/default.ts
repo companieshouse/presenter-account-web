@@ -48,4 +48,8 @@ export const errorManifest = {
     }
 } as const;
 
+export interface ErrorManifestValidationType{
+    [key: string]: {summary: string, inline: string}
+}
+
 export default errorManifest;

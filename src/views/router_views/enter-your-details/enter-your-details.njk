@@ -1,0 +1,92 @@
+{% extends "layouts/default.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% block main_content %}
+
+        <form class="form" action="{{Urls.ENTER_YOUR_DETAILS}}" method="POST">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        {{ title }}
+                    </h1>
+                </legend>
+                <p class="govuk-hint">We may use this to contact you about your account.</p>
+                {{ govukInput({
+                        label: {
+                            text: "Property name or number",
+                            classes: "govuk-label"
+                        },
+                        hint: {
+                            text: "For example, 'The Mill', '116' or 'Flat 37a'."
+                        },
+                        id: "premises",
+                        name: "premises",
+                        value: address.premises,
+                        errorMessage: { text: errors.premises.summary } if errors.premises.summary else null
+                    }) 
+                }}
+                {{ govukInput({
+                    label: {
+                        text: "Address line 1"
+                    },
+                    id: "address-line-1",
+                    name: "addressLine1",
+                    value: address.addressLine1,
+                    errorMessage: { text: errors['address-line-1'].summary } if errors['address-line-1'] else null
+                    }) 
+                }}
+                {{ govukInput({
+                    label: {
+                        text: "Address line 2 (optional)"
+                    },
+                    classes: "govuk-!-width-full",
+                    id: "address-line-2",
+                    name: "addressLine2",
+                    value: address.addressLine2,
+                    errorMessage: { text: errors['address-line-2'].summary } if errors['address-line-2']else null
+                    }) 
+                }}
+                 {{ govukInput({
+                    label: {
+                        text: "Town or city"
+                    },
+                    id: "town-or-city",
+                    name: "townOrCity",
+                    value: address.townOrCity,
+                    errorMessage: { text: errors['town-or-city'].summary } if errors['town-or-city'] else null
+                    }) 
+                }}
+                 {{ govukInput({
+                    label: {
+                        text: "Postcode or zip code"
+                    },
+                    id: "post-code",
+                    name: "postCode",
+                    value: address.postCode,
+                    errorMessage: { text: errors['post-code'].summary } if errors['post-code'] else null
+                    }) 
+                }}
+                {{ govukSelect({
+                    id: "country",
+                    name: "country",
+                    value: address.country,
+                    label: {
+                        text: "Country"
+                    },
+                    items: countries,
+                    errorMessage: { text: errors.country.summary } if errors.country else null
+                    }) 
+                }}
+                {{ govukButton({
+                    text: "Continue",
+                    type: "submit",
+                    preventDoubleClick: true,
+                    classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-8"
+                    }) 
+                }}
+            </fieldset>
+        </form>
+    {% endblock%}

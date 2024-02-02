@@ -5,26 +5,9 @@ import app from "../../../../src/app";
 import request from "supertest";
 import { PrefixedUrls } from "../../../../src/constants";
 import { PRESENTER_ACCOUNT_SESSION_KEY } from "../../../../src/utils/session";
-import { type Details } from "private-api-sdk-node/src/services/presenter-account/types";
-import { success } from "@companieshouse/api-sdk-node/dist/services/result";
+import { examplePresenterAccountDetails } from "../../../mocks/example.presenter.account.details.mock";
 
-const examplePresenterAccountDetails: Details = {
-    email: "example@email.com",
-    userId: "123e4567-e89b-12d3-a456-426614174000",
-    createdDate: "2022-01-01T00:00:00Z",
-    name: {
-        forename: "John",
-        surname: "Doe",
-    },
-    address: {
-        premises: "123",
-        addressLine1: "Heol Las",
-        addressLine2: "Trem yr Afon",
-        townOrCity: "Abertawe",
-        country: "Cymru",
-        postCode: "FA1 1KE",
-    },
-};
+import { success } from "@companieshouse/api-sdk-node/dist/services/result";
 
 describe("check details tests", () => {
     const changeButtonHtml = `a class="govuk-link" href="/presenter-account/enter-your-details"`;

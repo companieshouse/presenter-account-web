@@ -16,3 +16,4 @@ export function skipIf (predicate: Predicate<Request>, handler: Handler): Handle
 export function getRelativeUrl (req: Request): string {
     return (req.baseUrl + req.path).slice(servicePathPrefix.length);
 }
+
