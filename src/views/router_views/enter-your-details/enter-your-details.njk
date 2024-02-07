@@ -60,6 +60,17 @@
                     errorMessage: { text: errors['town-or-city'].summary } if errors['town-or-city'] else null
                     }) 
                 }}
+                {{ govukInput({
+                    label: {
+                        text: "County"
+                    },
+                    classes: "govuk-input govuk-!-width-two-thirds",
+                    id: "county",
+                    name: "county",
+                    value: address.county,
+                    errorMessage: { text: errors['county'].summary } if errors['county'] else null
+                    }) 
+                }}
                  {{ govukInput({
                     label: {
                         text: "Postcode or zip code"
