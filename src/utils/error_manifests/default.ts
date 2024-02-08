@@ -9,12 +9,6 @@ export const errorManifest = {
             summary: "Your request contains validation errors",
             inline: "Your request contains validation errors"
         },
-        applyToFileOptions: {
-            blank: {
-                summary: "Tell us if you want to file accounts and documents with or without a fee",
-                inline: "Tell us if you want to file accounts and documents with or without a fee"
-            }
-        },
         email: {
             blank: {
                 summary: "Enter an email address",

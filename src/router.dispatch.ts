@@ -1,5 +1,5 @@
 import { Application, Router } from "express";
-import { HomeRouter, HealthCheckRouter, CheckDetailsRouter, ApplyToFileOptionsRouter, YouCannotUseThisServiceRouter, ConfirmationRouter, EnterYourDetailsRouter } from "./routers";
+import { HomeRouter, HealthCheckRouter, CheckDetailsRouter, ConfirmationRouter, EnterYourDetailsRouter } from "./routers";
 import { errorHandler, pageNotFound } from "./routers/handlers/errors";
 import { sessionMiddleware } from "./middleware/session.middleware";
 import { authenticationMiddleware } from "./middleware/authentication.middleware";
@@ -13,8 +13,6 @@ const routerDispatch = (app: Application) => {
 
     router.use(Urls.HOME, HomeRouter);
     router.use(Urls.HEALTHCHECK, HealthCheckRouter);
-    router.use(Urls.APPLY_TO_FILE_OPTIONS, ApplyToFileOptionsRouter);
-    router.use(Urls.YOU_CANNOT_USE_THIS_SERVICE, YouCannotUseThisServiceRouter);
 
     router.use("/", sessionMiddleware);
 

@@ -34,7 +34,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         return {
             ...baseViewData,
             title: this.title,
-            backURL: PrefixedUrls.APPLY_TO_FILE_OPTIONS,
+            backURL: PrefixedUrls.HOME,
             countries: [{ value: 'Select a country', text: 'Select a country', selected: true }, ...countries]
         };
     }
