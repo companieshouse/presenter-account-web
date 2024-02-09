@@ -13,7 +13,7 @@ export const examplePresenterAccountDetails: Details = {
         addressLine1: "Heol Las",
         addressLine2: "Trem yr Afon",
         townOrCity: "Abertawe",
-        country: "Cymru",
+        country: "Cameroon",
         postCode: "SA1 1ZZ"
     }
 };
