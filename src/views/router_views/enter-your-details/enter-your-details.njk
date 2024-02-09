@@ -78,10 +78,10 @@
                             <span class="govuk-visually-hidden">Error:</span> {{ errors.country.summary }}
                         </p>
                     {% endif %}
-                    <input list="countries" name="country" id="country" class="govuk-input govuk-!-width-two-thirds" value="{{address.country}}">
+                    <input list="countries" name="country" id="country" class="govuk-input govuk-!-width-two-thirds {{ 'govuk-input--error' if errors.country }}" value="{{address.country}}">
                     <datalist id="countries">
                         {% for country in countries %}
-                            <option value="{{country.value}}">
+                            <option value="{{country}}">
                         {% endfor %}
                     </datalist>
                 </div>

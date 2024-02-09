@@ -8,14 +8,9 @@ import { ValidationError, validationResult } from "express-validator";
 import { ErrorManifestValidationType } from "utils/error_manifests/default";
 import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 
-interface CountryOptions {
-    value: string,
-    text: string
-}
-
 interface EnterYourDetailsViewData extends BaseViewData{
     address: Address ;
-    countries: CountryOptions[];
+    countries: Array<string>;
 }
 
 export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsViewData>{
