@@ -12,6 +12,6 @@ export const blankFieldValidations = () => {
         body("postCode")
             .not().isEmpty({ ignore_whitespace: true }).withMessage(EnterYourDetailsErrorMessages.POST_CODE_BLANK),
         body("country")
-            .not().isIn(["Select a country"]).withMessage(EnterYourDetailsErrorMessages.COUNTRY_BLANK)
+            .not().isEmpty({ ignore_whitespace: true }).withMessage(EnterYourDetailsErrorMessages.COUNTRY_BLANK)
     ];
 };

@@ -10,8 +10,7 @@ import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/
 
 interface CountryOptions {
     value: string,
-    text: string,
-    selected?: boolean
+    text: string
 }
 
 interface EnterYourDetailsViewData extends BaseViewData{
@@ -35,7 +34,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
             ...baseViewData,
             title: this.title,
             backURL: PrefixedUrls.HOME,
-            countries: [{ value: 'Select a country', text: 'Select a country', selected: true }, ...countries]
+            countries
         };
     }
 

@@ -71,17 +71,20 @@
                     errorMessage: { text: errors['post-code'].summary } if errors['post-code'] else null
                     }) 
                 }}
-                {{ govukSelect({
-                    id: "country",
-                    name: "country",
-                    value: address.country,
-                    label: {
-                        text: "Country"
-                    },
-                    items: countries,
-                    errorMessage: { text: errors.country.summary } if errors.country else null
-                    }) 
-                }}
+                <div class="govuk-form-group {{ 'govuk-form-group--error' if errors.country }}">
+                    <label class="govuk-label" for="countries">Country</label>
+                    {% if errors.country %}
+                        <p id="country-error" class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span> {{ errors.country.summary }}
+                        </p>
+                    {% endif %}
+                    <input list="countries" name="country" id="country" class="govuk-input govuk-!-width-two-thirds" value="{{address.country}}">
+                    <datalist id="countries">
+                        {% for country in countries %}
+                            <option value="{{country.value}}">
+                        {% endfor %}
+                    </datalist>
+                </div>
                 {{ govukButton({
                     text: "Continue",
                     type: "submit",
