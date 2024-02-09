@@ -283,7 +283,7 @@ export const countries = [
     { value: 'Yemen', text: 'Yemen' },
     { value: 'Zambia', text: 'Zambia' },
     { value: 'Zimbabwe', text: 'Zimbabwe' },
-] as const;
+];
 
 const defaultAddress = {
     premises: '',
