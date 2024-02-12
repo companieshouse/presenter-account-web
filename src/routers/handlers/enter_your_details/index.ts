@@ -24,7 +24,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
      */
     public getViewData(req: Request): EnterYourDetailsViewData {
         const baseViewData = super.getViewData(req);
-        const countriesWithChoose = [ { value: "choose", text: "Choose Country", selected: true }, ...countries ];
+        const countriesWithChoose = [ { value: "choose", text: "Choose country", selected: true }, ...countries ];
         return {
             ...baseViewData,
             title: this.title,
