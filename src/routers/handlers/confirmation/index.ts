@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
 import { BaseViewData, GenericHandler, ViewModel } from "../generic";
-import { PrefixedUrls } from "../../../constants";
 
 interface ConfirmationViewData extends BaseViewData {
 }
@@ -16,8 +15,7 @@ export class ConfirmationHandler extends GenericHandler<ConfirmationViewData> {
 
         return {
             ...baseViewData,
-            title: "Application submitted - Apply for a Companies House online filing presenter account - GOV.UK",
-            backURL: PrefixedUrls.CHECK_DETAILS
+            title: "Application submitted - Apply for a Companies House online filing presenter account - GOV.UK"
         };
     }
 
