@@ -86,6 +86,20 @@ describe("check details tests", () => {
             .expect("Location", PrefixedUrls.CONFIRMATION);
     });
 
+    it("Should clean the session after successfully submitting the Presenter Account details", async () => {
+        session.setExtraData(
+            PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetails
+        );
+
+        mockSubmitPresenterAccountDetails.mockReturnValue(success(undefined));
+
+        await request(app)
+            .post(PrefixedUrls.CHECK_DETAILS);
+        
+        expect(session.getExtraData[PRESENTER_ACCOUNT_SESSION_KEY]).toBe(undefined);
+    });
+
     it("Should display an error page when there is an error in submitting the Presenter Account details", async () => {
         const details = examplePresenterAccountDetails;
         mockSubmitPresenterAccountDetails.mockImplementation(() => {
