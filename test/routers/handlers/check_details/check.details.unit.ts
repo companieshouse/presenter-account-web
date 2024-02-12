@@ -96,7 +96,7 @@ describe("check details tests", () => {
 
         await request(app)
             .post(PrefixedUrls.CHECK_DETAILS);
-        
+
         expect(session.getExtraData[PRESENTER_ACCOUNT_SESSION_KEY]).toBe(undefined);
     });
 
