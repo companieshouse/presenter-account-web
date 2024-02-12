@@ -50,3 +50,7 @@ export function getPresenterAccountDetailsOrDefault(req: Request) {
     }
     return details;
 }
+
+export function cleanSessionOnSubmit(req: Request) {
+    req.session?.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, undefined);
+}

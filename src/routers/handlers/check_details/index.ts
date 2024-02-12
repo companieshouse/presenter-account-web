@@ -7,7 +7,7 @@ import {
 } from "./../generic";
 import { logger } from "../../../utils/logger";
 import { type Address } from "private-api-sdk-node/src/services/presenter-account/types";
-import { getPresenterAccountDetails } from "../../../utils/session";
+import { getPresenterAccountDetails, cleanSessionOnSubmit } from "../../../utils/session";
 import { PrefixedUrls } from "../../../constants";
 import { createOauthPrivateApiClient } from "../../../service/api.client.service";
 import { Result, failure } from "@companieshouse/api-sdk-node/dist/services/result";
@@ -75,6 +75,9 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
             const errorMessage = `Error submitting details to the presenter-account-api: ${submitResult.value.message}`;
             logger.error(errorMessage);
             return new Error(errorMessage);
+        } else {
+            // On successful submission, clean up the session
+            cleanSessionOnSubmit(req);
         }
 
         return {
