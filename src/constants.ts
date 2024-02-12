@@ -31,6 +31,7 @@ export const ExternalUrls = {
     FEEDBACK: env.FEEDBACK_URL,
     OPEN_GOVERNMENT_LICENSE: env.OPEN_GOVERNMENT_LICENSE_LINK,
     POLICIES: env.POLICIES_LINK,
+    SIGNOUT: "/signout"
 } as const;
 
 export const countries = [
