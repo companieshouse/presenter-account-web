@@ -10,7 +10,7 @@ import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/
 
 interface EnterYourDetailsViewData extends BaseViewData{
     address: Address ;
-    countries: Array<string>;
+    countries: Array<{value: string, text: string, selected?: boolean}>;
 }
 
 export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsViewData>{
@@ -24,12 +24,12 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
      */
     public getViewData(req: Request): EnterYourDetailsViewData {
         const baseViewData = super.getViewData(req);
-
+        const countriesWithChoose = [ { value: "choose", text: "Choose location", selected: true }, ...countries ];
         return {
             ...baseViewData,
             title: this.title,
             backURL: PrefixedUrls.HOME,
-            countries
+            countries: countriesWithChoose
         };
     }
 
