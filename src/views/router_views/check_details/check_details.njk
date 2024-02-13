@@ -6,16 +6,14 @@
     <h1 class="govuk-heading-l">Check your answers before submitting your application</h1>
 
     {% macro renderAddress(address) %}
-        <dd class="govuk-summary-list__value">
-            {{ address.premises }}<br>
-            {{ address.addressLine1 }}<br>
-            {% if address.addressLine2 %}
-                {{ address.addressLine2 }}<br>
-            {% endif %}
-            {{ address.townOrCity }}<br>
-            {{ address.country }}<br>
-            {{ address.postCode }}
-        </dd>
+        {{ address.premises }}<br>
+        {{ address.addressLine1 }}<br>
+        {% if address.addressLine2 %}
+            {{ address.addressLine2 }}<br>
+        {% endif %}
+        {{ address.townOrCity }}<br>
+        {{ address.country }}<br>
+        {{ address.postCode }}
     {% endmacro %}
 
 
