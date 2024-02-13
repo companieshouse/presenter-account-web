@@ -72,27 +72,6 @@ describe("validate form fields", () => {
         expect(response.text).toContain(EnterYourDetailsErrorMessages.TOWN_OR_CITY_LENGTH);
     });
 
-    it("should not display errors for fields that are max length",  async () => {
-        session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
-            examplePresenterAccountDetails
-        );
-
-        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send({
-            ...examplePresenterAccountDetails.address,
-            premises: fortyCharacters,
-            addressLine1: fortyCharacters,
-            addressLine2: fortyCharacters,
-            postCode: fortyCharacters.substring(0, 10),
-            townOrCity: fortyCharacters }).expect(302);
-
-        expect(response.text).not.toContain(EnterYourDetailsErrorMessages.PREMISES_LENGTH);
-        expect(response.text).not.toContain(EnterYourDetailsErrorMessages.ADDRESS_LINE_1_LENGTH);
-        expect(response.text).not.toContain(EnterYourDetailsErrorMessages.ADDRESS_LINE_2_LENGTH);
-        expect(response.text).not.toContain(EnterYourDetailsErrorMessages.POST_CODE_LENGTH);
-        expect(response.text).not.toContain(EnterYourDetailsErrorMessages.TOWN_OR_CITY_LENGTH);
-    });
-
     it.each([[fortyCharacters.slice(0, 20), fortyCharacters.slice(0, 5)], ["x", "y"], [fortyCharacters, fortyCharacters.substring(0, 10)]])("should not display errors for fields that are beneath or equal to max length",  async (testLength: string, testLength2: string) => {
         session.setExtraData(
             PRESENTER_ACCOUNT_SESSION_KEY,
