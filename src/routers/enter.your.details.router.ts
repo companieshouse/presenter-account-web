@@ -11,7 +11,7 @@ router.get("/", handleExceptions( async (req: Request, res: Response, _next: Nex
     return res.render(templatePath, viewData);
 }));
 
-router.post("/", validators.blankFieldValidations(), handleExceptions( async (req: Request, res: Response, _next: NextFunction) => {
+router.post("/", validators.formValidation(), handleExceptions( async (req: Request, res: Response, _next: NextFunction) => {
     const handler = new EnterYourDetailsHandler();
     const handlerPostResp = handler.executePost(req, res);
 
