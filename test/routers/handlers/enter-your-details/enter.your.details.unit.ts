@@ -93,18 +93,17 @@ describe("validate form fields", () => {
         expect(response.text).not.toContain(EnterYourDetailsErrorMessages.TOWN_OR_CITY_LENGTH);
     });
 
-    it("should not display errors for fields that are beneath max length",  async () => {
+    it.each([[fortyCharacters.slice(0, 20), fortyCharacters.slice(0, 5)], ["x", "y"], [fortyCharacters, fortyCharacters.substring(0, 10)]])("should not display errors for fields that are beneath or equal to max length",  async (testLength: string, testLength2: string) => {
         session.setExtraData(
             PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
-        const testLength = fortyCharacters.slice(0, 5);
         const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send({
             ...examplePresenterAccountDetails.address,
             premises: testLength,
             addressLine1: testLength,
             addressLine2: testLength,
-            postCode: testLength,
+            postCode: testLength2,
             townOrCity: testLength }).expect(302);
 
         expect(response.text).not.toContain(EnterYourDetailsErrorMessages.PREMISES_LENGTH);
