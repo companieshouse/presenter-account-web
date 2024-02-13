@@ -74,12 +74,13 @@
                 {{ govukSelect({
                     id: "country",
                     name: "country",
+                    classes: "govuk-!-width-two-thirds",
                     value: address.country,
+                    errorMessage: { text: errors['country'].summary } if errors['country'] else null,
                     label: {
                         text: "Country"
                     },
-                    items: countries,
-                    errorMessage: { text: errors.country.summary } if errors.country else null
+                    items: countries
                     }) 
                 }}
                 {{ govukButton({

@@ -40,7 +40,7 @@ describe("validate form fields", () => {
             examplePresenterAccountDetails
         );
 
-        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send({ country: "Select a country" }).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send({ country: "choose" }).expect(200);
 
         expect(response.text).toContain(EnterYourDetailsErrorMessages.PREMISES_BLANK);
         expect(response.text).toContain(EnterYourDetailsErrorMessages.ADDRESS_LINE_1_BLANK);

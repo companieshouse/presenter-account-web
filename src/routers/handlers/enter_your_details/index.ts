@@ -8,15 +8,9 @@ import { ValidationError, validationResult } from "express-validator";
 import { ErrorManifestValidationType } from "utils/error_manifests/default";
 import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 
-interface CountryOptions {
-    value: string,
-    text: string,
-    selected?: boolean
-}
-
 interface EnterYourDetailsViewData extends BaseViewData{
     address: Address ;
-    countries: CountryOptions[];
+    countries: Array<{value: string, text: string, selected?: boolean}>;
 }
 
 export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsViewData>{
@@ -30,12 +24,12 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
      */
     public getViewData(req: Request): EnterYourDetailsViewData {
         const baseViewData = super.getViewData(req);
-
+        const countriesWithChoose = [ { value: "choose", text: "Choose country", selected: true }, ...countries ];
         return {
             ...baseViewData,
             title: this.title,
             backURL: PrefixedUrls.HOME,
-            countries: [{ value: 'Select a country', text: 'Select a country', selected: true }, ...countries]
+            countries: countriesWithChoose
         };
     }
 
