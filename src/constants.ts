@@ -2,6 +2,8 @@ import { env } from "./config";
 
 export const servicePathPrefix = "/presenter-account";
 
+export const helpKeywordPrefix = "/help";
+
 export const Urls = {
     ACCESSIBILITY_STATEMENT: "/accessibility-statement",
     HOME: "/",
@@ -13,14 +15,14 @@ export const Urls = {
 } as const;
 
 export const PrefixedUrls = {
-    ACCESSIBILITY_STATEMENT: servicePathPrefix + Urls.ACCESSIBILITY_STATEMENT,
+    ACCESSIBILITY_STATEMENT: helpKeywordPrefix + Urls.ACCESSIBILITY_STATEMENT,
     HOME: servicePathPrefix + Urls.HOME,
     HEALTHCHECK: servicePathPrefix + Urls.HEALTHCHECK,
     ENTER_YOUR_DETAILS: servicePathPrefix + Urls.ENTER_YOUR_DETAILS,
     CHECK_DETAILS: servicePathPrefix + Urls.CHECK_DETAILS,
     CONFIRMATION: servicePathPrefix + Urls.CONFIRMATION,
     SUBMITTED: servicePathPrefix + Urls.SUBMITTED,
-    COOKIES: "/help/cookies"
+    COOKIES: helpKeywordPrefix + "/cookies"
 } as const;
 
 export const ExternalUrls = {
