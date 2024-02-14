@@ -1,5 +1,5 @@
 import { mockSubmitPresenterAccountDetails } from "../../../mocks/mock.presenter.account.service.mock";
-import { session } from "../../../mocks/session.middleware.mock";
+import { session, mockSession } from "../../../mocks/session.middleware.mock";
 
 import app from "../../../../src/app";
 import request from "supertest";
@@ -110,5 +110,21 @@ describe("check details tests", () => {
             .post(PrefixedUrls.CHECK_DETAILS)
             .send(details)
             .expect(500);
+    });
+
+    it("Should redirect to the home page if the user details do not match", async () => {
+        // Use a mock session with a user id value
+        mockSession();
+        session.setExtraData(
+            PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetails
+        );
+
+        mockSubmitPresenterAccountDetails.mockReturnValue(success(undefined));
+
+        await request(app)
+            .get(PrefixedUrls.CHECK_DETAILS)
+            .expect(302)
+            .expect("Location", PrefixedUrls.HOME);
     });
 });

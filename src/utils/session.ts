@@ -1,4 +1,3 @@
-import { defaultDetails } from "./../constants";
 import { Request } from "express";
 import { isDetails } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { type Details } from "private-api-sdk-node/src/services/presenter-account/types";
@@ -19,7 +18,7 @@ export function setPresenterAccountDetails(req: Request, details: Details) {
     req.session?.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, details);
 }
 
-export function populatePresenterAccountDetails(req: Request, details: Details): Details{
+export function populatePresenterAccountDetails(req: Request): Details {
     const user_profile = req.session?.data?.signin_info?.user_profile;
     const createdDate = (new Date()).toISOString();
 
@@ -28,29 +27,32 @@ export function populatePresenterAccountDetails(req: Request, details: Details):
     }
 
     const { email, id, forename, surname } = user_profile;
-    const detailObject = { ...details,
+    const detailObject = {
         email: email,
         userId: id,
         name: { forename, surname },
-        createdDate
-    };
+        createdDate,
+        address: {
+            premises: '',
+            postCode: '',
+            country: '',
+            addressLine1: '',
+            townOrCity: ''
+        }
+    } as Details;
 
-    if (isDetails(detailObject)){
-        return detailObject;
-    }
-
-    throw new Error("Presenter account detail object format not supported");
+    return detailObject;
 }
 
 export function getPresenterAccountDetailsOrDefault(req: Request) {
     let details = getPresenterAccountDetails(req);
     if (details === undefined) {
-        details = populatePresenterAccountDetails(req, defaultDetails);
+        details = populatePresenterAccountDetails(req);
         setPresenterAccountDetails(req, details);
     }
     return details;
 }
 
-export function cleanSessionOnSubmit(req: Request) {
+export function cleanSession(req: Request) {
     req.session?.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, undefined);
 }

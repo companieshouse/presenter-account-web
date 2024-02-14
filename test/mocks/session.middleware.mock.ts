@@ -4,11 +4,14 @@ jest.mock("../../src/middleware/session.middleware");
 import { NextFunction, Request, Response } from "express";
 import { sessionMiddleware } from "../../src/middleware/session.middleware";
 import { Session } from "@companieshouse/node-session-handler";
+import { getSessionRequest } from "./session.mock";
 
 // get handle on mocked function
 export const mockSessionMiddleware = sessionMiddleware as jest.Mock;
 
-export const session = new Session();
+export let session = new Session();
+
+export const mockSession = () => session = getSessionRequest();
 
 // tell the mock what to return
 mockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {

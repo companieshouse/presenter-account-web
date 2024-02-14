@@ -7,7 +7,7 @@ import {
 } from "./../generic";
 import { logger } from "../../../utils/logger";
 import { type Address } from "private-api-sdk-node/src/services/presenter-account/types";
-import { getPresenterAccountDetails, cleanSessionOnSubmit } from "../../../utils/session";
+import { getPresenterAccountDetails, cleanSession } from "../../../utils/session";
 import { PrefixedUrls } from "../../../constants";
 import { createOauthPrivateApiClient } from "../../../service/api.client.service";
 import { Result, failure } from "@companieshouse/api-sdk-node/dist/services/result";
@@ -77,7 +77,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
             return new Error(errorMessage);
         } else {
             // On successful submission, clean up the session
-            cleanSessionOnSubmit(req);
+            cleanSession(req);
         }
 
         return {
