@@ -29,7 +29,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
 
         return {
             ...baseViewData,
-            title: "Application submitted - Apply for a Companies House online filing presenter account - GOV.UK",
+            title: "Application submitted - Apply for a Companies House online filing presenter account",
             backURL: PrefixedUrls.ENTER_YOUR_DETAILS,
             address: details.address
         };

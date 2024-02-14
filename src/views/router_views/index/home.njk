@@ -2,6 +2,7 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% block main_content %}
     <h1 class="govuk-heading-xl" id="presenter-account--title">
@@ -26,6 +27,17 @@
         href: Urls.ENTER_YOUR_DETAILS,
         classes: "govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8",
         isStartButton: true
+    }) }}
+
+    {% set presenterAccountDetailsText %}
+    Use this service to submit an application. We will send you new account details.
+    </br></br>
+    <a href="{{ExternalUrls.CONTACT_US}}">Contact us</a> if you have any questions about your account.
+    {% endset %}
+
+    {{ govukDetails({
+        summaryText: "What to do if you’ve lost your presenter account details",
+        html: presenterAccountDetailsText
     }) }}
 
     <p class="govuk-body">
