@@ -1,4 +1,3 @@
-import { Address, Details, Name } from "private-api-sdk-node/src/services/presenter-account/types";
 import { env } from "./config";
 
 export const servicePathPrefix = "/presenter-account";
@@ -285,19 +284,3 @@ export const countries = [
     { value: 'Zambia', text: 'Zambia' },
     { value: 'Zimbabwe', text: 'Zimbabwe' },
 ] as const;
-
-const defaultAddress = {
-    premises: '',
-    postCode: '',
-    country: '',
-    addressLine1: '',
-    townOrCity: ''
-} as Address;
-
-export const defaultDetails = {
-    email: '',
-    name: { forename: '', surname: '' } as Name,
-    userId: '',
-    createdDate: '',
-    address: defaultAddress
-} as Details;
