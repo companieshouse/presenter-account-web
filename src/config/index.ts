@@ -25,6 +25,10 @@ export const env = readEnv(process.env, {
         .default(
             "https://www.gov.uk/government/organisations/companies-house#org-contacts"
         ),
+    CONTACT_COMPANIES_HOUSE: str.describe("Link to contact Companies House")
+        .default(
+            "https://www.gov.uk/contact-companies-house"
+        ),
     COOKIE_DOMAIN: str.describe("Domain for cookies"),
     COOKIE_NAME: str.describe("Name for the cookie"),
     COOKIE_SECRET: str.describe("Secret used for cookie encryption"),
