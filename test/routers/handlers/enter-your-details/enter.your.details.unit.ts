@@ -92,6 +92,28 @@ describe("validate form fields", () => {
         expect(response.text).not.toContain(EnterYourDetailsErrorMessages.TOWN_OR_CITY_LENGTH);
     });
 
+    it("Should display errors for invalid fields", async () => {
+        session.setExtraData(
+            PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetails
+        );
+        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send({
+            ...examplePresenterAccountDetails.address,
+            premises: "§§",
+            postCode: "§§",
+            townOrCity: "§§",
+            addressLine1: "±±",
+            addressLine2: "±±",
+        }).expect(200);
+
+        expect(response.text).toContain(EnterYourDetailsErrorMessages.PREMISES_INVALID_CHARACTER);
+        expect(response.text).toContain(EnterYourDetailsErrorMessages.ADDRESS_LINE_1_INVALID_CHARACTER);
+        expect(response.text).toContain(EnterYourDetailsErrorMessages.ADDRESS_LINE_2_INVALID_CHARACTER);
+        expect(response.text).toContain(EnterYourDetailsErrorMessages.POST_CODE_INVALID_CHARACTER);
+        expect(response.text).toContain(EnterYourDetailsErrorMessages.TOWN_OR_CITY_INVALID_CHARACTER);
+
+    });
+
     it("should redirect when no errors displayed",  async () => {
         session.setExtraData(
             PRESENTER_ACCOUNT_SESSION_KEY,
