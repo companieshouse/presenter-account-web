@@ -66,7 +66,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
 
     public async executePost(
         req: Request,
-        _response: Response
+        res: Response
     ): Promise<Redirect | Error> {
         logger.info(`CheckDetailsHandler executePost called`);
 
@@ -74,7 +74,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
         if (submitResult.isFailure()) {
             const errorMessage = `Error submitting details to the presenter-account-api: ${submitResult.value.message}`;
             logger.error(errorMessage);
-            return new Error(errorMessage);
+            res.render("../errors/server.error.ts") ;
         } else {
             // On successful submission, clean up the session
             cleanSession(req);
