@@ -1,15 +1,21 @@
-{% extends "layouts/shell.njk" %}
+{% extends "layouts/default.njk" %}
 
 {% block main_content %}
 
-    <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl govuk-!-margin-bottom-8">
-            Internal server error
-        </h1>
-        <div class="govuk-!-margin-top-8">
-            <p>Sorry there is a problem with the service</p>
-            <p>Try again later.</p>
-            <p>If the problem continues <a href="#" class="govuk-link">contact {support channel}</a></p>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">
+                Internal server error
+            </h1>
+            <p class="govuk-body">
+                Sorry there is a problem with the service
+            </p>
+            <p class="govuk-body">
+                Try again later.
+            </p>
+            <p class="govuk-body">
+                If the problem continues <a href="https://www.gov.uk/contact" class="govuk-link">contact us</a>
+            </p>
         </div>
     </div>
 
