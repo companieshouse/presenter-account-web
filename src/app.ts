@@ -5,6 +5,7 @@ import { logger } from "./utils/logger";
 import routerDispatch from "./router.dispatch";
 import cookieParser from "cookie-parser";
 import { env } from './config';
+import { ExternalUrls, Urls } from "./constants";
 
 const app = express();
 
@@ -37,6 +38,8 @@ njk.addGlobal("cdnUrlCss", env.CDN_URL_CSS);
 njk.addGlobal("cdnUrlJs", env.CDN_URL_JS);
 njk.addGlobal("cdnHost", env.CDN_HOST);
 njk.addGlobal("chsUrl", env.CHS_URL);
+njk.addGlobal("ExternalUrls", ExternalUrls);
+njk.addGlobal("Urls", Urls);
 
 // parse body into req.body
 app.use(express.json());
