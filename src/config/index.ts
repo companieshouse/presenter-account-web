@@ -37,7 +37,7 @@ export const env = readEnv(process.env, {
         .default("https://developer.companieshouse.gov.uk/"),
     FEEDBACK_URL: str
         .describe("Link for the user to give feedback on the service")
-        .default(""),
+        .default("https://www.gov.uk/contact/govuk"),
     INTERNAL_API_URL: url.describe(
         "Internal API base URL for internal service interaction"
     ),
