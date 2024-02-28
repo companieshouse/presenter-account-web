@@ -35,6 +35,8 @@ export const env = readEnv(process.env, {
     DEVELOPERS_LINK: str
         .describe("Link for developers")
         .default("https://developer.companieshouse.gov.uk/"),
+    FEATURE_FLAG_PRESENTER_ACCOUNT_280224: bool
+        .describe("Feature flag for enabling presenter account"),
     FEEDBACK_URL: str
         .describe("Link for the user to give feedback on the service")
         .default("https://www.gov.uk/contact/govuk"),

@@ -10,4 +10,5 @@ export default () => {
     process.env.COOKIE_SECRET = "123456789012345678901234";
     process.env.INTERNAL_API_URL = "http://api.chs.local";
     process.env.NUNJUCKS_LOADER_WATCH = "false";
+    process.env.FEATURE_FLAG_PRESENTER_ACCOUNT_280224 = "true";
 };
