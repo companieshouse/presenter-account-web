@@ -6,6 +6,7 @@ import routerDispatch from "./router.dispatch";
 import cookieParser from "cookie-parser";
 import { env } from './config';
 import { ExternalUrls, PrefixedUrls, Urls, servicePathPrefix } from "./constants";
+import { featureFlagMiddleware } from "./middleware/feature.flag.middleware";
 
 const app = express();
 
@@ -50,6 +51,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // apply middleware
 app.use(cookieParser());
+app.use(featureFlagMiddleware);
 
 // Unhandled errors
 app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
