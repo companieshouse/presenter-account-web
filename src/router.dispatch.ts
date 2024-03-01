@@ -6,14 +6,18 @@ import { authenticationMiddleware } from "./middleware/authentication.middleware
 import { commonTemplateVariablesMiddleware } from "./middleware/common.variables.middleware";
 import { Urls, servicePathPrefix } from "./constants";
 import { validateUserMiddleware } from "./middleware/user.validate.middleware";
+import { featureFlagMiddleware } from "./middleware/feature.flag.middleware";
 
 const routerDispatch = (app: Application) => {
 
     const router = Router();
     app.use(servicePathPrefix, router);
 
-    router.use(Urls.HOME, HomeRouter);
     router.use(Urls.HEALTHCHECK, HealthCheckRouter);
+
+    router.use(featureFlagMiddleware);
+
+    router.use(Urls.HOME, HomeRouter);
 
     router.use("/", sessionMiddleware);
 

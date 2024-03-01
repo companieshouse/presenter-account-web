@@ -14,7 +14,7 @@ describe("Feature flag middleware test", () => {
         featureFlagMiddleware(mockRequest(), res, next);
 
         expect(res.render).toHaveBeenCalledWith("partials/error_404");
-        expect(next).toHaveBeenCalledTimes(1);
+        expect(next).toHaveBeenCalledTimes(0);
     });
 
     it("should call the next function if feature flag is on", async () => {
@@ -39,7 +39,7 @@ describe("Feature flag middleware test", () => {
 
 function mockResponse() {
     return {
-        render:jest.fn()
+        render: jest.fn()
     } as unknown as Response;
 }
 
