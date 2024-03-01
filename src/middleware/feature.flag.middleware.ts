@@ -10,9 +10,10 @@ import { logger } from "../utils/logger";
  */
 export const featureFlagMiddleware: Handler = (_req, res, next) => {
 
-    if(!env.FEATURE_FLAG_PRESENTER_ACCOUNT_280224) {
+    if (!env.FEATURE_FLAG_PRESENTER_ACCOUNT_280224) {
         logger.info("Attempt to reach site while the feature flag is disabled");
         res.render("partials/error_404");
+    } else {
+        next();
     }
-    next();
 };
