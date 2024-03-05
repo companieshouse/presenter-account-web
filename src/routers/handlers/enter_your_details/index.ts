@@ -5,7 +5,7 @@ import { type Address } from "private-api-sdk-node/src/services/presenter-accoun
 import { PrefixedUrls, countries } from "../../../constants";
 import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault } from "./../../../utils/session";
 import { ValidationError, validationResult } from "express-validator";
-import { ErrorManifestValidationType } from "utils/error_manifests/default";
+import { ErrorManifestValidationType } from "../../../utils/error_manifests/default";
 import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 
 interface EnterYourDetailsViewData extends BaseViewData{
