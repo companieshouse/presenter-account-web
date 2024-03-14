@@ -1,7 +1,14 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { CheckDetailsHandler } from "./handlers/check_details";
 import { handleExceptions } from "../utils/async.handler";
-const router: Router = Router();
+import { noCacheMiddleware } from "../middleware/no.cache.middleware";
+
+const router = Router();
+
+// Prevent caching on this page.
+// If the user presses the back button, it will render the page as it apeared previously using
+// cached HTML even though the details could have already been submitted and session cleared.
+router.use(noCacheMiddleware);
 
 router.get("/", handleExceptions(async (req: Request, res: Response) => {
     const handler = new CheckDetailsHandler();

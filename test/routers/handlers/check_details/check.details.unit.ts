@@ -23,6 +23,21 @@ describe("check details tests", () => {
         expect(resp.status).toBe(200);
     });
 
+    it("Should not cache the HTMl on this page", async () => {
+        session.setExtraData(
+            PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetails
+        );
+
+        await request(app)
+            .get(PrefixedUrls.CHECK_DETAILS)
+            .expect(200)
+            .expect('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
+            .expect('Pragma', 'no-cache')
+            .expect('Expires', '0')
+            .expect('Surrogate-Control', 'no-store');
+    });
+
     it("Should display the correct heading on the Check Details page", async () => {
         session.setExtraData(
             PRESENTER_ACCOUNT_SESSION_KEY,
