@@ -35,6 +35,21 @@ describe("validate form fields", () => {
         expect(resp.text).toContain("What is your correspondence address?");
     });
 
+    it("Should not cache the HTMl on this page", async () => {
+        session.setExtraData(
+            PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetails
+        );
+
+        await request(app)
+            .get(PrefixedUrls.ENTER_YOUR_DETAILS)
+            .expect(200)
+            .expect('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
+            .expect('Pragma', 'no-cache')
+            .expect('Expires', '0')
+            .expect('Surrogate-Control', 'no-store');
+    });
+
     it("should display errors for missing mandatory fields",  async () => {
         session.setExtraData(
             PRESENTER_ACCOUNT_SESSION_KEY,

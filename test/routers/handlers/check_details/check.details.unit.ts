@@ -23,6 +23,21 @@ describe("check details tests", () => {
         expect(resp.status).toBe(200);
     });
 
+    it("Should not cache the HTMl on this page", async () => {
+        session.setExtraData(
+            PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetails
+        );
+
+        await request(app)
+            .get(PrefixedUrls.CHECK_DETAILS)
+            .expect(200)
+            .expect('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
+            .expect('Pragma', 'no-cache')
+            .expect('Expires', '0')
+            .expect('Surrogate-Control', 'no-store');
+    });
+
     it("Should display the correct heading on the Check Details page", async () => {
         session.setExtraData(
             PRESENTER_ACCOUNT_SESSION_KEY,
@@ -110,6 +125,20 @@ describe("check details tests", () => {
             .post(PrefixedUrls.CHECK_DETAILS)
             .send(details)
             .expect(500);
+    });
+
+    it("Should redirect to the home page if the presenter account details are not in the session", async () => {
+        // Use a mock session with a user id value
+        mockSession();
+        session.setExtraData(
+            PRESENTER_ACCOUNT_SESSION_KEY,
+            undefined
+        );
+
+        await request(app)
+            .get(PrefixedUrls.CHECK_DETAILS)
+            .expect(302)
+            .expect("Location", PrefixedUrls.HOME);
     });
 
     it("Should redirect to the home page if the user details do not match", async () => {
