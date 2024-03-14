@@ -127,6 +127,20 @@ describe("check details tests", () => {
             .expect(500);
     });
 
+    it("Should redirect to the home page if the presenter account details are not in the session", async () => {
+        // Use a mock session with a user id value
+        mockSession();
+        session.setExtraData(
+            PRESENTER_ACCOUNT_SESSION_KEY,
+            undefined
+        );
+
+        await request(app)
+            .get(PrefixedUrls.CHECK_DETAILS)
+            .expect(302)
+            .expect("Location", PrefixedUrls.HOME);
+    });
+
     it("Should redirect to the home page if the user details do not match", async () => {
         // Use a mock session with a user id value
         mockSession();

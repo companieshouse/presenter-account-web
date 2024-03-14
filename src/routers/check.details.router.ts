@@ -2,6 +2,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import { CheckDetailsHandler } from "./handlers/check_details";
 import { handleExceptions } from "../utils/async.handler";
 import { noCacheMiddleware } from "../middleware/no.cache.middleware";
+import { requirePresenterAccountDetailsMiddleware } from "../middleware/require.presenter.account.details.middleware";
 
 const router = Router();
 
@@ -10,7 +11,7 @@ const router = Router();
 // cached HTML even though the details could have already been submitted and session cleared.
 router.use(noCacheMiddleware);
 
-router.get("/", handleExceptions(async (req: Request, res: Response) => {
+router.get("/", requirePresenterAccountDetailsMiddleware, handleExceptions(async (req: Request, res: Response) => {
     const handler = new CheckDetailsHandler();
     const { templatePath, viewData } = handler.executeGet(req, res);
     res.render(templatePath, viewData);
