@@ -6,8 +6,11 @@ import routerDispatch from "./router.dispatch";
 import cookieParser from "cookie-parser";
 import { env } from './config';
 import { ExternalUrls, PrefixedUrls, Urls, servicePathPrefix } from "./constants";
+import cors from "cors";
 
 const app = express();
+
+app.use(cors());
 
 // const viewPath = path.join(__dirname, "/views");
 app.set("views", [
