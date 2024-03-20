@@ -2,7 +2,7 @@ import { removeProtocolIfPresent } from "../../src/config/validator";
 
 
 describe("protocol handler for CDN_HOST", () => {
-    it('should reeturn url unchanged if protocol present', () => {
+    it('should remove any http|https protocols in url', () => {
         const url1 = "http://google.com";
         const url2 = "https://frodo.fr";
 
@@ -10,7 +10,7 @@ describe("protocol handler for CDN_HOST", () => {
         expect(removeProtocolIfPresent(url2)).toBe(url2.substring(8));
     });
 
-    it('should add missing protocol', () => {
+    it('should remain unchanged if no protocol', () => {
         const url1 = 'google.com';
         const url2 = 'frodo.fr';
 
