@@ -217,10 +217,7 @@ export function readEnv<S extends Record<string, ValidatorBuilder<unknown>>> (so
 }
 
 const protocolRegex = /^https?:\/{2}/i;
-// Some config parameters don't have protocols e.g. CDN_HOST.
-// This function adds '//' which is a protocol relative protocol to the url.
-// This means if the site is hosted on http it will try to access http://${CDN_HOST}
-// If the site is hosted on https it will use https://${CDN_HOST}
+// This function removes any protocol and '//' which is a protocol relative protocol to the url. The approprite protocol will be added later on during rendering
 export function removeProtocolIfPresent (url: string): string {
     if (protocolRegex.test(url)) {return url.replace(/^https?:\/{2}/i, '');}
     return url.replace(/^\/\//, '');
