@@ -14,6 +14,7 @@ export interface BaseViewData {
     Urls: typeof PrefixedUrls
     ExternalUrls: typeof ExternalUrls
     userEmail: string | null
+    protocol: string
 }
 
 export const defaultBaseViewData: Partial<BaseViewData> = {
@@ -54,6 +55,7 @@ export abstract class GenericHandler<T extends BaseViewData> {
         const { signin_info } = req.session?.data ?? {};
         const isSignedIn = signin_info?.signed_in !== undefined;
         this.viewData.isSignedIn = isSignedIn;
+        this.viewData.protocol = req.protocol;
 
         if (!isSignedIn) {return;}
 

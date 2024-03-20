@@ -4,5 +4,5 @@
         <span class="content-email" id="signed-in-user">{{email}}</span>
         <a class="govuk-link" href="{{ExternalUrls.SIGNOUT}}" data-event-id="sign-out-button-selected" id="user-signout">Sign Out</a>
     </div>
-<script src="{{ cdnHost }}/javascripts/app/session-timeout.js"></script>
+<script src="{{protocol}}://{{cdnHost}}/javascripts/app/session-timeout.js"></script>
 {% endif %}

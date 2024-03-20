@@ -1,4 +1,4 @@
-import { Validators, readEnv, addProtocolIfMissing } from "./validator";
+import { Validators, readEnv, removeProtocolIfPresent } from "./validator";
 
 const { str, url, bool, port } = Validators;
 
@@ -14,7 +14,7 @@ export const env = readEnv(process.env, {
         )
         .describe("Link to complete an application form"),
     CACHE_SERVER: str.describe("Cache server URL"),
-    CDN_HOST: str.map(addProtocolIfMissing).describe("URL for the CDN"),
+    CDN_HOST: str.map(removeProtocolIfPresent).describe("URL for the CDN"),
     CDN_URL_CSS: str.describe("CDN URL for the CSS files").default("/css"),
     CDN_URL_JS: str.describe("CDN URL for the JavaScript files").default("/js"),
     CHS_API_KEY: str.describe("API key for CHS service"),
