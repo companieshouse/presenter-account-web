@@ -25,8 +25,7 @@ export const defaultBaseViewData: Partial<BaseViewData> = {
     Urls: PrefixedUrls,
     ExternalUrls: ExternalUrls,
     userEmail: null,
-    title: 'Apply to file with Companies House using software',
-    template: ''
+    title: 'Apply to file with Companies House using software'
 } as const;
 
 
