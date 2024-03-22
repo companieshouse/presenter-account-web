@@ -14,6 +14,7 @@ export interface BaseViewData {
     Urls: typeof PrefixedUrls
     ExternalUrls: typeof ExternalUrls
     userEmail: string | null
+    template: string
 }
 
 export const defaultBaseViewData: Partial<BaseViewData> = {
@@ -24,7 +25,8 @@ export const defaultBaseViewData: Partial<BaseViewData> = {
     Urls: PrefixedUrls,
     ExternalUrls: ExternalUrls,
     userEmail: null,
-    title: 'Apply to file with Companies House using software'
+    title: 'Apply to file with Companies House using software',
+    template: ''
 } as const;
 
 
@@ -54,6 +56,7 @@ export abstract class GenericHandler<T extends BaseViewData> {
         const { signin_info } = req.session?.data ?? {};
         const isSignedIn = signin_info?.signed_in !== undefined;
         this.viewData.isSignedIn = isSignedIn;
+        this.viewData.template = this.getPageName(req);
 
         if (!isSignedIn) {return;}
 
@@ -69,6 +72,11 @@ export abstract class GenericHandler<T extends BaseViewData> {
     getViewData(req: Request): T {
         this.populateViewData(req);
         return this.viewData;
+    }
+
+    getPageName(req: Request): string {
+        const pathSegments = req.baseUrl.split('/').filter(Boolean);
+        return pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : servicePathPrefix;
     }
 }
 

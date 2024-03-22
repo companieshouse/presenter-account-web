@@ -39,7 +39,10 @@ export const env = readEnv(process.env, {
         .describe("Feature flag for enabling presenter account"),
     FEEDBACK_URL: str
         .describe("Link for the user to give feedback on the service")
-        .default("https://www.gov.uk/contact/govuk"),
+        .default("https://www.smartsurvey.co.uk/s/apply-to-file-using-software-feedback/"),
+    FEEDBACK_URL_CONF: str
+        .describe("Link for the user to give feedback on the service on the confirmation page")
+        .default("https://www.smartsurvey.co.uk/s/apply-to-file-using-software-conf/"),
     INTERNAL_API_URL: url.describe(
         "Internal API base URL for internal service interaction"
     ),
