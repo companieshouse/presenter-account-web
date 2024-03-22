@@ -1,7 +1,7 @@
 // Generic handler is the base handler that is extended by all other handlers
 // It contains methods that are common to multiple route handlers
 
-import { ExternalUrls, PrefixedUrls, servicePathPrefix } from "../../constants";
+import { ExternalUrls, PrefixedUrls, Urls, servicePathPrefix } from "../../constants";
 import errorManifest from "../../utils/error_manifests/default";
 import { Request } from "express";
 
@@ -14,6 +14,7 @@ export interface BaseViewData {
     Urls: typeof PrefixedUrls
     ExternalUrls: typeof ExternalUrls
     userEmail: string | null
+    feedbackLink: string
 }
 
 export const defaultBaseViewData: Partial<BaseViewData> = {
@@ -54,6 +55,7 @@ export abstract class GenericHandler<T extends BaseViewData> {
         const { signin_info } = req.session?.data ?? {};
         const isSignedIn = signin_info?.signed_in !== undefined;
         this.viewData.isSignedIn = isSignedIn;
+        this.viewData.feedbackLink = this.getFeedbackLink(this.getPageName(req));
 
         if (!isSignedIn) {return;}
 
@@ -69,6 +71,18 @@ export abstract class GenericHandler<T extends BaseViewData> {
     getViewData(req: Request): T {
         this.populateViewData(req);
         return this.viewData;
+    }
+
+    getPageName(req: Request): string {
+        const pathSegments = req.baseUrl.split('/').filter(Boolean);
+        return pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : servicePathPrefix;
+    }
+
+    getFeedbackLink(pageName: string): string{
+        if (`/${pageName}` === Urls.CONFIRMATION) {
+            return ExternalUrls.FEEDBACK_CONF;
+        }
+        return ExternalUrls.FEEDBACK;
     }
 }
 

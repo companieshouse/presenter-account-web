@@ -3,7 +3,7 @@ import { session, mockSession } from "../../../mocks/session.middleware.mock";
 
 import app from "../../../../src/app";
 import request from "supertest";
-import { PrefixedUrls } from "../../../../src/constants";
+import { ExternalUrls, PrefixedUrls } from "../../../../src/constants";
 import { PRESENTER_ACCOUNT_SESSION_KEY } from "../../../../src/utils/session";
 import { examplePresenterAccountDetails } from "../../../mocks/example.presenter.account.details.mock";
 
@@ -87,6 +87,19 @@ describe("check details tests", () => {
         );
         expect(resp.text).toContain(
             examplePresenterAccountDetails.address.postCode
+        );
+    });
+
+    it("Should display the correct feeback url for check_details page", async () => {
+        session.setExtraData(
+            PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetails
+        );
+
+        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+
+        expect(resp.text).toContain(
+            ExternalUrls.FEEDBACK
         );
     });
 

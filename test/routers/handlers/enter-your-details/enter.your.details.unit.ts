@@ -2,7 +2,7 @@ import { session } from "../../../mocks/session.middleware.mock";
 
 import app from "../../../../src/app";
 import request from "supertest";
-import { PrefixedUrls } from "../../../../src/constants";
+import { ExternalUrls, PrefixedUrls } from "../../../../src/constants";
 import { examplePresenterAccountDetails } from "../../../mocks/example.presenter.account.details.mock";
 import { PRESENTER_ACCOUNT_SESSION_KEY } from "../../../../src/utils/session";
 import { EnterYourDetailsErrorMessages } from "../../../../src/utils/error_manifests/enter.your.details.errors";
@@ -140,5 +140,12 @@ describe("validate form fields", () => {
         await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS)
             .query(details.address).send(details.address).expect(302)
             .expect("Location", PrefixedUrls.CHECK_DETAILS);
+    });
+
+    it("Should display the correct feeback url for enter_your_details page", async () => {
+        const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS);
+        expect(resp.text).toContain(
+            ExternalUrls.FEEDBACK
+        );
     });
 });

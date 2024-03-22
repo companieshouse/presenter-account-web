@@ -1,6 +1,6 @@
 import app from "../../../../src/app";
 import request from "supertest";
-import { PrefixedUrls } from "../../../../src/constants";
+import { ExternalUrls, PrefixedUrls } from "../../../../src/constants";
 
 describe("confirmation tests", () => {
 
@@ -12,5 +12,12 @@ describe("confirmation tests", () => {
     it("Should display 'Application submitted' message on the Confirmation page", async () => {
         const resp = await request(app).get(PrefixedUrls.CONFIRMATION);
         expect(resp.text).toContain("Application submitted");
+    });
+
+    it("Should display the correct feeback url for confirmation page", async () => {
+        const resp = await request(app).get(PrefixedUrls.CONFIRMATION);
+        expect(resp.text).toContain(
+            ExternalUrls.FEEDBACK_CONF
+        );
     });
 });
