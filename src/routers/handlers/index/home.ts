@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
-import { BaseViewData, GenericHandler, ViewModel } from "./../generic";
+import { BaseViewData, GenericHandler, Redirect, ViewModel } from "./../generic";
 import { logger } from "../../../utils/logger";
+import { env } from "../../../config";
+import { PrefixedUrls } from "../../../constants";
 
 export class HomeHandler extends GenericHandler<BaseViewData> {
     public static templatePath = "router_views/index/home";
@@ -11,13 +13,19 @@ export class HomeHandler extends GenericHandler<BaseViewData> {
         return {
             ...baseViewData,
             title: "Apply to file with Companies House using software",
-            backURL: null
+            backURL: null,
         };
     }
 
-    public execute (req: Request, _response: Response): ViewModel<BaseViewData> {
+    public execute (req: Request, _response: Response): ViewModel<BaseViewData> | Redirect {
         logger.info(`GET request to serve home page`);
-        // ...process request here and return data for the view
+        var temp = env.FEATURE_FLAG_GDS_START_PAGE_290424;
+
+        if(env.FEATURE_FLAG_GDS_START_PAGE_290424 === true){
+            logger.debug('When GDS flag is on show enter your deatils page. When the flag is off, show the start page')
+            return { redirect: PrefixedUrls.ENTER_YOUR_DETAILS }
+        }
+
         return {
             templatePath: HomeHandler.templatePath,
             viewData: this.getViewData(req),
