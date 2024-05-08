@@ -20,9 +20,9 @@ export class HomeHandler extends GenericHandler<BaseViewData> {
     public execute (req: Request, _response: Response): ViewModel<BaseViewData> | Redirect {
         logger.info(`GET request to serve home page`);
 
-        if(env.FEATURE_FLAG_GDS_START_PAGE_290424 === true){
-            logger.debug('GDS flag is on redirecting to the enter-your-details page')
-            return { redirect: PrefixedUrls.ENTER_YOUR_DETAILS }
+        if (env.FEATURE_FLAG_GDS_START_PAGE_290424 === true) {
+            logger.debug('GDS flag is on redirecting to the enter-your-details page');
+            return { redirect: PrefixedUrls.ENTER_YOUR_DETAILS };
         }
 
         return {

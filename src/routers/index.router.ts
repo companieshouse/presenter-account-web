@@ -8,7 +8,7 @@ router.get("/", handleExceptions(async (req: Request, res: Response, _next: Next
     const handler = new HomeHandler();
     const params = handler.execute(req, res);
 
-    if( "redirect" in params){
+    if ( "redirect" in params) {
         return res.redirect(params.redirect);
     }
 
