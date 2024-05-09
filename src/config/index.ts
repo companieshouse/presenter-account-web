@@ -37,12 +37,17 @@ export const env = readEnv(process.env, {
         .default("https://developer.companieshouse.gov.uk/"),
     FEATURE_FLAG_PRESENTER_ACCOUNT_280224: bool
         .describe("Feature flag for enabling presenter account"),
+    FEATURE_FLAG_GDS_START_PAGE_290424: bool
+        .describe("Feature flag for enabling GDS start page"),
     FEEDBACK_URL: str
         .describe("Link for the user to give feedback on the service")
         .default("https://www.smartsurvey.co.uk/s/apply-to-file-using-software-feedback/"),
     FEEDBACK_URL_CONF: str
         .describe("Link for the user to give feedback on the service on the confirmation page")
         .default("https://www.smartsurvey.co.uk/s/apply-to-file-using-software-conf/"),
+    GDS_START_PAGE_LINK: str
+        .describe("GDS Link of start page")
+        .default("/presenter-account/"),
     INTERNAL_API_URL: url.describe(
         "Internal API base URL for internal service interaction"
     ),

@@ -7,9 +7,15 @@ const router: Router = Router();
 router.get("/", handleExceptions(async (req: Request, res: Response, _next: NextFunction) => {
     const handler = new HomeHandler();
     const params = handler.execute(req, res);
-    if (params.templatePath && params.viewData) {
-        res.render(params.templatePath, params.viewData);
+
+    if ( "redirect" in params) {
+        return res.redirect(params.redirect);
     }
+
+    if ("templatePath" in params && "viewData" in params) {
+        return res.render(params.templatePath, params.viewData);
+    }
+
 }));
 
 export default router;

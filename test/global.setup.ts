@@ -11,4 +11,5 @@ export default () => {
     process.env.INTERNAL_API_URL = "http://api.chs.local";
     process.env.NUNJUCKS_LOADER_WATCH = "false";
     process.env.FEATURE_FLAG_PRESENTER_ACCOUNT_280224 = "true";
+    process.env.FEATURE_FLAG_GDS_START_PAGE_290424 = "true";
 };
