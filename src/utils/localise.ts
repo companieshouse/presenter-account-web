@@ -3,9 +3,9 @@ import { env } from "../config/index";
 
 export const selectLang = (lang: any): string => {
     switch (lang) {
-    case "cy": return "cy";
-    case "en":
-    default: return "en";
+            case "cy": return "cy";
+            case "en":
+            default: return "en";
     }
 };
 

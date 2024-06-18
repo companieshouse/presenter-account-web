@@ -13,7 +13,7 @@ const routerDispatch = (app: Application) => {
 
     const router = Router();
 
-    router.use(localeMiddleware)
+    router.use(localeMiddleware);
 
     app.use(servicePathPrefix, router);
 
