@@ -26,7 +26,7 @@ describe("Locale middleware test", () => {
         expect(resp.status).toBe(200);
     });
 
-    test("If ?lang set to either en. Return English", async () => {
+    test("If ?lang set to en. Return English", async () => {
         session.setExtraData(
             PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
@@ -38,7 +38,7 @@ describe("Locale middleware test", () => {
         expect(resp.status).toBe(200);
     });
 
-    test("If ?lang set to either cy. Return Welsh", async () => {
+    test("If ?lang set to cy. Return Welsh", async () => {
         session.setExtraData(
             PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
@@ -50,7 +50,7 @@ describe("Locale middleware test", () => {
         expect(resp.status).toBe(200);
     });
 
-    test("If &lang set to either cy. Return Welsh", async () => {
+    test("If &lang set to cy. Return Welsh", async () => {
         session.setExtraData(
             PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails

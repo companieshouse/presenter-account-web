@@ -8,6 +8,7 @@ import { ValidationError, validationResult } from "express-validator";
 import { ErrorManifestValidationType } from "../../../utils/error_manifests/default";
 import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { env } from "../../../config";
+import { urlWithLang } from "../../../utils/localise";
 
 interface EnterYourDetailsViewData extends BaseViewData{
     address: Address ;
@@ -73,7 +74,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         }
 
         setPresenterAccountDetails(req, details);
-        return { redirect: PrefixedUrls.CHECK_DETAILS };
+        return { redirect: urlWithLang(PrefixedUrls.CHECK_DETAILS, req.query.lang) };
     }
 
     private convertValidationErrorsToErrorManifestType(errors: ValidationError[]){

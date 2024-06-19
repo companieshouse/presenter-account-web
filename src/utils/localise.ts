@@ -20,6 +20,10 @@ export const addLangToUrl = (url: string, lang: string | undefined): string => {
     }
 };
 
+export const urlWithLang = (url: string, lang: any): string => {
+    return addLangToUrl(url, selectLang(lang));
+};
+
 export const getLocaleInfo = (locales: LocalesService, lang: string) => {
     return {
         languageEnabled: locales.enabled,
