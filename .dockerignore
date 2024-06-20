@@ -7,3 +7,5 @@
 !package-lock.json
 !tsconfig.json
 !scripts
+!node_modules
+!locales
