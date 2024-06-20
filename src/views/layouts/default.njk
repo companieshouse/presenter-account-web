@@ -19,6 +19,8 @@
         {% if backURL %}
             <a href="{{ backURL }}" class="govuk-back-link">{{i18n.back_button}}</a>
         {% endif %}
+
+        {% include "../partials/nav/top.njk" %}
       <main class="govuk-main-wrapper" id="main-content">
 
         <div class="govuk-grid-row">
