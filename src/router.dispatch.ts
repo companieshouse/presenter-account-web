@@ -13,7 +13,6 @@ const routerDispatch = (app: Application) => {
 
     const router = Router();
 
-    router.use(localeMiddleware);
 
     app.use(servicePathPrefix, router);
 
@@ -24,6 +23,8 @@ const routerDispatch = (app: Application) => {
     router.use(Urls.HOME, HomeRouter);
 
     router.use("/", sessionMiddleware);
+
+    router.use(localeMiddleware);
 
     // ------------- Enable login redirect -----------------
     const userAuthRegex = /^\/.+/;
