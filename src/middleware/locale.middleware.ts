@@ -11,7 +11,7 @@ export function localeMiddleware(req: Request, res: Response, next: NextFunction
     const locales = getLocalesService();
 
     if (req.session) {
-        req.session.setExtraData("lang", lang);
+        req.session.setExtraData(QUERY_LANG, lang);
     }
 
     Object.assign(res.locals, getLocaleInfo(locales, lang));
