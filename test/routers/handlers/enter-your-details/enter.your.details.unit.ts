@@ -9,7 +9,6 @@ import { EnterYourDetailsErrorMessages } from "../../../../src/utils/error_manif
 
 let details;
 const fortyCharacters = "90476895878092274478155001661579qwertyui";
-const enQuery = "?lang=en";
 
 describe("validate form fields", () => {
 
@@ -140,7 +139,7 @@ describe("validate form fields", () => {
 
         await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS)
             .query(details.address).send(details.address).expect(302)
-            .expect("Location", PrefixedUrls.CHECK_DETAILS + enQuery);
+            .expect("Location", PrefixedUrls.CHECK_DETAILS);
     });
 
     it("Should display the correct feeback url for enter_your_details page", async () => {
