@@ -42,7 +42,9 @@ njk.addGlobal("ExternalUrls", ExternalUrls);
 njk.addGlobal("Urls", Urls);
 njk.addGlobal("servicePathPrefix", servicePathPrefix);
 njk.addGlobal("PrefixedUrls", PrefixedUrls);
-
+njk.addGlobal("SERVICE_NAME", 'presnter-account-web');
+njk.addGlobal("PIWIK_URL", env.PIWIK_URL);
+njk.addGlobal("PIWIK_SITE_ID", env.PIWIK_SITE_ID);
 
 // parse body into req.body
 app.use(express.json());

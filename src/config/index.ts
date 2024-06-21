@@ -1,6 +1,6 @@
 import { Validators, readEnv, addProtocolIfMissing } from "./validator";
 
-const { str, url, bool, port } = Validators;
+const { str, url, bool, port, int } = Validators;
 
 export const env = readEnv(process.env, {
     ABILITY_NET_LINK: url.default("https://mcmw.abilitynet.org.uk/"),
@@ -12,7 +12,7 @@ export const env = readEnv(process.env, {
         .default(
             "https://www.gov.uk/government/publications/apply-for-a-companies-house-online-filing-presenter-account"
         )
-        .describe("Link to complete an application form"),
+        .describe("Link to complete an application form"),    
     CACHE_SERVER: str.describe("Cache server URL"),
     CDN_HOST: str.map(addProtocolIfMissing).describe("URL for the CDN"),
     CDN_URL_CSS: str.describe("CDN URL for the CSS files").default("/css"),
@@ -118,6 +118,8 @@ export const env = readEnv(process.env, {
         .default(
             "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
         ),
+    PIWIK_URL: url.describe('The URL for the matomo instance'),
+    PIWIK_SITE_ID: int.describe('The site ID for matomo'),
     POLICIES_LINK: str
         .describe("Link to policies")
         .default("http://resources.companieshouse.gov.uk/legal/termsAndConditions.shtml"),
