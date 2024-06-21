@@ -8,6 +8,7 @@ interface ConfirmationViewData extends BaseViewData {
 
 export class ConfirmationHandler extends GenericHandler<ConfirmationViewData> {
     public static templatePath = "router_views/confirmation/confirmation";
+    private static viewName = 'confirmation';
 
 
     public getViewData(req: Request): ConfirmationViewData {
@@ -15,7 +16,8 @@ export class ConfirmationHandler extends GenericHandler<ConfirmationViewData> {
 
         return {
             ...baseViewData,
-            title: "Application submitted - Apply for a Companies House online filing presenter account"
+            title: "Application submitted - Apply for a Companies House online filing presenter account",
+            viewName: ConfirmationHandler.viewName
         };
     }
 

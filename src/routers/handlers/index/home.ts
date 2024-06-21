@@ -6,6 +6,7 @@ import { PrefixedUrls } from "../../../constants";
 
 export class HomeHandler extends GenericHandler<BaseViewData> {
     public static templatePath = "router_views/index/home";
+    private static viewName = 'home';
 
     public getViewData(req: Request): BaseViewData {
         const baseViewData = super.getViewData(req);
@@ -13,6 +14,7 @@ export class HomeHandler extends GenericHandler<BaseViewData> {
         return {
             ...baseViewData,
             title: "Apply to file with Companies House using software",
+            viewName: HomeHandler.viewName,
             backURL: null,
         };
     }
