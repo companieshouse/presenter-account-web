@@ -42,6 +42,7 @@ endif
 	cp -r ./dist/* $(tmpdir)
 	cp -r ./package.json $(tmpdir)
 	cp -r ./package-lock.json $(tmpdir)
+	cp -r ./locales $(tmpdir)
 	cp -r ./.git $(tmpdir)
 	cd $(tmpdir) && export GIT_SSH_COMMAND="ssh" && npm ci --production
 	rm $(tmpdir)/package.json $(tmpdir)/package-lock.json
