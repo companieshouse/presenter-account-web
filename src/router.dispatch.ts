@@ -7,10 +7,13 @@ import { commonTemplateVariablesMiddleware } from "./middleware/common.variables
 import { Urls, servicePathPrefix } from "./constants";
 import { validateUserMiddleware } from "./middleware/user.validate.middleware";
 import { featureFlagMiddleware } from "./middleware/feature.flag.middleware";
+import { localeMiddleware } from "./middleware/locale.middleware";
 
 const routerDispatch = (app: Application) => {
 
     const router = Router();
+
+
     app.use(servicePathPrefix, router);
 
     router.use(Urls.HEALTHCHECK, HealthCheckRouter);
@@ -20,6 +23,8 @@ const routerDispatch = (app: Application) => {
     router.use(Urls.HOME, HomeRouter);
 
     router.use("/", sessionMiddleware);
+
+    router.use(localeMiddleware);
 
     // ------------- Enable login redirect -----------------
     const userAuthRegex = /^\/.+/;

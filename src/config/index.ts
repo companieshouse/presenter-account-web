@@ -87,6 +87,12 @@ export const env = readEnv(process.env, {
                 "OFF is intended to be used to turn off logging, not as a level for actual logging."
         )
         .default("info"),
+    LOCALES_PATH: str
+        .describe("The name of the directory where the locales files are stored")
+        .default("locales"),
+    LOCALES_ENABLED: bool
+        .describe("feature flag that toggles localisation behaviour")
+        .default(false),
     NODE_HOSTNAME: str
         .describe("Host name the server is hosted on")
         .default(""),
