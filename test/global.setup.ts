@@ -12,6 +12,6 @@ export default () => {
     process.env.NUNJUCKS_LOADER_WATCH = "false";
     process.env.FEATURE_FLAG_PRESENTER_ACCOUNT_280224 = "true";
     process.env.FEATURE_FLAG_GDS_START_PAGE_290424 = "true";
-    process.env.PIWIK_URL="https://www.matomo.com";
-    process.env.PIWIK_SITE_ID="99";
+    process.env.PIWIK_URL = "https://www.matomo.com";
+    process.env.PIWIK_SITE_ID = "99";
 };

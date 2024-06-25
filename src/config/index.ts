@@ -12,7 +12,7 @@ export const env = readEnv(process.env, {
         .default(
             "https://www.gov.uk/government/publications/apply-for-a-companies-house-online-filing-presenter-account"
         )
-        .describe("Link to complete an application form"),    
+        .describe("Link to complete an application form"),
     CACHE_SERVER: str.describe("Cache server URL"),
     CDN_HOST: str.map(addProtocolIfMissing).describe("URL for the CDN"),
     CDN_URL_CSS: str.describe("CDN URL for the CSS files").default("/css"),
