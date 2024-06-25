@@ -13,7 +13,6 @@ const routerDispatch = (app: Application) => {
 
     const router = Router();
 
-
     app.use(servicePathPrefix, router);
 
     router.use(Urls.HEALTHCHECK, HealthCheckRouter);
@@ -24,12 +23,12 @@ const routerDispatch = (app: Application) => {
 
     router.use("/", sessionMiddleware);
 
-    router.use(localeMiddleware);
-
+    
     // ------------- Enable login redirect -----------------
     const userAuthRegex = /^\/.+/;
     router.use(userAuthRegex, authenticationMiddleware);
     router.use(userAuthRegex, validateUserMiddleware);
+    router.use(localeMiddleware);
     router.use(Urls.ENTER_YOUR_DETAILS, EnterYourDetailsRouter);
     router.use(Urls.CHECK_DETAILS, CheckDetailsRouter);
     router.use(Urls.CONFIRMATION, ConfirmationRouter);

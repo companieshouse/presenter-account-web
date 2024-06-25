@@ -3,6 +3,7 @@ import { isDetails } from "private-api-sdk-node/dist/services/presenter-account/
 import { type Details } from "private-api-sdk-node/src/services/presenter-account/types";
 
 export const PRESENTER_ACCOUNT_SESSION_KEY = "presenter_account_details";
+const QUERY_LANG = "lang";
 
 export function getPresenterAccountDetails(req: Request): Details | undefined {
     const presenterAccountDetails = req.session?.getExtraData(PRESENTER_ACCOUNT_SESSION_KEY);
@@ -55,4 +56,5 @@ export function getPresenterAccountDetailsOrDefault(req: Request) {
 
 export function cleanSession(req: Request) {
     req.session?.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, undefined);
+    req.session?.deleteExtraData(QUERY_LANG)
 }
