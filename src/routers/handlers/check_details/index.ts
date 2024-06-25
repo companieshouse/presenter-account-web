@@ -18,7 +18,6 @@ interface CheckDetailsViewData extends BaseViewData {
 
 export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
     private static templatePath = "router_views/check_details/check_details";
-    private static viewName = 'check your details';
 
     public getViewData(req: Request): CheckDetailsViewData {
         const baseViewData = super.getViewData(req);
@@ -33,7 +32,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
             title: "Application submitted - Apply for a Companies House online filing presenter account",
             backURL: PrefixedUrls.ENTER_YOUR_DETAILS,
             address: details.address,
-            viewName: CheckDetailsHandler.viewName,
+            viewName: 'check your details',
         };
     }
 

@@ -16,7 +16,6 @@ interface EnterYourDetailsViewData extends BaseViewData{
 
 export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsViewData>{
     private static readonly templatePath = "router_views/enter-your-details/enter-your-details";
-    private static viewName = 'enter your details';
     readonly title = "What is your correspondence address?";
 
     /**
@@ -31,7 +30,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
             ...baseViewData,
             title: this.title,
             backURL: env.FEATURE_FLAG_GDS_START_PAGE_290424 ? env.GDS_START_PAGE_LINK : PrefixedUrls.HOME,
-            viewName: EnterYourDetailsHandler.viewName,
+            viewName: 'enter your details',
             countries: countriesWithChoose
         };
     }
