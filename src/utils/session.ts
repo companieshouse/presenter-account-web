@@ -56,5 +56,5 @@ export function getPresenterAccountDetailsOrDefault(req: Request) {
 
 export function cleanSession(req: Request) {
     req.session?.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, undefined);
-    req.session?.deleteExtraData(QUERY_LANG)
+    req.session?.deleteExtraData(QUERY_LANG);
 }
