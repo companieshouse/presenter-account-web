@@ -16,6 +16,7 @@ export interface BaseViewData {
     ExternalUrls: typeof ExternalUrls
     userEmail: string | null
     feedbackLink: string
+    viewName: string
 }
 
 export const defaultBaseViewData: Partial<BaseViewData> = {

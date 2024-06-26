@@ -33,6 +33,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
             title: this.title,
             currentUrl: addLangToUrl(PrefixedUrls.ENTER_YOUR_DETAILS, selectLang(req.session?.getExtraData("lang"))),
             backURL: env.FEATURE_FLAG_GDS_START_PAGE_290424 ? env.GDS_START_PAGE_LINK : PrefixedUrls.HOME,
+            viewName: 'enter your details',
             countries: countriesWithChoose
         };
     }

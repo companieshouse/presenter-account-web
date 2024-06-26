@@ -17,7 +17,8 @@ export class ConfirmationHandler extends GenericHandler<ConfirmationViewData> {
         return {
             ...baseViewData,
             currentUrl: PrefixedUrls.CONFIRMATION,
-            title: "Application submitted - Apply for a Companies House online filing presenter account"
+            title: "Application submitted - Apply for a Companies House online filing presenter account",
+            viewName: 'confirmation',
         };
     }
 
