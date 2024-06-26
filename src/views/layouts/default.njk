@@ -2,7 +2,9 @@
 <!--[if lt IE 9]><html class="lte-ie8" lang="en"><![endif]-->
 <!--[(if gt IE 8) | (!IE)]><!--><html lang="en" class="govuk-template"><!--<![endif]-->
 
+  {% import "add-lang-to-url.njk" as lang2url %}
   {% include "../partials/__meta_header.njk" %}
+
 
   <body class="govuk-template__body" >
 
@@ -20,7 +22,7 @@
             <a href="{{ backURL }}" class="govuk-back-link">{{i18n.back_button}}</a>
         {% endif %}
 
-        {% include "../partials/language_switch.njk" %}
+        {% include "locales-banner.njk" %}
       <main class="govuk-main-wrapper" id="main-content">
 
         <div class="govuk-grid-row">
