@@ -41,6 +41,7 @@
     "express-session": "^1.18.0",
     "express-validator": "^7.0.1",
     "govuk-frontend": "^4.7.0",
+    "i18n": "^0.15.1",
     "ioredis": "^5.3.2",
     "npm": "^10.5.0",
     "nunjucks": "3.2.4",
@@ -113,5 +114,7 @@
   "bugs": {
     "url": "https://github.com/companieshouse/node-review-web-starter-ts/issues"
   },
-  "homepage": "https://github.com/companieshouse/node-review-web-starter-ts#readme"
+  "homepage": "https://github.com/companieshouse/node-review-web-starter-ts#readme",
+  "author": "",
+  "license": "ISC"
 }
