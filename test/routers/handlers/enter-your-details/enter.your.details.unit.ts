@@ -6,6 +6,8 @@ import { ExternalUrls, PrefixedUrls } from "../../../../src/constants";
 import { examplePresenterAccountDetails } from "../../../mocks/example.presenter.account.details.mock";
 import { PRESENTER_ACCOUNT_SESSION_KEY } from "../../../../src/utils/session";
 import { EnterYourDetailsErrorMessages } from "../../../../src/utils/error_manifests/enter.your.details.errors";
+import fs from "fs";
+import path from "path";
 
 let details;
 const fortyCharacters = "90476895878092274478155001661579qwertyui";
@@ -33,6 +35,23 @@ describe("validate form fields", () => {
 
         const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS).expect(200);
         expect(resp.text).toContain("What is your correspondence address?");
+    });
+
+    it(`should render the enter your details page in Welsh with all translations when session ${PRESENTER_ACCOUNT_SESSION_KEY} and language set to Welsh`, async () => {
+        session.setExtraData(
+            PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetails
+        );
+        const welshTranslationsPath = path.join(__dirname, "./../../../../locales/cy/enter-your-details.json");
+        let translations;
+
+        fs.readFile(welshTranslationsPath, 'utf8', (err, data) => {
+            translations = JSON.parse(data);
+        });
+
+        const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy").expect(200);
+
+        Object.entries(translations).forEach(translation => expect(resp.text).toContain(translation[1]));
     });
 
     it("Should not cache the HTMl on this page", async () => {
