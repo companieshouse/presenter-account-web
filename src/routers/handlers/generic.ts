@@ -11,6 +11,7 @@ export interface BaseViewData {
     isSignedIn: boolean
     backURL: string | null
     servicePathPrefix: string
+    currentUrl: string
     Urls: typeof PrefixedUrls
     ExternalUrls: typeof ExternalUrls
     userEmail: string | null

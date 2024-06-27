@@ -13,6 +13,7 @@ export class HomeHandler extends GenericHandler<BaseViewData> {
         return {
             ...baseViewData,
             title: "Apply to file with Companies House using software",
+            currentUrl: PrefixedUrls.HOME,
             viewName: 'home',
             backURL: null,
         };
