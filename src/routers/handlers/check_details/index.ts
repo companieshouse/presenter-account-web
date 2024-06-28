@@ -30,8 +30,10 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
         return {
             ...baseViewData,
             title: "Application submitted - Apply for a Companies House online filing presenter account",
+            currentUrl: PrefixedUrls.CHECK_DETAILS,
             backURL: PrefixedUrls.ENTER_YOUR_DETAILS,
-            address: details.address
+            address: details.address,
+            viewName: 'check your details',
         };
     }
 

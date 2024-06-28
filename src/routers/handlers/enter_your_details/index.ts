@@ -9,6 +9,7 @@ import { ErrorManifestValidationType } from "../../../utils/error_manifests/defa
 import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { env } from "../../../config";
 import { i18nCh } from "@companieshouse/ch-node-utils";
+import { addLangToUrl, selectLang } from "../../../utils/localise";
 
 interface EnterYourDetailsViewData extends BaseViewData{
     address: Address ;
@@ -36,7 +37,9 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         return {
             ...baseViewData,
             title: this.title,
+            currentUrl: addLangToUrl(PrefixedUrls.ENTER_YOUR_DETAILS, selectLang(req.session?.getExtraData("lang"))),
             backURL: env.FEATURE_FLAG_GDS_START_PAGE_290424 ? env.GDS_START_PAGE_LINK : PrefixedUrls.HOME,
+            viewName: 'enter your details',
             countries: countriesWithChoose
         };
     }

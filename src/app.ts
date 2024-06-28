@@ -9,12 +9,14 @@ import { ExternalUrls, PrefixedUrls, Urls, servicePathPrefix } from "./constants
 
 const app = express();
 
-// const viewPath = path.join(__dirname, "/views");
 app.set("views", [
     path.join(__dirname, "views"),
     path.join(__dirname, "node_modules/govuk-frontend"),
     path.join(__dirname, "../node_modules/govuk-frontend"), // This if for when using ts-node since the working directory is src
-    path.join(__dirname, "node_modules/govuk-frontend/components")
+    path.join(__dirname, "node_modules/govuk-frontend/components"),
+    path.join(__dirname, "node_modules/@companieshouse/ch-node-utils/templates"),
+    path.join(__dirname, "../node_modules/@companieshouse/ch-node-utils/templates")
+
 ]);
 
 const nunjucksLoaderOpts = {
@@ -42,6 +44,9 @@ njk.addGlobal("ExternalUrls", ExternalUrls);
 njk.addGlobal("Urls", Urls);
 njk.addGlobal("servicePathPrefix", servicePathPrefix);
 njk.addGlobal("PrefixedUrls", PrefixedUrls);
+njk.addGlobal("SERVICE_NAME", 'presenter-account-web');
+njk.addGlobal("PIWIK_URL", env.PIWIK_URL);
+njk.addGlobal("PIWIK_SITE_ID", env.PIWIK_SITE_ID);
 
 
 // parse body into req.body

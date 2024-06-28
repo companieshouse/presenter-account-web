@@ -8,6 +8,7 @@ import { Urls, servicePathPrefix } from "./constants";
 import { validateUserMiddleware } from "./middleware/user.validate.middleware";
 import { featureFlagMiddleware } from "./middleware/feature.flag.middleware";
 import { localeMiddleware } from "./middleware/locale.middleware";
+import { LocalesMiddleware } from "@companieshouse/ch-node-utils";
 
 const routerDispatch = (app: Application) => {
 
@@ -15,8 +16,10 @@ const routerDispatch = (app: Application) => {
 
 
     app.use(servicePathPrefix, router);
+    router.use(LocalesMiddleware());
 
     router.use(Urls.HEALTHCHECK, HealthCheckRouter);
+
 
     router.use(featureFlagMiddleware);
 
@@ -24,12 +27,12 @@ const routerDispatch = (app: Application) => {
 
     router.use("/", sessionMiddleware);
 
-    router.use(localeMiddleware);
 
     // ------------- Enable login redirect -----------------
     const userAuthRegex = /^\/.+/;
     router.use(userAuthRegex, authenticationMiddleware);
     router.use(userAuthRegex, validateUserMiddleware);
+    router.use(localeMiddleware);
     router.use(Urls.ENTER_YOUR_DETAILS, EnterYourDetailsRouter);
     router.use(Urls.CHECK_DETAILS, CheckDetailsRouter);
     router.use(Urls.CONFIRMATION, ConfirmationRouter);
