@@ -22,7 +22,9 @@
             <a href="{{ backURL }}" class="govuk-back-link">{{i18n.back_button}}</a>
         {% endif %}
 
-        {% include "locales-banner.njk" %}
+        {% if not error %}
+          {% include "locales-banner.njk" %}
+        {% endif %}
       <main class="govuk-main-wrapper" id="main-content">
 
         <div class="govuk-grid-row">
