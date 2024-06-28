@@ -8,7 +8,7 @@ import { ValidationError } from "express-validator";
 import { ErrorManifestValidationType } from "../../../utils/error_manifests/default";
 import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { env } from "../../../config";
-import { addLangToUrl, selectLang, getLocalesField } from "../../../utils/localise";
+import { getLocalesField } from "../../../utils/localise";
 
 interface EnterYourDetailsViewData extends BaseViewData{
     address: Address ;
@@ -33,7 +33,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         return {
             ...baseViewData,
             title: this.title,
-            currentUrl: addLangToUrl(PrefixedUrls.ENTER_YOUR_DETAILS, selectLang(req.session?.getExtraData("lang"))),
+            currentUrl: PrefixedUrls.ENTER_YOUR_DETAILS,
             backURL: env.FEATURE_FLAG_GDS_START_PAGE_290424 ? env.GDS_START_PAGE_LINK : PrefixedUrls.HOME,
             viewName: 'enter your details',
             countries: countriesWithChoose

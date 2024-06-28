@@ -1,5 +1,5 @@
 import { Handler } from "express";
-import { cleanSession, getPresenterAccountDetails } from "../utils/session";
+import { cleanLanguage, cleanSession, getPresenterAccountDetails } from "../utils/session";
 import { PrefixedUrls } from "../constants";
 
 /**
@@ -18,6 +18,7 @@ export const validateUserMiddleware: Handler = (req, res, next) => {
 
     if (userLoggedIn && sessionUser && userLoggedIn !== sessionUser) {
         cleanSession(req);
+        cleanLanguage(req);
         res.redirect(PrefixedUrls.HOME);
     } else {
         next();
