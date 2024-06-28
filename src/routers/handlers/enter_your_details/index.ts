@@ -68,19 +68,4 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         setPresenterAccountDetails(req, details);
         return { redirect: PrefixedUrls.CHECK_DETAILS };
     }
-
-    public convertValidationErrorsToErrorManifestType(errors: ValidationError[]){
-        const errorManifest: ErrorManifestValidationType = {};
-        errors.forEach((error) => {
-            // use element id as key
-            if (error.type === 'field') {
-                const key = error.path.split(/(?=[A-Z0-9])/).join('-').toLocaleLowerCase();
-                errorManifest[key] = {
-                    inline: error.msg,
-                    summary: error.msg
-                };
-            }
-        });
-        return errorManifest;
-    }
 }

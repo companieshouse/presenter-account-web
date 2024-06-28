@@ -2,7 +2,6 @@ import { LanguageNames, LocalesService } from "@companieshouse/ch-node-utils";
 import { env } from "../config/index";
 import { i18nCh } from "@companieshouse/ch-node-utils";
 import { Request } from "express";
-import path from "path";
 
 export const selectLang = (lang: any): string => {
     switch (lang) {
@@ -37,8 +36,8 @@ export const getLocalesService = () => localesSevice;
 
 export function getLocalesField(fieldName: string, req: Request): string {
     try {
-        const language = req.query.lang || "en";
-        const localesPath = path.join(__dirname, "../../locales/");
+        const language = selectLang(req.query.lang);
+        const localesPath = localesSevice.localesFolder;
         const locales = i18nCh.getInstance(localesPath);
         return locales.resolveSingleKey(fieldName, language as string);
     } catch (e){
