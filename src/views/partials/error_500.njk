@@ -1,18 +1,18 @@
 {% extends "layouts/default.njk" %}
-{% set title = "Sorry there is a problem with the service" %}
+{% set error = true %}
 
 {% block main_content %}
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-l">
-                {{ title }}
+                {{ i18n.sorry_there_is_a_problem }}
             </h1>
             <p class="govuk-body">
-                Try again later.
+                {{ i18n.try_again }}
             </p>
             <p class="govuk-body">
-                If the problem continues <a href="mailto:enquiries@companieshouse.gov.uk" class="govuk-link">email us.</a>
+                {{ i18n.email_us_prelink }} <a href="mailto:enquiries@companieshouse.gov.uk" class="govuk-link">{{ i18n.email_us_link }}.</a>
             </p>
         </div>
     </div>
