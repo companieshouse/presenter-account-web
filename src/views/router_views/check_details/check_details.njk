@@ -3,7 +3,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
 {% block main_content %}
-    <h1 class="govuk-heading-l">Check your answers before submitting your application</h1>
+    <h1 class="govuk-heading-l">{{i18n.check_your_answers_before_submit}}</h1>
 
     {% macro renderAddress(address) %}
         {{ address.premises }}<br>
@@ -21,7 +21,7 @@
         "rows": [
             {
                 "key": {
-                    "text": "Address"
+                    "text": i18n.address
                 },
                 "value": {
                     "html": renderAddress(address)
@@ -30,7 +30,7 @@
                     "items": [
                         {
                                 "href": Urls.ENTER_YOUR_DETAILS,
-                                "text": "Change",
+                                "text": i18n.change,
                                 attributes: {'data-event-id': 'selected-change'},
                                 "visuallyHiddenText": "address"
                         }
@@ -42,7 +42,7 @@
 
     <form action="{{Urls.CHECK_DETAILS}}" method="POST">
         <button class="govuk-button" data-module="govuk-button" type="submit" id="submit" data-event-id="presenter-account-check-details-submit">
-            Submit
+            {{i18n.submit}}
         </button>
     </form>
 {% endblock %}
