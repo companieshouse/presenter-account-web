@@ -66,4 +66,8 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         setPresenterAccountDetails(req, details);
         return { redirect: PrefixedUrls.CHECK_DETAILS };
     }
+
+    public static getTemplatePath(){
+        return this.templatePath;
+    }
 }

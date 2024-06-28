@@ -20,7 +20,7 @@ export const validateForm = async (req: Request, res: Response, next: NextFuncti
             viewData.errors = convertValidationErrorsToErrorManifestType(errors.array());
             viewData.address = req.body;
 
-            return res.status(200).render("router_views/enter-your-details/enter-your-details", viewData);
+            return res.status(200).render(EnterYourDetailsHandler.getTemplatePath(), viewData);
         }
         next();
 
