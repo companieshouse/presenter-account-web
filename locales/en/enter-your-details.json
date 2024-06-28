@@ -1,0 +1,33 @@
+{
+    "enter_your_details_page_title": "What is your correspondence address?",
+    "enter_your_details_page_title_info": "We may use this to contact you about your account.",
+    "enter_your_details_property_input_title": "Property name or number",
+    "enter_your_details_property_input_title_info": "For example, 'The Mill', '116' or 'Flat 37a'.We may use this to contact you about your account.",
+    "enter_your_details_address_line_1_input_title": "Address line 1",
+    "enter_your_details_address_line_2_input_title": "Address line 2 (optional)",
+    "enter_your_details_town_input_title": "Town or city",
+    "enter_your_details_postcode_input_title": "Postcode or zip code",
+    "enter_your_details_country_input_title": "Country",
+    "enter_your_details_button_title": "Continue",
+    "enter_your_details_choose_country": "Choose country",
+    "enter_your_details_validation_errors": {
+     
+        "PREMISES_BLANK": "Property name or number is required",
+        "ADDRESS_LINE_1_BLANK": "Address line 1 is required",
+        "TOWN_OR_CITY_BLANK": "Town or city is required",
+        "POST_CODE_BLANK": "Postcode is required",
+        "COUNTRY_BLANK": "Please select a country",
+
+        "PREMISES_LENGTH": "Property name or number must be 40 characters or less",
+        "ADDRESS_LINE_1_LENGTH": "Address line 1 must be 40 characters or less",
+        "ADDRESS_LINE_2_LENGTH": "Address line 2 must be 40 characters or less",
+        "TOWN_OR_CITY_LENGTH": "City or town must be 40 characters or less",
+        "POST_CODE_LENGTH": "Postcode/zip code must be 10 characters or less",
+
+        "PREMISES_INVALID_CHARACTER": "Property name or number must have only valid characters",
+        "ADDRESS_LINE_1_INVALID_CHARACTER": "Address line 1 must have only valid characters",
+        "ADDRESS_LINE_2_INVALID_CHARACTER": "Address line 2 must have only valid characters",
+        "TOWN_OR_CITY_INVALID_CHARACTER": "Town or city must have only valid characters",
+        "POST_CODE_INVALID_CHARACTER": "Postcode must have only valid characters"
+    }
+}

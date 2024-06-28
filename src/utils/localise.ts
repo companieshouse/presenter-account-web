@@ -1,5 +1,7 @@
 import { LanguageNames, LocalesService } from "@companieshouse/ch-node-utils";
 import { env } from "../config/index";
+import { i18nCh } from "@companieshouse/ch-node-utils";
+import { Request } from "express";
 
 export const selectLang = (lang: any): string => {
     switch (lang) {
@@ -14,9 +16,9 @@ export const addLangToUrl = (url: string, lang: string | undefined): string => {
         return url;
     }
     if (url.includes("?")) {
-        return url + "&lang=" + lang;
+        return url + "&lang=" + lang.toLowerCase();
     } else {
-        return url + "?lang=" + lang;
+        return url + "?lang=" + lang.toLowerCase();
     }
 };
 
@@ -31,3 +33,15 @@ export const getLocaleInfo = (locales: LocalesService, lang: string) => {
 
 const localesSevice = LocalesService.getInstance(env.LOCALES_PATH, env.LOCALES_ENABLED);
 export const getLocalesService = () => localesSevice;
+
+export function getLocalesField(fieldName: string, req: Request): string {
+    try {
+        const language = selectLang(req.query.lang);
+        const localesPath = localesSevice.localesFolder;
+        const locales = i18nCh.getInstance(localesPath);
+        return locales.resolveSingleKey(fieldName, language as string);
+    } catch (e){
+        throw new Error(`Unable to get locales file with ${fieldName}: ${e}`);
+    }
+
+}

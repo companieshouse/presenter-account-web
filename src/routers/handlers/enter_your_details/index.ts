@@ -4,10 +4,9 @@ import { logger } from "../../../utils/logger";
 import { type Address } from "private-api-sdk-node/src/services/presenter-account/types";
 import { PrefixedUrls, countries } from "../../../constants";
 import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault } from "./../../../utils/session";
-import { ValidationError, validationResult } from "express-validator";
-import { ErrorManifestValidationType } from "../../../utils/error_manifests/default";
 import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { env } from "../../../config";
+import { getLocalesField } from "../../../utils/localise";
 
 interface EnterYourDetailsViewData extends BaseViewData{
     address: Address ;
@@ -25,8 +24,10 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
      */
     public getViewData(req: Request): EnterYourDetailsViewData {
         const baseViewData = super.getViewData(req);
-        const countriesWithChoose = [ { value: "choose", text: "Choose country", selected: true }, ...countries ];
 
+        const chooseCountry = getLocalesField("enter_your_details_choose_country", req);
+
+        const countriesWithChoose = [ { value: "choose", text: chooseCountry, selected: true }, ...countries ];
         return {
             ...baseViewData,
             title: this.title,
@@ -53,19 +54,6 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
 
     public executePost(req: Request, _response: Response): ViewModel<EnterYourDetailsViewData> | Redirect {
         logger.info(`${this.constructor.name} post execute called`);
-        // validating the form using the req object
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()){
-            const viewData = this.getViewData(req);
-            // if validation errors exists, get them as an array
-            viewData.errors = this.convertValidationErrorsToErrorManifestType(errors.array());
-            viewData.address = req.body;
-            return {
-                templatePath: EnterYourDetailsHandler.templatePath,
-                viewData
-            };
-        }
         const details =  getPresenterAccountDetailsOrDefault(req);
 
         const address = { ...req.body };
@@ -79,18 +67,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         return { redirect: PrefixedUrls.CHECK_DETAILS };
     }
 
-    private convertValidationErrorsToErrorManifestType(errors: ValidationError[]){
-        const errorManifest: ErrorManifestValidationType = {};
-        errors.forEach((error) => {
-            // use element id as key
-            if (error.type === 'field') {
-                const key = error.path.split(/(?=[A-Z0-9])/).join('-').toLocaleLowerCase();
-                errorManifest[key] = {
-                    inline: error.msg,
-                    summary: error.msg
-                };
-            }
-        });
-        return errorManifest;
+    public static getTemplatePath(){
+        return this.templatePath;
     }
 }

@@ -1,0 +1,33 @@
+{
+    "enter_your_details_page_title": "Beth yw eich cyfeiriad gohebiaeth?",
+    "enter_your_details_page_title_info": "Efallai y byddwn yn defnyddio hwn i gysylltu â chi am eich cyfrif.",
+    "enter_your_details_property_input_title": "Enw neu rif eiddo",
+    "enter_your_details_property_input_title_info": "Er enghraifft, ‘Y Mill’ ‘116’ neu ‘Fflat 37a’.  Efallai y byddwn yn defnyddio hwn i gysylltu â chi am eich cyfrif.",
+    "enter_your_details_address_line_1_input_title": "Llinell cyfeiriad 1",
+    "enter_your_details_address_line_2_input_title": "Llinell cyfeiriad 2 (opsiynol)",
+    "enter_your_details_town_input_title": "Dinas neu dref",
+    "enter_your_details_postcode_input_title": "Cod post neu ZIP",
+    "enter_your_details_country_input_title": "Gwlad",
+    "enter_your_details_button_title": "Parhau",
+    "enter_your_details_choose_country": "Dewiswch gwlad",
+    "enter_your_details_validation_errors": {
+     
+        "PREMISES_BLANK": "Mae angen enw a rhif eiddo",
+        "ADDRESS_LINE_1_BLANK": "Cyfeiriad 1 yn ofynnol",
+        "TOWN_OR_CITY_BLANK": "Mae angen dinas neu dref",
+        "POST_CODE_BLANK": "Mae angen cod post",
+        "COUNTRY_BLANK": "Dewiswch wlad",
+
+        "PREMISES_LENGTH": "Rhaid i enw neu rif eiddo fod yn 40 nod neu'n llai",
+        "ADDRESS_LINE_1_LENGTH": "Rhaid i linell cyfeiriad 1 fod yn 40 nod neu'n llai",
+        "ADDRESS_LINE_2_LENGTH": "Rhaid i linell cyfeiriad 2 fod yn 40 nod neu'n llai",
+        "TOWN_OR_CITY_LENGTH": "Rhaid i'r dref neu'r dref fod yn 40 nod neu lai",
+        "POST_CODE_LENGTH": "Rhaid i'r cod post / cod zip fod yn 10 nod neu lai",
+
+        "PREMISES_INVALID_CHARACTER": "Rhaid i enw neu rif eiddo fod â chymeriadau dilys yn unig.",
+        "ADDRESS_LINE_1_INVALID_CHARACTER": "Rhaid i linell cyfeiriad 1 gael nodau dilys yn unig",
+        "ADDRESS_LINE_2_INVALID_CHARACTER": "Rhaid i linell cyfeiriad 2 gael nodau dilys yn unig",
+        "TOWN_OR_CITY_INVALID_CHARACTER": "Rhaid i'r dref neu'r ddinas fod â chymeriadau dilys yn unig",
+        "POST_CODE_INVALID_CHARACTER": "Rhaid i'r cod post fod â chymeriadau dilys yn unig"
+    }
+}

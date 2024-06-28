@@ -10,17 +10,17 @@
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                     <h1 class="govuk-fieldset__heading">
-                        {{ title }}
+                        {{ i18n.enter_your_details_page_title }}
                     </h1>
                 </legend>
-                <p class="govuk-hint">We may use this to contact you about your account.</p>
+                <p class="govuk-hint">{{ i18n.enter_your_details_page_title_info }}</p>
                 {{ govukInput({
                         label: {
-                            text: "Property name or number",
+                            text: i18n.enter_your_details_property_input_title,
                             classes: "govuk-label"
                         },
                         hint: {
-                            text: "For example, 'The Mill', '116' or 'Flat 37a'."
+                            text: i18n.enter_your_details_property_input_title_info
                         },
                         id: "premises",
                         name: "premises",
@@ -30,7 +30,7 @@
                 }}
                 {{ govukInput({
                     label: {
-                        text: "Address line 1"
+                        text: i18n.enter_your_details_address_line_1_input_title
                     },
                     id: "address-line-1",
                     name: "addressLine1",
@@ -40,7 +40,7 @@
                 }}
                 {{ govukInput({
                     label: {
-                        text: "Address line 2 (optional)"
+                        text: i18n.enter_your_details_address_line_2_input_title
                     },
                     classes: "govuk-!-width-full",
                     id: "address-line-2",
@@ -51,7 +51,7 @@
                 }}
                  {{ govukInput({
                     label: {
-                        text: "Town or city"
+                        text: i18n.enter_your_details_town_input_title
                     },
                     classes: "govuk-input govuk-!-width-two-thirds",
                     id: "town-or-city",
@@ -62,7 +62,7 @@
                 }}
                  {{ govukInput({
                     label: {
-                        text: "Postcode or zip code"
+                        text: i18n.enter_your_details_postcode_input_title
                     },
                     classes: "govuk-input govuk-input--width-10",
                     id: "post-code",
@@ -78,13 +78,13 @@
                     value: address.country,
                     errorMessage: { text: errors['country'].summary } if errors['country'] else null,
                     label: {
-                        text: "Country"
+                        text: i18n.enter_your_details_country_input_title
                     },
                     items: countries
                     }) 
                 }}
                 {{ govukButton({
-                    text: "Continue",
+                    text: i18n.enter_your_details_button_title,
                     type: "submit",
                     id: "submit",
                     preventDoubleClick: true,

@@ -1,8 +1,8 @@
 import { Request, Response, Router, NextFunction } from "express";
 import { EnterYourDetailsHandler } from "./handlers/enter_your_details";
-import { formValidation } from "./../validation/enter.your.details.validation";
 import { handleExceptions } from "../utils/async.handler";
 import { noCacheMiddleware } from "../middleware/no.cache.middleware";
+import { validateForm } from "../middleware/formvalidation.middleware";
 
 const router = Router();
 
@@ -17,7 +17,7 @@ router.get("/", handleExceptions( async (req: Request, res: Response, _next: Nex
     return res.render(templatePath, viewData);
 }));
 
-router.post("/", formValidation(), handleExceptions( async (req: Request, res: Response, _next: NextFunction) => {
+router.post("/", validateForm, handleExceptions( async (req: Request, res: Response, _next: NextFunction) => {
     const handler = new EnterYourDetailsHandler();
     const handlerPostResp = handler.executePost(req, res);
 
