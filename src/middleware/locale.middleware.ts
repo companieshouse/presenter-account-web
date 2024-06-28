@@ -12,6 +12,10 @@ export function localeMiddleware(req: Request, res: Response, next: NextFunction
     const lang = selectLang(query_value || session_value);
     const locales = getLocalesService();
 
+    if (req.session) {
+        req.session.setExtraData(QUERY_LANG, lang);
+    }
+
     Object.assign(res.locals, getLocaleInfo(locales, lang));
     next();
 }
