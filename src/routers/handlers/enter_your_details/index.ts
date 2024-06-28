@@ -4,8 +4,6 @@ import { logger } from "../../../utils/logger";
 import { type Address } from "private-api-sdk-node/src/services/presenter-account/types";
 import { PrefixedUrls, countries } from "../../../constants";
 import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault } from "./../../../utils/session";
-import { ValidationError } from "express-validator";
-import { ErrorManifestValidationType } from "../../../utils/error_manifests/default";
 import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { env } from "../../../config";
 import { getLocalesField } from "../../../utils/localise";
@@ -16,7 +14,7 @@ interface EnterYourDetailsViewData extends BaseViewData{
 }
 
 export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsViewData>{
-    public static readonly templatePath = "router_views/enter-your-details/enter-your-details";
+    private static readonly templatePath = "router_views/enter-your-details/enter-your-details";
     readonly title = "What is your correspondence address?";
 
     /**
