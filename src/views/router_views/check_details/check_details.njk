@@ -31,6 +31,7 @@
                         {
                                 "href": Urls.ENTER_YOUR_DETAILS,
                                 "text": i18n.change,
+                                attributes: {'data-event-id': 'presenter-account-check-details-select-change'},
                                 "visuallyHiddenText": "address"
                         }
                     ]
@@ -40,7 +41,7 @@
     }) }}
 
     <form action="{{Urls.CHECK_DETAILS}}" method="POST">
-        <button class="govuk-button" data-module="govuk-button" type="submit" id="submit">
+        <button class="govuk-button" data-module="govuk-button" type="submit" id="submit" data-event-id="presenter-account-check-details-submit">
             {{i18n.submit}}
         </button>
     </form>
