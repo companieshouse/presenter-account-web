@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 import character_validator from "./regex.character.validator";
 import { Request } from "express";
-import { getLocalesField } from "../utils/getLocalesField";
+import { getLocalesField } from "../utils/localise";
 
 export const formValidation = (req: Request) => {
     return [

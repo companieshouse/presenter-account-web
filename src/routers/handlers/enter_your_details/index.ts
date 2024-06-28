@@ -8,8 +8,7 @@ import { ValidationError } from "express-validator";
 import { ErrorManifestValidationType } from "../../../utils/error_manifests/default";
 import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { env } from "../../../config";
-import { i18nCh } from "@companieshouse/ch-node-utils";
-import { addLangToUrl, selectLang } from "../../../utils/localise";
+import { addLangToUrl, selectLang, getLocalesField } from "../../../utils/localise";
 
 interface EnterYourDetailsViewData extends BaseViewData{
     address: Address ;
@@ -28,10 +27,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
     public getViewData(req: Request): EnterYourDetailsViewData {
         const baseViewData = super.getViewData(req);
 
-        const locales = i18nCh.getInstance("../../../../locales/");
-        const language = req.query.lang || "en";
-
-        const chooseCountry = locales.resolveSingleKey("enter_your_details_choose_country", language as string);
+        const chooseCountry = getLocalesField("enter_your_details_choose_country", req);
 
         const countriesWithChoose = [ { value: "choose", text: chooseCountry, selected: true }, ...countries ];
         return {
