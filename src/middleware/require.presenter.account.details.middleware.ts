@@ -29,7 +29,6 @@ export function requirePresenterAccountDetailsMiddleware(req: Request, res: Resp
     } catch (error) {
         logger.error(`Presenter account detaails in session are of incorrect type. Clearing details and redirecting to the home spage for a new submission.`);
         cleanSession(req);
-
         return res.redirect(pageIfDetailsAreIncorrect);
     }
 }

@@ -6,7 +6,7 @@ export const authenticationMiddleware = (req: Request, res: Response, next: Next
     const CHS_URL = env.CHS_URL;
     const authMiddlewareConfig: AuthOptions = {
         chsWebUrl: CHS_URL,
-        returnUrl: req.originalUrl
+        returnUrl: req.baseUrl
     };
 
     return authMiddleware(authMiddlewareConfig)(req, res, next);
