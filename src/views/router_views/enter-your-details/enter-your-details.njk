@@ -25,6 +25,7 @@
                         id: "premises",
                         name: "premises",
                         value: address.premises,
+                        attributes: {'data-event-id': 'presenter-account-enter-your-details-premises'},
                         errorMessage: { text: errors.premises.summary } if errors.premises.summary else null
                     }) 
                 }}
@@ -35,6 +36,7 @@
                     id: "address-line-1",
                     name: "addressLine1",
                     value: address.addressLine1,
+                    attributes: {'data-event-id': 'presenter-account-enter-your-details-addressLine1'},
                     errorMessage: { text: errors['address-line-1'].summary } if errors['address-line-1'] else null
                     }) 
                 }}
@@ -46,6 +48,7 @@
                     id: "address-line-2",
                     name: "addressLine2",
                     value: address.addressLine2,
+                    attributes: {'data-event-id': 'presenter-account-enter-your-details-addressLine2'},
                     errorMessage: { text: errors['address-line-2'].summary } if errors['address-line-2']else null
                     }) 
                 }}
@@ -57,6 +60,7 @@
                     id: "town-or-city",
                     name: "townOrCity",
                     value: address.townOrCity,
+                    attributes: {'data-event-id': 'presenter-account-enter-your-details-townOrCity'},
                     errorMessage: { text: errors['town-or-city'].summary } if errors['town-or-city'] else null
                     }) 
                 }}
@@ -68,6 +72,7 @@
                     id: "post-code",
                     name: "postCode",
                     value: address.postCode,
+                    attributes: {'data-event-id': 'presenter-account-enter-your-details-postCode'},
                     errorMessage: { text: errors['post-code'].summary } if errors['post-code'] else null
                     }) 
                 }}
@@ -76,6 +81,7 @@
                     name: "country",
                     classes: "govuk-!-width-two-thirds",
                     value: address.country,
+                    attributes: {'data-event-id': 'presenter-account-enter-your-details-country'},
                     errorMessage: { text: errors['country'].summary } if errors['country'] else null,
                     label: {
                         text: i18n.enter_your_details_country_input_title
