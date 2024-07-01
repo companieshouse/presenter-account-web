@@ -5,11 +5,14 @@ const NON_END_OF_LINE_LANG_PARAM = /(?<JOINER>[?|&])lang=[a-zA-Z]{2}[?|&]/;
 
 export function removeLangFromUrl(url: string): string {
     const lowerCaseUrl = url.toLocaleLowerCase();
+    // No lang query in url
     if (!RegExp(LANG_PARAM).exec(lowerCaseUrl)) {
         return lowerCaseUrl;
     }
+    // lang query at the end of the url
     if (RegExp(END_OF_LINE_LANG_PARAM).exec(lowerCaseUrl)){
         return lowerCaseUrl.replace(END_OF_LINE_LANG_PARAM, "");
     }
+    // lang query not at the end of the url
     return lowerCaseUrl.replace(NON_END_OF_LINE_LANG_PARAM, "$<JOINER>");
 }
