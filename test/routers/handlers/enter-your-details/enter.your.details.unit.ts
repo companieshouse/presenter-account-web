@@ -270,4 +270,16 @@ describe("Validate form fields with Welsh display", () => {
         expect(response.text).toContain(ErrorMessagesWelsh.POST_CODE_BLANK);
         expect(response.text).toContain(ErrorMessagesWelsh.COUNTRY_BLANK);
     });
+
+    it("should display Welsh error title",  async () => {
+        session.setExtraData(
+            PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetails
+        );
+
+        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy").send({
+            country: "choose" }).expect(200);
+
+        expect(response.text).toContain("Mae problem");
+    });
 });
