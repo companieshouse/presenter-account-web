@@ -5,19 +5,19 @@
 
 {% block main_content %}
     {{ govukPanel({
-        titleText: "Application submitted"
+        titleText: i18n.application_submitted
     }) }}
 
-    <h2 class="govuk-heading-m">What happens next</h2>
+    <h2 class="govuk-heading-m">{{ i18n.what_happens_next }}</h2>
 
-    <p class="govuk-body">We'll create your presenter account. We'll send an email to <span class="govuk-!-font-weight-bold">{{ userEmail }}</span> with your:</p>
+    <p class="govuk-body">{{ i18n.info_panel.text_start }} <span class="govuk-!-font-weight-bold">{{ userEmail }}</span> {{ i18n.info_panel.text_end }}</p>
 
     <ul class="govuk-list govuk-list--bullet">
-        <li>presenter ID</li>
-        <li>presenter code</li>
+        <li>{{ i18n.info_panel.presenter_id }}</li>
+        <li>{{ i18n.info_panel.presenter_code }}</li>
     </ul>
 
-    <p class="govuk-body">This can take up to an hour. If you have not received an email after an hour, check your junk folder.</p>
+    <p class="govuk-body">{{ i18n.email_feedback }}</p>
 
-    <p class="govuk-body">You must keep your presenter ID and code secure. You will need them to file using software. </p>
+    <p class="govuk-body">{{ i18n.secure_info }}</p>
 {% endblock %}
