@@ -17,7 +17,7 @@ export const validateForm = async (req: Request, res: Response, next: NextFuncti
             const viewData = handler.getViewData(req);
 
             // Convert validation errors to an error manifest type
-            viewData.errors = convertValidationErrorsToErrorManifestType(errors.array());
+            viewData.errors = orderErrors(convertValidationErrorsToErrorManifestType(errors.array()));
             viewData.address = req.body;
 
             return res.status(200).render(EnterYourDetailsHandler.getTemplatePath(), viewData);
@@ -42,4 +42,15 @@ export function convertValidationErrorsToErrorManifestType(errors: ValidationErr
         }
     });
     return errorManifest;
+}
+
+function orderErrors(errors: ErrorManifestValidationType){
+    const order = ['premises', 'address-line-1', 'address-line-2', 'town-or-city', 'post-code', 'country'];
+    const reorderErrors: ErrorManifestValidationType = {};
+    order.forEach(key => {
+        if (Object.prototype.hasOwnProperty.call(errors, key)){
+            reorderErrors[key] = errors[key];
+        }
+    });
+    return reorderErrors;
 }

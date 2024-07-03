@@ -1,15 +1,15 @@
 {
-    "cookies_header": "Cookies on Companies House services welsh",
-    "cookies_banner_1": "We use some essential cookies to make our services work. welsh",
-    "cookies_banner_2": "We'd also like to use analytics cookies so we can understand how you use our services and to make improvements. welsh",
-    "accept_analytic_cookies": "Accept analytics cookies welsh",
-    "reject_analytic_cookies": "Reject analytics cookies welsh",
-    "view_cookies": "View cookies welsh",
-    "accepted_analytics_cookies": "You've accepted analytics cookies. welsh",
-    "rejected_analytics_cookies": "You've rejected analytics cookies. welsh",
-    "change_cookies_1": "You can welsh",
-    "change_cookies_2": "change your cookie settings welsh",
-    "change_cookies_3": "at any time. welsh",
-    "cookies_no_js": "We use cookies to make our services work and collect analytics information. To accept or reject analytics cookies, turn on JavaScript in your browser settings and reload this page. welsh",
-    "cookies_hide": "Hide this message welsh"
+    "cookies_header": "Cwcis ar wasanaethau Tŷ'r Cwmnïau",
+    "essential_cookies_banner": "Rydym yn defnyddio cwcis hanfodol i wneud i'n gwasanaethau weithio.",
+    "analytics_cookies_banner": "Hoffem hefyd ddefnyddio cwcis dadansoddeg fel y gallwn ddeall sut rydych chi'n defnyddio ein gwasanaethau ac i wneud gwelliannau.",
+    "accept_analytic_cookies": "Derbyn cwcis dadansoddeg",
+    "reject_analytic_cookies": "Gwrthod cwcis dadansoddeg",
+    "view_cookies": "Gweld cwcis",
+    "accepted_analytics_cookies": "Rydych wedi derbyn cwcis dadansoddeg.",
+    "rejected_analytics_cookies": "Rydych wedi gwrthod cwcis dadansoddeg.",
+    "cookies_you_can": "Gallwch",
+    "change_cookie_settings": "newid eich gosodiadau cwcis",
+    "cookies_at_any_time": "ar unrhyw adeg.",
+    "cookies_no_js": "Rydym yn defnyddio cwcis i wneud i'n gwasanaethau weithio a chasglu gwybodaeth ddadansoddol. I dderbyn neu wrthod cwcis dadansoddol, trowch JavaScript ymlaen yng ngosodiadau eich porwr ac ail-lwythwch y dudalen hon.",
+    "cookies_hide": "Cuddio'r neges hon"
   }
