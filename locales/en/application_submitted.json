@@ -1,11 +1,8 @@
 {
     "application_submitted": "Application Submitted",
     "what_happens_next": "What happens next",
-    "info_panel": {
-        "text_start": "We/’ll create your presenter account. We/’ll send an email to",
-        "email": "example@company.co.uk",
-        "text_end": "with your:"
-    },
+    "info_text_start": "We’ll create your presenter account. We’ll send an email to",
+    "info_text_end": "with your:",
     "presenter_id": "presenter ID",
     "presenter_code": "presenter code",
     "email_feedback": "This can take up to an hour. If you have not received an email after an hour, check your junk folder.",
