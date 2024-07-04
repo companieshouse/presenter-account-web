@@ -20,4 +20,14 @@ describe("confirmation tests", () => {
             ExternalUrls.FEEDBACK_CONF
         );
     });
+
+    it("Should display the correct email info text for Welsh confirmation page", async () => {
+        const resp = await request(app).get(PrefixedUrls.CONFIRMATION + "?lang=cy");
+        expect(resp.text).toContain(
+            "Byddwn yn creu eich cyfrif cyflwynydd. Byddwn yn anfon e-bost at"
+        );
+        expect(resp.text).toContain(
+            "gyda&#39;ch:"
+        );
+    });
 });

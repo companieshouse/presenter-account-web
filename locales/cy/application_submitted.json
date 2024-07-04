@@ -1,11 +1,9 @@
 {
     "application_submitted": "Cais wedi ei gyflwyno",
     "what_happens_next": "Beth fydd yn digwydd nesaf",
-    "info_panel": {
-        "text_start": "Byddwn yn creu eich cyfrif cyflwynydd. Byddwn yn anfon e-bost at",
-        "email": "enghraifft@cwmni.co.uk",
-        "text_end": "gyda'ch:"
-    },
+    "info_text_start": "Byddwn yn creu eich cyfrif cyflwynydd. Byddwn yn anfon e-bost at",
+    "email": "enghraifft@cwmni.co.uk",
+    "info_text_end": "gyda'ch:",
     "presenter_id": "ID cyflwynydd",
     "presenter_code": "cod cyflwynydd",
     "email_feedback": "Gall hyn gymryd hyd at 1 awr. Os nad ydych wedi derbyn e-bost ar ôl awr, gwiriwch eich ffolder sothach.",
