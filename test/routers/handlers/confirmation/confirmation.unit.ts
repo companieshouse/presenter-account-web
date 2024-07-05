@@ -30,4 +30,11 @@ describe("confirmation tests", () => {
             "gyda&#39;ch:"
         );
     });
+
+    it("should translate page title to Welsh",  async () => {
+
+        const response = await request(app).get(PrefixedUrls.CONFIRMATION + "?lang=cy");
+
+        expect(response.text).toContain("<title>Cais wedi ei gyflwyno</title>");
+    });
 });

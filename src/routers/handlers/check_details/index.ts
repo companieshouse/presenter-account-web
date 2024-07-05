@@ -11,6 +11,7 @@ import { getPresenterAccountDetails, cleanSession } from "../../../utils/session
 import { PrefixedUrls } from "../../../constants";
 import { createOauthPrivateApiClient } from "../../../service/api.client.service";
 import { Result, failure } from "@companieshouse/api-sdk-node/dist/services/result";
+import { getLocalesField } from "../../../utils/localise";
 
 interface CheckDetailsViewData extends BaseViewData {
     address: Address;
@@ -29,7 +30,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
 
         return {
             ...baseViewData,
-            title: "Application submitted - Apply for a Companies House online filing presenter account",
+            title: getLocalesField("check_your_answers_page_title", req),
             currentUrl: PrefixedUrls.CHECK_DETAILS,
             backURL: PrefixedUrls.ENTER_YOUR_DETAILS,
             address: details.address,

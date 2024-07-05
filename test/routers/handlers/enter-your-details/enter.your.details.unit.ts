@@ -282,4 +282,15 @@ describe("Validate form fields with Welsh display", () => {
 
         expect(response.text).toContain("Mae problem");
     });
+
+    it("should translate page title to Welsh",  async () => {
+        session.setExtraData(
+            PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetails
+        );
+
+        const response = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy");
+
+        expect(response.text).toContain("<title>Beth yw eich cyfeiriad gohebiaeth?</title>");
+    });
 });
