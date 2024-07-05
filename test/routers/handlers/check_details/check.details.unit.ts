@@ -107,7 +107,7 @@ describe("check details tests", () => {
             examplePresenterAccountDetails
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS + "?lang=cy");
+        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.text).toContain(
             ExternalUrls.FEEDBACK
