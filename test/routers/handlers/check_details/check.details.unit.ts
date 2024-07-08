@@ -51,6 +51,17 @@ describe("check details tests", () => {
         );
     });
 
+    it("should translate page title to Welsh",  async () => {
+        session.setExtraData(
+            PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetails
+        );
+
+        const response = await request(app).get(PrefixedUrls.CHECK_DETAILS + "?lang=cy");
+
+        expect(response.text).toContain("<title>Gwiriwch eich atebion cyn cyflwyno eich cais.</title>");
+    });
+
     it("Should include a Change button link on the Check Details page", async () => {
         session.setExtraData(
             PRESENTER_ACCOUNT_SESSION_KEY,

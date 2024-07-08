@@ -7,5 +7,6 @@
     "presenter_code": "presenter code",
     "email_feedback": "This can take up to an hour. If you have not received an email after an hour, check your junk folder.",
     "secure_info": "You must keep your presenter ID and code secure. You will need them to file using software.",
-    "new_service_thoughts": "What do you think of our new service?"
+    "new_service_thoughts": "What do you think of our new service?",
+    "confirmation_page_title": "Application submitted - Apply for a Companies House online filing presenter account"
 }

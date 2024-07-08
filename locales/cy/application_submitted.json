@@ -7,5 +7,7 @@
     "presenter_code": "cod cyflwynydd",
     "email_feedback": "Gall hyn gymryd hyd at 1 awr. Os nad ydych wedi derbyn e-bost ar ôl awr, gwiriwch eich ffolder sothach.",
     "secure_info": "Mae'n rhaid i chi gadw eich ID a chod cyflwynydd yn ddiogel.   Byddwch eu hangen i ffeilio gan ddefnyddio meddalwedd.",
-    "new_service_thoughts": "Beth yw eich barn am ein gwasanaeth?"
+    "new_service_thoughts": "Beth yw eich barn am ein gwasanaeth?",
+    "confirmation_page_title": "Cais wedi ei gyflwyno"
+
 }

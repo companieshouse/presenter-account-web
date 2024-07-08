@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
 import { BaseViewData, GenericHandler, ViewModel } from "../generic";
 import { PrefixedUrls } from "../../../constants";
+import { getLocalesField } from "../../../utils/localise";
 
 interface ConfirmationViewData extends BaseViewData {
 }
@@ -17,7 +18,7 @@ export class ConfirmationHandler extends GenericHandler<ConfirmationViewData> {
         return {
             ...baseViewData,
             currentUrl: PrefixedUrls.CONFIRMATION,
-            title: "Application submitted - Apply for a Companies House online filing presenter account",
+            title: getLocalesField("confirmation_page_title", req),
             viewName: 'confirmation',
         };
     }
