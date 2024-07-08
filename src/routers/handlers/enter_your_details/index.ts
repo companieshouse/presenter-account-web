@@ -6,7 +6,7 @@ import { PrefixedUrls, countries } from "../../../constants";
 import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault } from "./../../../utils/session";
 import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { env } from "../../../config";
-import { getLocalesField } from "../../../utils/localise";
+import { getLocalesField, selectLang, setSessionLanguage } from "../../../utils/localise";
 
 interface EnterYourDetailsViewData extends BaseViewData{
     address: Address ;
@@ -45,6 +45,10 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         const viewData = this.getViewData(req);
         viewData.address = details.address;
 
+        if (req.query.lang){
+            setSessionLanguage(selectLang(req.query.lang), req);
+        }
+
         return {
             templatePath: EnterYourDetailsHandler.templatePath,
             viewData
@@ -60,6 +64,10 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
             details.address = address;
         } else {
             throw new Error("Incorrect Address format set for presenter account details");
+        }
+
+        if (req.query.lang){
+            setSessionLanguage(selectLang(req.query.lang), req);
         }
 
         setPresenterAccountDetails(req, details);

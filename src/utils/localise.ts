@@ -3,6 +3,8 @@ import { env } from "../config/index";
 import { i18nCh } from "@companieshouse/ch-node-utils";
 import { Request } from "express";
 
+const QUERY_LANG = "lang";
+
 export const selectLang = (lang: any): string => {
     switch (lang) {
             case "cy": return "cy";
@@ -35,8 +37,6 @@ const localesSevice = LocalesService.getInstance(env.LOCALES_PATH, env.LOCALES_E
 export const getLocalesService = () => localesSevice;
 
 export function getLocalesField(fieldName: string, req: Request): string {
-    const QUERY_LANG = "lang";
-
     try {
         const language = req.query.lang ? selectLang(req.query.lang) : req.session?.getExtraData<string>(QUERY_LANG);
         const localesPath = localesSevice.localesFolder;
@@ -46,4 +46,8 @@ export function getLocalesField(fieldName: string, req: Request): string {
         throw new Error(`Unable to get locales file with ${fieldName}: ${e}`);
     }
 
+}
+
+export function setSessionLanguage(lang: string, req: Request){
+    req.session?.setExtraData(QUERY_LANG, lang);
 }

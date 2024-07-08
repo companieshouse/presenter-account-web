@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
 import { BaseViewData, GenericHandler, ViewModel } from "../generic";
 import { PrefixedUrls } from "../../../constants";
-import { getLocalesField } from "../../../utils/localise";
+import { getLocalesField, selectLang, setSessionLanguage } from "../../../utils/localise";
 
 interface ConfirmationViewData extends BaseViewData {
 }
@@ -26,6 +26,11 @@ export class ConfirmationHandler extends GenericHandler<ConfirmationViewData> {
 
     public execute (req: Request, _response: Response): ViewModel<ConfirmationViewData> {
         logger.info(`GET request to serve the confirmation screen`);
+
+        if (req.query.lang){
+            setSessionLanguage(selectLang(req.query.lang), req);
+        }
+
         return {
             templatePath: ConfirmationHandler.templatePath,
             viewData: this.getViewData(req),

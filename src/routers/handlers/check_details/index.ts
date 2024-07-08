@@ -11,7 +11,7 @@ import { getPresenterAccountDetails, cleanSession } from "../../../utils/session
 import { PrefixedUrls } from "../../../constants";
 import { createOauthPrivateApiClient } from "../../../service/api.client.service";
 import { Result, failure } from "@companieshouse/api-sdk-node/dist/services/result";
-import { getLocalesField } from "../../../utils/localise";
+import { getLocalesField, selectLang, setSessionLanguage } from "../../../utils/localise";
 
 interface CheckDetailsViewData extends BaseViewData {
     address: Address;
@@ -44,6 +44,10 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
     ): ViewModel<CheckDetailsViewData> {
         logger.info(`CheckDetailsHandler execute called`);
         const viewData = this.getViewData(req);
+
+        if (req.query.lang){
+            setSessionLanguage(selectLang(req.query.lang), req);
+        }
 
         return {
             templatePath: CheckDetailsHandler.templatePath,
@@ -81,6 +85,10 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
         } else {
             // On successful submission, clean up the session
             cleanSession(req);
+        }
+
+        if (req.query.lang){
+            setSessionLanguage(selectLang(req.query.lang), req);
         }
 
         return {
