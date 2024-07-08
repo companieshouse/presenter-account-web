@@ -93,6 +93,7 @@ describe("validate form fields", () => {
     });
 
     it("should display errors for missing mandatory fields",  async () => {
+        session.deleteExtraData("lang");
         session.setExtraData(
             PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
@@ -109,6 +110,7 @@ describe("validate form fields", () => {
     });
 
     it("should display errors for fields that go above max length",  async () => {
+        session.setExtraData("lang", "en");
         session.setExtraData(
             PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
@@ -154,7 +156,7 @@ describe("validate form fields", () => {
             PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
-        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send({
+        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en").send({
             ...examplePresenterAccountDetails.address,
             premises: "§§",
             postCode: "§§",

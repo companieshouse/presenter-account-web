@@ -35,8 +35,10 @@ const localesSevice = LocalesService.getInstance(env.LOCALES_PATH, env.LOCALES_E
 export const getLocalesService = () => localesSevice;
 
 export function getLocalesField(fieldName: string, req: Request): string {
+    const QUERY_LANG = "lang";
+
     try {
-        const language = selectLang(req.query.lang);
+        const language = req.query.lang ? selectLang(req.query.lang) : req.session?.getExtraData<string>(QUERY_LANG);
         const localesPath = localesSevice.localesFolder;
         const locales = i18nCh.getInstance(localesPath);
         return locales.resolveSingleKey(fieldName, language as string);
