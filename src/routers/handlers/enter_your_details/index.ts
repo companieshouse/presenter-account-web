@@ -64,7 +64,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         const lang = req.query.lang ?? req.session?.getExtraData("lang");
         if (isLang(lang)){
             details.lang = lang;
-        }else {
+        } else {
             throw new Error("Invalid text languge: 'lang' variable should be either 'en' or 'cy'");
         }
         setPresenterAccountDetails(req, details);
