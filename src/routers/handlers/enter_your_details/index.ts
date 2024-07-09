@@ -65,7 +65,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         if (isLang(lang)){
             details.lang = lang;
         }else {
-            throw new Error("Invalid languge: 'lang' variable should be either 'en' or 'cy'");
+            throw new Error("Invalid text languge: 'lang' variable should be either 'en' or 'cy'");
         }
         setPresenterAccountDetails(req, details);
         return { redirect: PrefixedUrls.CHECK_DETAILS };
