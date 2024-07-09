@@ -7,6 +7,7 @@ import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault } from 
 import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { env } from "../../../config";
 import { getLocalesField } from "../../../utils/localise";
+import { StringDecoder } from "string_decoder";
 
 interface EnterYourDetailsViewData extends BaseViewData{
     address: Address ;
@@ -61,7 +62,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         } else {
             throw new Error("Incorrect Address format set for presenter account details");
         }
-
+        details.lang = (req.query.lang || req.session?.getExtraData("lang")) as "en" | "cy";
         setPresenterAccountDetails(req, details);
         return { redirect: PrefixedUrls.CHECK_DETAILS };
     }
