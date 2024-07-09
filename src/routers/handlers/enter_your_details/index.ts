@@ -4,7 +4,7 @@ import { logger } from "../../../utils/logger";
 import { type Address } from "private-api-sdk-node/src/services/presenter-account/types";
 import { PrefixedUrls, countries } from "../../../constants";
 import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault } from "./../../../utils/session";
-import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
+import { isAddress, isLang } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { env } from "../../../config";
 import { getLocalesField } from "../../../utils/localise";
 
@@ -61,7 +61,12 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         } else {
             throw new Error("Incorrect Address format set for presenter account details");
         }
-        details.lang = (req.query.lang ?? req.session?.getExtraData("lang")) as "en" | "cy";
+        const lang = req.query.lang ?? req.session?.getExtraData("lang");
+        if (isLang(lang)){
+            details.lang = lang;
+        }else {
+            throw new Error("Invalid languge: 'lang' variable should be either 'en' or 'cy'");
+        }
         setPresenterAccountDetails(req, details);
         return { redirect: PrefixedUrls.CHECK_DETAILS };
     }
