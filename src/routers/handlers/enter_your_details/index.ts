@@ -7,7 +7,6 @@ import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault } from 
 import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { env } from "../../../config";
 import { getLocalesField } from "../../../utils/localise";
-import { StringDecoder } from "string_decoder";
 
 interface EnterYourDetailsViewData extends BaseViewData{
     address: Address ;
