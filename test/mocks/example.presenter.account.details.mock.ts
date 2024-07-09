@@ -15,5 +15,6 @@ export const examplePresenterAccountDetails: Details = {
         townOrCity: "Abertawe",
         country: "Cymru",
         postCode: "SA1 1ZZ"
-    }
+    },
+    lang:"en"
 };
