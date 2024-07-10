@@ -16,5 +16,5 @@ export const examplePresenterAccountDetails: Details = {
         country: "Cymru",
         postCode: "SA1 1ZZ"
     },
-    lang:"en"
+    lang: "en"
 };
