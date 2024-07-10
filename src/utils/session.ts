@@ -39,7 +39,8 @@ export function populatePresenterAccountDetails(req: Request): Details {
             country: '',
             addressLine1: '',
             townOrCity: ''
-        }
+        },
+        lang: "en"
     } as Details;
 
     return detailObject;

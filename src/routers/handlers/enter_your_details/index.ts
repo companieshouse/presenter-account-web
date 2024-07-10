@@ -1,10 +1,10 @@
 import { BaseViewData, GenericHandler, Redirect, ViewModel } from "./../generic";
 import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
-import { type Address } from "private-api-sdk-node/src/services/presenter-account/types";
+import { type Details, type Address } from "private-api-sdk-node/src/services/presenter-account/types";
 import { PrefixedUrls, countries } from "../../../constants";
 import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault } from "./../../../utils/session";
-import { isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
+import { isAddress, isLang } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { env } from "../../../config";
 import { getLocalesField } from "../../../utils/localise";
 
@@ -53,7 +53,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
 
     public executePost(req: Request, _response: Response): ViewModel<EnterYourDetailsViewData> | Redirect {
         logger.info(`${this.constructor.name} post execute called`);
-        const details =  getPresenterAccountDetailsOrDefault(req);
+        const details: Details =  getPresenterAccountDetailsOrDefault(req);
 
         const address = { ...req.body };
         if (isAddress(address)){
@@ -61,7 +61,12 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         } else {
             throw new Error("Incorrect Address format set for presenter account details");
         }
-
+        const lang = (req.query.lang ?? req.session?.getExtraData("lang")) as Details["lang"];
+        if (isLang(lang)){
+            details.lang = lang;
+        } else {
+            throw new Error(`Invalid language: ${lang} variable should be either 'en' or 'cy'`);
+        }
         setPresenterAccountDetails(req, details);
         return { redirect: PrefixedUrls.CHECK_DETAILS };
     }
