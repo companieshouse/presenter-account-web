@@ -5,10 +5,10 @@ import { removeLangFromUrl } from "../utils/query";
 import { Urls, PrefixedUrls } from "../constants";
 export const authenticationMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const CHS_URL = env.CHS_URL;
-    const RETURN_URL = getReturnCallbackURL(req);
+    const returnUrl = getReturnCallbackURL(req);
     const authMiddlewareConfig: AuthOptions = {
         chsWebUrl: CHS_URL,
-        returnUrl: removeLangFromUrl(RETURN_URL)
+        returnUrl: removeLangFromUrl(returnUrl)
     };
 
     return authMiddleware(authMiddlewareConfig)(req, res, next);
