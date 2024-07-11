@@ -3,6 +3,7 @@ import { BaseViewData, GenericHandler, Redirect, ViewModel } from "./../generic"
 import { logger } from "../../../utils/logger";
 import { env } from "../../../config";
 import { PrefixedUrls } from "../../../constants";
+import { addLangToUrl, selectLang } from "../../../utils/localise";
 
 export class HomeHandler extends GenericHandler<BaseViewData> {
     public static templatePath = "router_views/index/home";
@@ -24,7 +25,8 @@ export class HomeHandler extends GenericHandler<BaseViewData> {
 
         if (env.FEATURE_FLAG_GDS_START_PAGE_290424 === true) {
             logger.debug('GDS flag is on redirecting to the enter-your-details page');
-            return { redirect: PrefixedUrls.ENTER_YOUR_DETAILS };
+            const redirectURL = addLangToUrl(PrefixedUrls.ENTER_YOUR_DETAILS, selectLang(req.query.lang));
+            return { redirect: redirectURL };
         }
 
         return {
