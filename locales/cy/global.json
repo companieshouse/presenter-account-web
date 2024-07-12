@@ -1,9 +1,9 @@
 {
     "companies_house": "Ty’r Cwmniau ",
     "service_title": "Gwneud cais i ffeilio gyda Thŷ'r Cwmnïau gan ddefnyddio meddalwedd",
-    "beta_banner_message_prelink": "Mae hwn y wasanaeth newydd - bydd eich",
-    "beta_banner_message_link": "adborthyn",
-    "beta_banner_message_post_link": "ein helpu i'w wella.",
+    "beta_banner_message_prelink": "Mae hwn u wasanaeth newydd - bydd eich",
+    "beta_banner_message_link": "adborth",
+    "beta_banner_message_post_link": "yn ein helpu i’w wella.",
     "back_button": "Nôl",
     "sign_out": "Allgofnodi",
     "policies": "Polisïau",
@@ -15,5 +15,5 @@
     "license_notice_link": "Drwydded Llywodraeth Agored v3.0",
     "license_notice_post_link": "ac eithrio lle nodir yn wahanol.",
     "copyright": "Hawlfraint y Goron",
-    "problem_detected": "Mae problem"
+    "problem_detected": "Mae yna problem"
 }
