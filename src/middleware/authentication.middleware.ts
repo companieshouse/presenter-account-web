@@ -13,7 +13,7 @@ export const authenticationMiddleware = (req: Request, res: Response, next: Next
 };
 
 function getReturnCallbackURL(req: Request){
-    if (req.originalUrl.endsWith(Urls.CONFIRMATION)){
+    if (req.baseUrl.endsWith(Urls.CONFIRMATION)){
     // Returns the home URL, since the journey is completed
         return PrefixedUrls.HOME;
     } else {

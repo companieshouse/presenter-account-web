@@ -15,16 +15,28 @@ describe("home page tests", () => {
         expect(resp.text).toContain(HEADING);
     });
 
-    it("should render the enter your details page when GDS feature flag is on", async () => {
+    it("should render the enter your details page when GDS feature flag is on and in Welsh language", async () => {
+        // @ts-expect-error need to overwrite ReadOnly environment variables to test GDS start page feature flag
+        env.FEATURE_FLAG_GDS_START_PAGE_290424 = true;
+        const resp = await request(app).get(PrefixedUrls.HOME + "?lang=cy");
+        expect(resp.status).toBe(302);
+        expect(resp.text).toContain(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy");
+    });
+
+    it("should render the enter your details page when GDS feature flag is on and in English language", async () => {
+        // @ts-expect-error need to overwrite ReadOnly environment variables to test GDS start page feature flag
+        env.FEATURE_FLAG_GDS_START_PAGE_290424 = true;
+        const resp = await request(app).get(PrefixedUrls.HOME + "?lang=en");
+        expect(resp.status).toBe(302);
+        expect(resp.text).toContain(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en");
+    });
+
+    it("should render the enter your details page when GDS feature flag is on and with default English language", async () => {
         // @ts-expect-error need to overwrite ReadOnly environment variables to test GDS start page feature flag
         env.FEATURE_FLAG_GDS_START_PAGE_290424 = true;
         const resp = await request(app).get(PrefixedUrls.HOME);
         expect(resp.status).toBe(302);
-        expect(resp.text).toContain(PrefixedUrls.ENTER_YOUR_DETAILS);
-    });
-
-    afterEach(() => {
-        jest.resetModules();
+        expect(resp.text).toContain(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en");
     });
 
 });
