@@ -10,7 +10,7 @@ const CHOICE_EN = "?lang=en";
 const CHOICE_CY = "?lang=cy";
 const CHOICE_CY_ALSO = "?foo=bar&lang=cy";
 const EN_NEW_SERVICE_TEXT = "This is a new service";
-const CY_NEW_SERVICE_TEXT = "Mae hwn y wasanaeth newydd";
+const CY_NEW_SERVICE_TEXT = "Mae hwn u wasanaeth newydd";
 
 describe("Locale middleware test", () => {
 

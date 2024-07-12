@@ -203,9 +203,9 @@ describe("Validate form fields with Welsh display", () => {
         POST_CODE_BLANK = "Mae angen cod post",
         COUNTRY_BLANK = "Dewiswch wlad",
 
-        PREMISES_LENGTH = "Rhaid i enw neu rif eiddo fod yn 40 nod neu&#39;n llai",
-        ADDRESS_LINE_1_LENGTH = "Rhaid i linell cyfeiriad 1 fod yn 40 nod neu&#39;n llai",
-        ADDRESS_LINE_2_LENGTH = "Rhaid i linell cyfeiriad 2 fod yn 40 nod neu&#39;n llai",
+        PREMISES_LENGTH = "Rhaid i enw neu rif eiddo fod yn 40 nod neu lai.",
+        ADDRESS_LINE_1_LENGTH = "Rhaid i linell cyfeiriad 1 fod yn 40 nod neu lai",
+        ADDRESS_LINE_2_LENGTH = "Rhaid i linell cyfeiriad 2 fod yn 40 nod neu lai",
         TOWN_OR_CITY_LENGTH = "Rhaid i&#39;r dref neu&#39;r dref fod yn 40 nod neu lai",
         POST_CODE_LENGTH = "Rhaid i&#39;r cod post / cod zip fod yn 10 nod neu lai",
 
@@ -282,7 +282,7 @@ describe("Validate form fields with Welsh display", () => {
         const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy").send({
             country: "choose" }).expect(200);
 
-        expect(response.text).toContain("Mae problem");
+        expect(response.text).toContain("Mae yna problem");
     });
 
     it("should translate page title to Welsh",  async () => {
