@@ -9,7 +9,7 @@
     "enter_your_details_postcode_input_title": "Cod post neu ZIP",
     "enter_your_details_country_input_title": "Gwlad",
     "enter_your_details_button_title": "Parhau",
-    "enter_your_details_choose_country": "Dewiswch gwlad",
+    "enter_your_details_choose_country": "Dewiswch wlad",
     "enter_your_details_validation_errors": {
      
         "PREMISES_BLANK": "Mae angen enw a rhif eiddo",
@@ -18,9 +18,9 @@
         "POST_CODE_BLANK": "Mae angen cod post",
         "COUNTRY_BLANK": "Dewiswch wlad",
 
-        "PREMISES_LENGTH": "Rhaid i enw neu rif eiddo fod yn 40 nod neu'n llai",
-        "ADDRESS_LINE_1_LENGTH": "Rhaid i linell cyfeiriad 1 fod yn 40 nod neu'n llai",
-        "ADDRESS_LINE_2_LENGTH": "Rhaid i linell cyfeiriad 2 fod yn 40 nod neu'n llai",
+        "PREMISES_LENGTH": "Rhaid i enw neu rif eiddo fod yn 40 nod neu lai.",
+        "ADDRESS_LINE_1_LENGTH": "Rhaid i linell cyfeiriad 1 fod yn 40 nod neu lai",
+        "ADDRESS_LINE_2_LENGTH": "Rhaid i linell cyfeiriad 2 fod yn 40 nod neu lai",
         "TOWN_OR_CITY_LENGTH": "Rhaid i'r dref neu'r dref fod yn 40 nod neu lai",
         "POST_CODE_LENGTH": "Rhaid i'r cod post / cod zip fod yn 10 nod neu lai",
 
