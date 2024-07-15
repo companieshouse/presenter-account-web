@@ -126,4 +126,4 @@ Empty directories and files, wherever you find them, are only there for complete
   
 ### 7. Docker Support
 
-- The repository supports docker and the docker architecture can be modified by modifying the Dockerfile. The dockerignore file can be used to specifying which files will be copied into the container. 
+- The repository supports docker and the docker architecture can be modified by modifying the Dockerfile. The dockerignore file can be used to specifying which files will be copied into the container.
