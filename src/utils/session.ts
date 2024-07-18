@@ -4,6 +4,7 @@ import { type Details } from "private-api-sdk-node/src/services/presenter-accoun
 
 export const PRESENTER_ACCOUNT_SESSION_KEY = "presenter_account_details";
 const QUERY_LANG = "lang";
+const LANG_EN = "en";
 
 export function getPresenterAccountDetails(req: Request): Details | undefined {
     const presenterAccountDetails = req.session?.getExtraData(PRESENTER_ACCOUNT_SESSION_KEY);
@@ -40,7 +41,7 @@ export function populatePresenterAccountDetails(req: Request): Details {
             addressLine1: '',
             townOrCity: ''
         },
-        lang: "en"
+        lang: LANG_EN
     } as Details;
 
     return detailObject;
