@@ -3,8 +3,8 @@ import { env } from "../config/index";
 import { i18nCh } from "@companieshouse/ch-node-utils";
 import { Request } from "express";
 
-const LANG_EN = "en"
-const LANG_CY = "cy"
+const LANG_EN = "en";
+const LANG_CY = "cy";
 
 export const selectLang = (lang: any): string => {
     switch (lang) {
