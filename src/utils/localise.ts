@@ -3,11 +3,14 @@ import { env } from "../config/index";
 import { i18nCh } from "@companieshouse/ch-node-utils";
 import { Request } from "express";
 
+const LANG_EN = "en"
+const LANG_CY = "cy"
+
 export const selectLang = (lang: any): string => {
     switch (lang) {
-            case "cy": return "cy";
-            case "en":
-            default: return "en";
+            case LANG_CY: return LANG_CY;
+            case LANG_EN:
+            default: return LANG_EN;
     }
 };
 
