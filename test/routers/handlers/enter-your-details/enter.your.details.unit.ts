@@ -282,7 +282,7 @@ describe("Validate form fields with Welsh display", () => {
         const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy").send({
             country: "choose" }).expect(200);
 
-        expect(response.text).toContain("Mae yna problem");
+        expect(response.text).toContain("Mae yna broblem");
     });
 
     it("should translate page title to Welsh",  async () => {
