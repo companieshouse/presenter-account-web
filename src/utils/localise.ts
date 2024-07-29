@@ -54,6 +54,5 @@ export function getLanguageChoice(req: Request): string {
     // If LOCALES_ENABLED false only set to english
     const query_value = process.env.LOCALES_ENABLED?.includes("true") ? req.query.lang : LANG_EN;
     const session_value = req.session?.getExtraData<string>(QUERY_LANG);
-    const language = selectLang(query_value || session_value);
-    return language;
+    return selectLang(query_value || session_value);
 }
