@@ -5,6 +5,8 @@ import { Request } from "express";
 
 const LANG_EN = "en";
 const LANG_CY = "cy";
+const QUERY_LANG = "lang";
+const TRUE = "true";
 
 export const selectLang = (lang: any): string => {
     switch (lang) {
@@ -50,8 +52,6 @@ export function getLocalesField(fieldName: string, req: Request): string {
 }
 
 export function getLanguageChoice(req: Request): string {
-    const QUERY_LANG = "lang";
-    const TRUE = "true";
     // If LOCALES_ENABLED false only set to english
     const query_value = TRUE === process.env.LOCALES_ENABLED ? req.query.lang : LANG_EN;
     const session_value = req.session?.getExtraData<string>(QUERY_LANG);
