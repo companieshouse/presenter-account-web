@@ -38,10 +38,8 @@ const localesSevice = LocalesService.getInstance(env.LOCALES_PATH, env.LOCALES_E
 export const getLocalesService = () => localesSevice;
 
 export function getLocalesField(fieldName: string, req: Request): string {
-    const QUERY_LANG = "lang";
-
     try {
-        const language = req.query.lang ? selectLang(req.query.lang) : req.session?.getExtraData<string>(QUERY_LANG);
+        const language = getLanguageChoice(req);
         const localesPath = localesSevice.localesFolder;
         const locales = i18nCh.getInstance(localesPath);
         return locales.resolveSingleKey(fieldName, language as string);
@@ -49,4 +47,13 @@ export function getLocalesField(fieldName: string, req: Request): string {
         throw new Error(`Unable to get locales file with ${fieldName}: ${e}`);
     }
 
+}
+
+export function getLanguageChoice(req: Request): string {
+    const QUERY_LANG = "lang";
+    // If LOCALES_ENABLED false only set to english
+    const query_value = process.env.LOCALES_ENABLED?.includes("true") ? req.query.lang : LANG_EN;
+    const session_value = req.session?.getExtraData<string>(QUERY_LANG);
+    const language = selectLang(query_value || session_value);
+    return language;
 }

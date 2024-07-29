@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
+import { getLanguageChoice, getLocaleInfo, getLocalesService } from "../utils/localise";
 
 const QUERY_LANG = "lang";
 
@@ -7,9 +7,8 @@ const QUERY_LANG = "lang";
 // for the locale for each template.
 export function localeMiddleware(req: Request, res: Response, next: NextFunction) {
 
-    const session_value = req.session?.getExtraData<string>(QUERY_LANG);
-    const query_value = req.query.lang;
-    const lang = selectLang(query_value || session_value);
+    // If LOCALES_ENABLED false only set to english
+    const lang = getLanguageChoice(req);
     const locales = getLocalesService();
 
     if (req.session) {
