@@ -4,6 +4,13 @@ export const servicePathPrefix = "/presenter-account";
 
 export const helpKeywordPrefix = "/help";
 
+export const QueryLang = "lang";
+
+export const LanguageCodes = {
+    EN: "en",
+    CY: "cy"
+} as const;
+
 export const Urls = {
     ACCESSIBILITY_STATEMENT: "/accessibility-statement",
     HOME: "/",
@@ -36,6 +43,7 @@ export const ExternalUrls = {
     CONTACT_COMPANIES_HOUSE: env.CONTACT_COMPANIES_HOUSE,
     SIGNOUT: "/signout"
 } as const;
+
 
 export const countries = [
     { value: 'United Kingdom', text: 'United Kingdom' },

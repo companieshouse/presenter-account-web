@@ -2,17 +2,13 @@ import { LanguageNames, LocalesService } from "@companieshouse/ch-node-utils";
 import { env } from "../config/index";
 import { i18nCh } from "@companieshouse/ch-node-utils";
 import { Request } from "express";
-
-const LANG_EN = "en";
-const LANG_CY = "cy";
-const QUERY_LANG = "lang";
-const TRUE = "true";
+import { LanguageCodes, QueryLang } from "../constants";
 
 export const selectLang = (lang: any): string => {
     switch (lang) {
-            case LANG_CY: return LANG_CY;
-            case LANG_EN:
-            default: return LANG_EN;
+            case LanguageCodes.CY: return LanguageCodes.CY;
+            case LanguageCodes.EN:
+            default: return LanguageCodes.EN;
     }
 };
 
@@ -53,7 +49,7 @@ export function getLocalesField(fieldName: string, req: Request): string {
 
 export function getLanguageChoice(req: Request): string {
     // If LOCALES_ENABLED false only set to english
-    const query_value = TRUE === process.env.LOCALES_ENABLED ? req.query.lang : LANG_EN;
-    const session_value = req.session?.getExtraData<string>(QUERY_LANG);
+    const query_value = "true" === process.env.LOCALES_ENABLED ? req.query.lang : LanguageCodes.EN;
+    const session_value = req.session?.getExtraData<string>(QueryLang);
     return selectLang(query_value || session_value);
 }
