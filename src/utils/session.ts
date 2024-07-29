@@ -1,10 +1,9 @@
+import { QueryLang, LanguageCodes } from "../constants";
 import { Request } from "express";
 import { isDetails } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { type Details } from "private-api-sdk-node/src/services/presenter-account/types";
 
 export const PRESENTER_ACCOUNT_SESSION_KEY = "presenter_account_details";
-const QUERY_LANG = "lang";
-const LANG_EN = "en";
 
 export function getPresenterAccountDetails(req: Request): Details | undefined {
     const presenterAccountDetails = req.session?.getExtraData(PRESENTER_ACCOUNT_SESSION_KEY);
@@ -41,7 +40,7 @@ export function populatePresenterAccountDetails(req: Request): Details {
             addressLine1: '',
             townOrCity: ''
         },
-        lang: LANG_EN
+        lang: LanguageCodes.EN
     } as Details;
 
     return detailObject;
@@ -61,5 +60,5 @@ export function cleanSession(req: Request) {
 }
 
 export function cleanLanguage(req: Request) {
-    req.session?.deleteExtraData(QUERY_LANG);
+    req.session?.deleteExtraData(QueryLang);
 }
