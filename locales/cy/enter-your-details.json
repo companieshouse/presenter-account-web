@@ -24,10 +24,10 @@
         "TOWN_OR_CITY_LENGTH": "Rhaid i'r dref neu'r dref fod yn 40 nod neu lai",
         "POST_CODE_LENGTH": "Rhaid i'r cod post / cod zip fod yn 10 nod neu lai",
 
-        "PREMISES_INVALID_CHARACTER": "Rhaid i enw neu rif eiddo fod â chymeriadau dilys yn unig.",
-        "ADDRESS_LINE_1_INVALID_CHARACTER": "Rhaid i linell cyfeiriad 1 gael nodau dilys yn unig",
-        "ADDRESS_LINE_2_INVALID_CHARACTER": "Rhaid i linell cyfeiriad 2 gael nodau dilys yn unig",
-        "TOWN_OR_CITY_INVALID_CHARACTER": "Rhaid i'r dref neu'r ddinas fod â chymeriadau dilys yn unig",
-        "POST_CODE_INVALID_CHARACTER": "Rhaid i'r cod post fod â chymeriadau dilys yn unig"
+        "PREMISES_INVALID_CHARACTER": "Rhaid i enw neu rif eiddo fod â nodau dilys yn unig.",
+        "ADDRESS_LINE_1_INVALID_CHARACTER": "Rhaid i linell cyfeiriad 1 fod â nodau dilys yn unig.",
+        "ADDRESS_LINE_2_INVALID_CHARACTER": "Rhaid i linell cyfeiriad 2 fod â nodau dilys yn unig.",
+        "TOWN_OR_CITY_INVALID_CHARACTER": "Rhaid i'r dref neu'r ddinas fod â nodau dilys yn unig.",
+        "POST_CODE_INVALID_CHARACTER": "Rhaid i'r cod post fod â nodau dilys yn unig."
     }
 }
