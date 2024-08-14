@@ -1,12 +1,11 @@
-import { QueryLang, LanguageCodes } from "../constants";
+import { QueryLang, LanguageCodes, ContextKeys } from "../constants";
 import { Request } from "express";
 import { isDetails } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { type Details } from "private-api-sdk-node/src/services/presenter-account/types";
 
-export const PRESENTER_ACCOUNT_SESSION_KEY = "presenter_account_details";
 
 export function getPresenterAccountDetails(req: Request): Details | undefined {
-    const presenterAccountDetails = req.session?.getExtraData(PRESENTER_ACCOUNT_SESSION_KEY);
+    const presenterAccountDetails = req.session?.getExtraData(ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY);
     if (presenterAccountDetails === undefined || isDetails(presenterAccountDetails)) {
         return presenterAccountDetails;
     } else {
@@ -16,7 +15,16 @@ export function getPresenterAccountDetails(req: Request): Details | undefined {
 
 
 export function setPresenterAccountDetails(req: Request, details: Details) {
-    req.session?.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, details);
+    req.session?.setExtraData(ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY, details);
+}
+
+export function getIsBusinessRegisteredFromExtraData(req: Request): boolean | undefined {
+    const isBusinessRegistered: boolean | undefined = req.session?.getExtraData(ContextKeys.IS_BUSINESS_REGISTERED);
+    return isBusinessRegistered;
+}
+
+export function setExtraDataIsBusinessRegistered(req: Request, isBusinessRegistered: boolean) {
+    req.session?.setExtraData(ContextKeys.IS_BUSINESS_REGISTERED, isBusinessRegistered);
 }
 
 export function populatePresenterAccountDetails(req: Request): Details {
@@ -56,7 +64,7 @@ export function getPresenterAccountDetailsOrDefault(req: Request) {
 }
 
 export function cleanSession(req: Request) {
-    req.session?.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, undefined);
+    req.session?.setExtraData(ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY, undefined);
 }
 
 export function cleanLanguage(req: Request) {

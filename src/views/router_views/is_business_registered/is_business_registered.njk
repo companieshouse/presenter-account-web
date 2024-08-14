@@ -1,0 +1,46 @@
+{% extends "layouts/default.njk" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block main_content %}
+  <div class="govuk-grid-row">
+      <form action="{{PrefixedUrls.IS_BUSINESS_REGISTERED}}?lang={{lang}}" method="post">
+
+
+            {{ govukRadios({
+              name: "is-business-registered",
+              fieldset: {
+                legend: {
+                  text: "Is the business you work for registered with Companies House?",
+                  isPageHeading: true,
+                  classes: "govuk-fieldset__legend--xl"
+                }
+              },
+
+              items: [
+                {
+                  value: true,
+                  text: "Yes", 
+                  hint: {
+                    text: "You'll need to give the company number."
+                  }
+                },
+                {
+                  value: false,
+                  text: "No",
+                  hint: {
+                    text: "You'll need to give the name of the business."
+                  }
+                }
+              ]
+            }) }}
+      
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+    </div>
+{% endblock %}
