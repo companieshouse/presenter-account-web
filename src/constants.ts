@@ -15,6 +15,7 @@ export const Urls = {
     ACCESSIBILITY_STATEMENT: "/accessibility-statement",
     HOME: "/",
     HEALTHCHECK: "/healthcheck",
+    COMPANY_SEARCH: "/company-search",
     ENTER_YOUR_DETAILS: "/enter-your-details",
     CHECK_DETAILS: "/check_details",
     CONFIRMATION: "/confirmation",
@@ -25,11 +26,12 @@ export const PrefixedUrls = {
     ACCESSIBILITY_STATEMENT: helpKeywordPrefix + Urls.ACCESSIBILITY_STATEMENT,
     HOME: servicePathPrefix + Urls.HOME,
     HEALTHCHECK: servicePathPrefix + Urls.HEALTHCHECK,
+    COMPANY_SEARCH: servicePathPrefix + Urls.COMPANY_SEARCH,
     ENTER_YOUR_DETAILS: servicePathPrefix + Urls.ENTER_YOUR_DETAILS,
     CHECK_DETAILS: servicePathPrefix + Urls.CHECK_DETAILS,
     CONFIRMATION: servicePathPrefix + Urls.CONFIRMATION,
     SUBMITTED: servicePathPrefix + Urls.SUBMITTED,
-    COOKIES: helpKeywordPrefix + "/cookies"
+    COOKIES: helpKeywordPrefix + "/cookies",
 } as const;
 
 export const ExternalUrls = {
@@ -41,6 +43,7 @@ export const ExternalUrls = {
     OPEN_GOVERNMENT_LICENSE: env.OPEN_GOVERNMENT_LICENSE_LINK,
     POLICIES: env.POLICIES_LINK,
     CONTACT_COMPANIES_HOUSE: env.CONTACT_COMPANIES_HOUSE,
+    COMPANY_LOOKUP: `/company-lookup/search?forward=${PrefixedUrls.CONFIRM_COMPANY}?companyNumber=%7BcompanyNumber%7D`,
     SIGNOUT: "/signout"
 } as const;
 
