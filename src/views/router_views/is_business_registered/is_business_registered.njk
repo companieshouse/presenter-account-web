@@ -6,7 +6,7 @@
 {% block main_content %}
   {% set errorMessage = undefined %}
   {% if errors.business_registered %}
-      {% set errorMessage = { text: i18n.is_business_registered_non_selection_error_message_summary, attributes: {'data-event-id': 'presenter-account-is-business-registered-error-no-selection'} } %}
+      {% set errorMessage = { text: i18n.is_business_registered_non_selection_error_message_inline, attributes: {'data-event-id': 'presenter-account-is-business-registered-error-no-selection'} } %}
   {% endif %}
   <div class="govuk-grid-row">
       <form action="{{PrefixedUrls.IS_BUSINESS_REGISTERED}}?lang={{lang}}" method="post">

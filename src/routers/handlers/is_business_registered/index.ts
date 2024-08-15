@@ -3,7 +3,7 @@ import { createAndLogError, logger } from "../../../utils/logger";
 import { getIsBusinessRegisteredFromExtraData, setExtraDataIsBusinessRegistered } from "../../../utils/session";
 import { BaseViewData, GenericHandler, Redirect, ViewModel } from "../generic";
 import { PrefixedUrls } from "../../../constants";
-import { addLangToUrl, selectLang } from "../../../utils/localise";
+import { addLangToUrl, getLocalesField, selectLang } from "../../../utils/localise";
 
 interface IsBusinessRegisteredViewData extends BaseViewData {
     isBusinessRegistered?: boolean;
@@ -56,7 +56,7 @@ export class IsBusinessRegisteredHandler extends GenericHandler<IsBusinessRegist
                 false : undefined;
 
         if (userIsBusinessRegisteredBool === undefined) {
-            viewData.errors.business_registered = this.errorManifest.validation.business_registered.blank;
+            viewData.errors.business_registered = {"summary": getLocalesField("is_business_registered_non_selection_error_message_summary", req)};
             return {
                 templatePath: IsBusinessRegisteredHandler.templatePath,
                 viewData
