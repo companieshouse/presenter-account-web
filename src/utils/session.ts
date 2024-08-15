@@ -1,4 +1,4 @@
-import { QueryLang, LanguageCodes } from "../constants";
+import { LanguageCodes, QueryParameters } from "../constants";
 import { Request } from "express";
 import { isDetails } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { type Details } from "private-api-sdk-node/src/services/presenter-account/types";
@@ -60,5 +60,5 @@ export function cleanSession(req: Request) {
 }
 
 export function cleanLanguage(req: Request) {
-    req.session?.deleteExtraData(QueryLang);
+    req.session?.deleteExtraData(QueryParameters.LANG);
 }

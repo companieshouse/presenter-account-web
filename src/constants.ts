@@ -4,7 +4,10 @@ export const servicePathPrefix = "/presenter-account";
 
 export const helpKeywordPrefix = "/help";
 
-export const QueryLang = "lang";
+export const QueryParameters = {
+    LANG: "lang",
+    COMPANY_NUMBER: "companyNumber"
+} as const;
 
 export const LanguageCodes = {
     EN: "en",
