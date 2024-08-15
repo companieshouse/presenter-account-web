@@ -3,8 +3,7 @@ import { session, mockSession } from "../../../mocks/session.middleware.mock";
 
 import app from "../../../../src/app";
 import request from "supertest";
-import { ExternalUrls, PrefixedUrls } from "../../../../src/constants";
-import { PRESENTER_ACCOUNT_SESSION_KEY } from "../../../../src/utils/session";
+import { ContextKeys, ExternalUrls, PrefixedUrls } from "../../../../src/constants";
 import { examplePresenterAccountDetails } from "../../../mocks/example.presenter.account.details.mock";
 
 import { success } from "@companieshouse/api-sdk-node/dist/services/result";
@@ -14,7 +13,7 @@ describe("check details tests", () => {
 
     it("Should render the Check Details page with a successful status code", async () => {
         session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
 
@@ -25,7 +24,7 @@ describe("check details tests", () => {
 
     it("Should not cache the HTMl on this page", async () => {
         session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
 
@@ -40,7 +39,7 @@ describe("check details tests", () => {
 
     it("Should display the correct heading on the Check Details page", async () => {
         session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
 
@@ -53,7 +52,7 @@ describe("check details tests", () => {
 
     it("should translate page title to Welsh",  async () => {
         session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
 
@@ -64,7 +63,7 @@ describe("check details tests", () => {
 
     it("Should include a Change button link on the Check Details page", async () => {
         session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
 
@@ -75,7 +74,7 @@ describe("check details tests", () => {
 
     it("Should display the correct Presenter Account details on the Check Details page", async () => {
         session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
 
@@ -103,7 +102,7 @@ describe("check details tests", () => {
 
     it("Should display the correct feeback url for check_details page", async () => {
         session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
 
@@ -127,7 +126,7 @@ describe("check details tests", () => {
 
     it("Should clean the session after successfully submitting the Presenter Account details", async () => {
         session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
 
@@ -136,7 +135,7 @@ describe("check details tests", () => {
         await request(app)
             .post(PrefixedUrls.CHECK_DETAILS);
 
-        expect(session.getExtraData[PRESENTER_ACCOUNT_SESSION_KEY]).toBe(undefined);
+        expect(session.getExtraData[ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY]).toBe(undefined);
     });
 
     it("Should display an error page when there is an error in submitting the Presenter Account details", async () => {
@@ -155,7 +154,7 @@ describe("check details tests", () => {
         // Use a mock session with a user id value
         mockSession();
         session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             undefined
         );
 
@@ -169,7 +168,7 @@ describe("check details tests", () => {
         // Use a mock session with a user id value
         mockSession();
         session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
 

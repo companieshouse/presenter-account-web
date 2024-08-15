@@ -3,8 +3,7 @@ import { session } from "../mocks/session.middleware.mock";
 import request from "supertest";
 import app from "../../src/app";
 import { examplePresenterAccountDetails } from "../mocks/example.presenter.account.details.mock";
-import { PRESENTER_ACCOUNT_SESSION_KEY } from "../../src/utils/session";
-import { PrefixedUrls } from "../../src/constants";
+import { ContextKeys, PrefixedUrls } from "../../src/constants";
 
 const CHOICE_EN = "?lang=en";
 const CHOICE_CY = "?lang=cy";
@@ -17,7 +16,7 @@ describe("Locale middleware test", () => {
 
     test("If lang is not set to either en or cy. Default to English", async () => {
         session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
         const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS);
@@ -28,7 +27,7 @@ describe("Locale middleware test", () => {
 
     test("If ?lang set to en. Return English", async () => {
         session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
 
@@ -40,7 +39,7 @@ describe("Locale middleware test", () => {
 
     test("If ?lang set to cy. Return Welsh", async () => {
         session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
 
@@ -52,7 +51,7 @@ describe("Locale middleware test", () => {
 
     test("If &lang set to cy. Return Welsh", async () => {
         session.setExtraData(
-            PRESENTER_ACCOUNT_SESSION_KEY,
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
         const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_CY_ALSO);
@@ -68,7 +67,7 @@ describe("Locale middleware test", () => {
             try {
                 process.env.LOCALES_ENABLED = "false";
                 session.setExtraData(
-                    PRESENTER_ACCOUNT_SESSION_KEY,
+                    ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
                     examplePresenterAccountDetails
                 );
                 const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_CY_ALSO);
@@ -87,7 +86,7 @@ describe("Locale middleware test", () => {
             try {
                 process.env.LOCALES_ENABLED = "false";
                 session.setExtraData(
-                    PRESENTER_ACCOUNT_SESSION_KEY,
+                    ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
                     examplePresenterAccountDetails
                 );
                 const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_EN);
@@ -107,7 +106,7 @@ describe("Locale middleware test", () => {
             try {
                 process.env.LOCALES_ENABLED = "false";
                 session.setExtraData(
-                    PRESENTER_ACCOUNT_SESSION_KEY,
+                    ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
                     examplePresenterAccountDetails
                 );
                 const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_FOO);
@@ -127,7 +126,7 @@ describe("Locale middleware test", () => {
             try {
                 process.env.LOCALES_ENABLED = "false";
                 session.setExtraData(
-                    PRESENTER_ACCOUNT_SESSION_KEY,
+                    ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
                     examplePresenterAccountDetails
                 );
                 const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_EN);

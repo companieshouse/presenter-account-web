@@ -4,41 +4,48 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block main_content %}
+  {% set errorMessage = undefined %}
+  {% if errors.business_registered %}
+      {% set errorMessage = { text: i18n.is_business_registered_non_selection_error_message_summary, attributes: {'data-event-id': 'presenter-account-is-business-registered-error-no-selection'} } %}
+  {% endif %}
   <div class="govuk-grid-row">
       <form action="{{PrefixedUrls.IS_BUSINESS_REGISTERED}}?lang={{lang}}" method="post">
-
-
             {{ govukRadios({
               name: "is-business-registered",
+              value: isBusinessRegistered,
               fieldset: {
                 legend: {
-                  text: "Is the business you work for registered with Companies House?",
+                  text: i18n.is_business_registered_title,
                   isPageHeading: true,
                   classes: "govuk-fieldset__legend--xl"
                 }
               },
-
               items: [
                 {
-                  value: true,
-                  text: "Yes", 
+                  value: "true",
+                  text: i18n.is_business_registered_yes,
+                  attributes: {'data-event-id': 'presenter-account-is-business-registered-selected-yes'},
                   hint: {
-                    text: "You'll need to give the company number."
+                    text: i18n.is_business_registered_yes_hint
                   }
                 },
                 {
-                  value: false,
-                  text: "No",
+                  value: "false",
+                  text: i18n.is_business_registered_no,
+                  attributes: {'data-event-id': 'presenter-account-is-business-registered-selected-no'},
                   hint: {
-                    text: "You'll need to give the name of the business."
+                    type: "submit",
+                    id: "submit",
+                    text: i18n.is_business_registered_no_hint
                   }
                 }
-              ]
+              ],
+              errorMessage: errorMessage
             }) }}
-      
-
         {{ govukButton({
-          text: "Continue"
+          preventDoubleClick: true,
+          text: i18n.continue,
+          attributes: {'data-event-id': 'presenter-account-is-business-registered-continue'}
         }) }}
 
       </form>

@@ -20,7 +20,7 @@ describe("home page tests", () => {
         env.FEATURE_FLAG_GDS_START_PAGE_290424 = true;
         const resp = await request(app).get(PrefixedUrls.HOME + "?lang=cy");
         expect(resp.status).toBe(302);
-        expect(resp.text).toContain(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy");
+        expect(resp.text).toContain(PrefixedUrls.IS_BUSINESS_REGISTERED + "?lang=cy");
     });
 
     it("should render the enter your details page when GDS feature flag is on and in English language", async () => {
@@ -28,7 +28,7 @@ describe("home page tests", () => {
         env.FEATURE_FLAG_GDS_START_PAGE_290424 = true;
         const resp = await request(app).get(PrefixedUrls.HOME + "?lang=en");
         expect(resp.status).toBe(302);
-        expect(resp.text).toContain(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en");
+        expect(resp.text).toContain(PrefixedUrls.IS_BUSINESS_REGISTERED + "?lang=en");
     });
 
     it("should render the enter your details page when GDS feature flag is on and with default English language", async () => {
@@ -36,7 +36,7 @@ describe("home page tests", () => {
         env.FEATURE_FLAG_GDS_START_PAGE_290424 = true;
         const resp = await request(app).get(PrefixedUrls.HOME);
         expect(resp.status).toBe(302);
-        expect(resp.text).toContain(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en");
+        expect(resp.text).toContain(PrefixedUrls.IS_BUSINESS_REGISTERED + "?lang=en");
     });
 
 });
