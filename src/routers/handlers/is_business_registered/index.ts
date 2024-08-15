@@ -51,9 +51,8 @@ export class IsBusinessRegisteredHandler extends GenericHandler<IsBusinessRegist
 
         const isRegistered = req.body[isBusinessRegisteredKey];
 
-        const userIsBusinessRegisteredBool = isRegistered === 'true' ?
-            true : isRegistered === 'false' ?
-                false : undefined;
+        const userIsBusinessRegisteredIsTrue = isRegistered === 'true' || isRegistered === 'false' ? true : undefined;
+        const userIsBusinessRegisteredBool = isRegistered === 'false' ? false : userIsBusinessRegisteredIsTrue;
 
         if (userIsBusinessRegisteredBool === undefined) {
             viewData.errors.business_registered = { "summary": getLocalesField("is_business_registered_non_selection_error_message_summary", req) };
