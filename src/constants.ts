@@ -12,9 +12,9 @@ export const LanguageCodes = {
 } as const;
 
 export const ContextKeys = {
-    IS_BUSINESS_REGISTERED: "is_business_registered",
+    IS_BUSINESS_REGISTERED: "isBusinessRegistered",
     PRESENTER_ACCOUNT_SESSION_KEY: "presenter_account_details",
-}
+};
 
 export const Urls = {
     ACCESSIBILITY_STATEMENT: "/accessibility-statement",
