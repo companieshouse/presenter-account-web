@@ -17,7 +17,7 @@ export class IsBusinessRegisteredHandler extends GenericHandler<IsBusinessRegist
     /**
      * Gets the viewdata from the request
      * @param req : Request
-     * @returns: EnterYourDetailsViewData
+     * @returns: IsBusinessRegisteredViewData
      */
     public getViewData(req: Request): IsBusinessRegisteredViewData {
         const baseViewData = super.getViewData(req);
@@ -56,7 +56,7 @@ export class IsBusinessRegisteredHandler extends GenericHandler<IsBusinessRegist
                 false : undefined;
 
         if (userIsBusinessRegisteredBool === undefined) {
-            viewData.errors.business_registered = {"summary": getLocalesField("is_business_registered_non_selection_error_message_summary", req)};
+            viewData.errors.business_registered = { "summary": getLocalesField("is_business_registered_non_selection_error_message_summary", req) };
             return {
                 templatePath: IsBusinessRegisteredHandler.templatePath,
                 viewData
