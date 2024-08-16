@@ -1,0 +1,46 @@
+{% extends "layouts/default.njk" %}
+
+{% block main_content %}
+    <h1 class="govuk-heading-xl">{{ i18n.confirm_company_title }}</h1>
+
+    <h1 class="govuk-heading-l">{{ companyName }}</h1>
+
+    <dl class="govuk-summary-list">
+
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                {{ i18n.company_number }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+                {{ companyNumber }}
+            </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                {{ i18n.companyStatus }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+                {{ status | capitalize }}
+            </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                {{ i18n.incorporated_on }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+                {{ incorporatedOn | Formatters.date }}
+            </dd>
+        </div>
+
+    </dl>
+
+    <a href="contact-details" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        {{ i18n.confirm_button }}
+    </a>
+
+    <p>
+        <a href="company-number">{{ i18n.choose_different }}</a>
+    </p>
+{% endblock %}

@@ -11,7 +11,7 @@ export class CompanyProfileService {
     constructor(private apiClient: ApiClient) {}
 
     async getCompanyProfile(companyNumber: string): Promise<Result<CompanyProfile, Error>> {
-        const companyProfile: Resource<CompanyProfile> = await this.apiClient.companyProfile.getCompanyProfile(companyNumber);
+        const companyProfile = await this.apiClient.companyProfile.getCompanyProfile(companyNumber);
         if (companyProfile.httpStatusCode !== 200) {
             logger.error(`Company Profile has return http status of ${companyProfile.httpStatusCode}`);
             return failure(new Error("Unable to process requested company number"));

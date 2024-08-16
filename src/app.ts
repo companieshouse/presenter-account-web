@@ -6,6 +6,7 @@ import routerDispatch from "./router.dispatch";
 import cookieParser from "cookie-parser";
 import { env } from './config';
 import { ExternalUrls, PrefixedUrls, Urls, servicePathPrefix } from "./constants";
+import { addFormatters } from "./utils/formatters";
 
 const app = express();
 
@@ -47,6 +48,7 @@ njk.addGlobal("PrefixedUrls", PrefixedUrls);
 njk.addGlobal("SERVICE_NAME", 'presenter-account-web');
 njk.addGlobal("PIWIK_URL", env.PIWIK_URL);
 njk.addGlobal("PIWIK_SITE_ID", env.PIWIK_SITE_ID);
+addFormatters(njk);
 
 
 // parse body into req.body
