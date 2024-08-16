@@ -14,7 +14,7 @@ jest.mock('@companieshouse/api-sdk-node/dist/client', () => {
     });
 });
 
-function createApiResponse () {
+function createApiResponse() {
     return {
         companyName: "COMPANY_NAME_???",
         companyNumber: "00000000",
@@ -49,33 +49,44 @@ describe("CompanyProfileService", () => {
         } as unknown as ApiClient);
     });
 
-    it("should successfully retrieve validation status for a valid request", async () => {
+    it("should return a successful result with company profile for a valid request", async () => {
         const mockResponse = { httpStatusCode: 200, resource: createApiResponse() as unknown as CompanyProfile };
         mockGetStatus.mockResolvedValue(mockResponse);
 
         const result = await service.getCompanyProfile("00000000");
-        expect(result).toHaveProperty("dateOfCreation", "1999-12-31");
-        expect(result).toHaveProperty("companyName", "COMPANY_NAME_???");
-        expect(result).toHaveProperty("companyNumber", "00000000");
-        expect(result).toHaveProperty("companyStatus", "active");
-        expect(result).toHaveProperty("registeredOfficeAddress.addressLineOne", "line one");
-        expect(result).toHaveProperty("registeredOfficeAddress.addressLineTwo", "line two");
-        expect(result).toHaveProperty("registeredOfficeAddress.postalCode", "ZZ78A 8OP");
-        expect(result).toHaveProperty("accounts.nextAccounts.periodStartOn", "2017-01-22");
-        expect(result).toHaveProperty("accounts.nextDue", "2019-01-22");
+
+        expect(result.isSuccess()).toBe(true);
+
+        const value = result.value;
+
+        expect(value).toHaveProperty("dateOfCreation", "1999-12-31");
+        expect(value).toHaveProperty("companyName", "COMPANY_NAME_???");
+        expect(value).toHaveProperty("companyNumber", "00000000");
+        expect(value).toHaveProperty("companyStatus", "active");
+        expect(value).toHaveProperty("registeredOfficeAddress.addressLineOne", "line one");
+        expect(value).toHaveProperty("registeredOfficeAddress.addressLineTwo", "line two");
+        expect(value).toHaveProperty("registeredOfficeAddress.postalCode", "ZZ78A 8OP");
+        expect(value).toHaveProperty("accounts.nextAccounts.periodStartOn", "2017-01-22");
+        expect(value).toHaveProperty("accounts.nextDue", "2019-01-22");
     });
 
-    it("should throw an error if http code is not 200", async () => {
+    it("should return a failure result if http code is not 200", async () => {
         const mockResponse = { httpStatusCode: 418, resource: createApiResponse() as unknown as CompanyProfile };
         mockGetStatus.mockResolvedValue(mockResponse);
 
-        await expect(service.getCompanyProfile("00000000")).rejects.toThrow("Unable to process requested company number");
+        const result = await service.getCompanyProfile("00000000");
+        expect(result.isFailure()).toBe(true);
+        expect(result.value).toBeInstanceOf(Error);
+        expect((result.value as Error).message).toBe("Unable to process requested company number");
     });
 
-    it("should throw an error if resource is undefined", async () => {
+    it("should return a failure result if resource is undefined", async () => {
         const mockResponse = { httpStatusCode: 200, resource: undefined };
         mockGetStatus.mockResolvedValue(mockResponse);
 
-        await expect(service.getCompanyProfile("00000000")).rejects.toThrow("Unable to process requested company number");
+        const result = await service.getCompanyProfile("00000000");
+        expect(result.isFailure()).toBe(true);
+        expect(result.value).toBeInstanceOf(Error);
+        expect((result.value as Error).message).toBe("Unable to process requested company number");
     });
 });
