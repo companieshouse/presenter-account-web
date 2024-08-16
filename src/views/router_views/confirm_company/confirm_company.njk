@@ -36,11 +36,11 @@
 
     </dl>
 
-    <a href="contact-details" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="{{ PrefixedUrls.ENTER_YOUR_DETAILS }}" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
         {{ i18n.confirm_button }}
     </a>
 
     <p>
-        <a href="company-number">{{ i18n.choose_different }}</a>
+        <a href="{{ PrefixedUrls.COMPANY_SEARCH }}" class="govuk-link">{{ i18n.choose_different }}</a>
     </p>
 {% endblock %}
