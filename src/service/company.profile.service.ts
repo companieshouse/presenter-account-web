@@ -1,4 +1,3 @@
-import { Resource } from "@companieshouse/api-sdk-node";
 import ApiClient from "@companieshouse/api-sdk-node/dist/client";
 import { CompanyProfile } from "@companieshouse/api-sdk-node/dist/services/company-profile";
 import { logger } from "../utils/logger";

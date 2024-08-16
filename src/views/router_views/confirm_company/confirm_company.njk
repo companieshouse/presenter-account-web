@@ -36,9 +36,12 @@
 
     </dl>
 
-    <a href="{{ PrefixedUrls.ENTER_YOUR_DETAILS }}" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-        {{ i18n.confirm_button }}
-    </a>
+    <form method="POST">
+        <input type="hidden" name="company_number" value="{{ companyNumber }}">
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            {{ i18n.confirm_button }}
+        </button>
+    </form>
 
     <p>
         <a href="{{ PrefixedUrls.COMPANY_SEARCH }}" class="govuk-link">{{ i18n.choose_different }}</a>

@@ -1,7 +1,7 @@
 import { logger } from "../../../utils/logger";
 import { PrefixedUrls, QueryParameters } from "../../../constants";
 import { getLocalesField } from "../../../utils/localise";
-import { BaseViewData, GenericHandler, ViewModel } from "../generic";
+import { BaseViewData, GenericHandler, Redirect, ViewModel } from "../generic";
 import { Request, Response } from "express";
 import { isValidCompanyNumber } from "../../../validation/company_number";
 import { CompanyProfileService } from "../../../service/company.profile.service";
@@ -45,7 +45,7 @@ export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData
         return {
             templatePath: ConfirmCompanyHandler.templatePath,
             viewData,
-        }
+        };
     }
 
     /**
@@ -81,6 +81,16 @@ export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData
             throw new Error("Invalid company number");
         }
         return companyNumber!.toString();
+    }
+
+    public async executePost(req: Request, _res: Response): Promise<Redirect> {
+        const companyNumber = this.getCompanyNumberFromRequest(req);
+
+        logger.info(`Company number '${companyNumber}' confirmed`);
+
+        return {
+            redirect: PrefixedUrls.ENTER_YOUR_DETAILS
+        };
     }
 }
 

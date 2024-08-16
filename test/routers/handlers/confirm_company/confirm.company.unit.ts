@@ -15,21 +15,21 @@ describe("confirm company tests", () => {
 
         const companyProfile = {
             companyName: 'COMPANY NAME',
-            companyNumber, 
+            companyNumber,
             dateOfCreation: '1983-04-05',
             companyStatus: 'active',
-        } as Partial<CompanyProfile>
+        } as Partial<CompanyProfile>;
 
         const companyProfileResource = {
-            httpStatusCode:  200, 
+            httpStatusCode: 200,
             resource: companyProfile as CompanyProfile
-        } as Resource<CompanyProfile>
+        } as Resource<CompanyProfile>;
 
         mockGetCompanyProfile.mockResolvedValueOnce(companyProfileResource);
 
         const response = await request(app)
-           .get(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`);
-    
+            .get(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`);
+
         expect(response.status).toBe(200);
         expect(response.text).toContain('COMPANY NAME');
         expect(response.text).toContain(companyNumber);
