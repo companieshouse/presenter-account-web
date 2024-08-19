@@ -1,4 +1,4 @@
-import { convertSessionDetailsToApiDetails } from "../../src/utils/convert.details"
+import { convertSessionDetailsToApiDetails } from "../../src/utils/convert.details";
 import { PresenterSessionDetails } from "../../src/utils/session";
 
 
@@ -9,11 +9,12 @@ describe("convert details from session to api", () => {
             isBusinessRegistered: false,
             email: "abc",
             userId: undefined
-        } as unknown as PresenterSessionDetails
+        } as unknown as PresenterSessionDetails;
         expect(() => {
-            convertSessionDetailsToApiDetails(sessionDetails)}
+            convertSessionDetailsToApiDetails(sessionDetails);
+        }
         ).toThrow(new Error(`Presenter account address has not been set.`));
-    })
+    });
 }
 
-)
+);
