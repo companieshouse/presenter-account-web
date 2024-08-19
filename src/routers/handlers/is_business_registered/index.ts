@@ -76,7 +76,7 @@ export class IsBusinessRegisteredHandler extends GenericHandler<IsBusinessRegist
         const TRUE = 'true';
         const FALSE = 'false';
         if (isRegistered !== undefined && [TRUE, FALSE].includes(isRegistered)){
-            return isRegistered === TRUE ? true : false;
+            return isRegistered === TRUE;
         } else {
             return undefined;
         }
