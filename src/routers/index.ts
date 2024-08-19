@@ -6,5 +6,5 @@ import ConfirmationRouter from "./confirmation.router";
 import IsBusinessRegisteredRouter from './is.business.registed.router';
 import ConfirmCompanyRouter from "./confirm.company.router";
 import CompanySearchRouter from "./company.search.router";
-export { HealthCheckRouter, HomeRouter, CheckDetailsRouter, EnterYourDetailsRouter, ConfirmationRouter, 
-        ConfirmCompanyRouter, CompanySearchRouter, IsBusinessRegisteredRouter };
+export { HealthCheckRouter, HomeRouter, CheckDetailsRouter, EnterYourDetailsRouter, ConfirmationRouter,
+    ConfirmCompanyRouter, CompanySearchRouter, IsBusinessRegisteredRouter };
