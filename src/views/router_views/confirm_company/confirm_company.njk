@@ -3,15 +3,14 @@
 {% block main_content %}
     <h1 class="govuk-heading-xl">{{ i18n.confirm_company_title }}</h1>
 
-    <h1 class="govuk-heading-l">{{ companyName }}</h1>
+    <h1 id="company-name-header" class="govuk-heading-l">{{ companyName }}</h1>
 
     <dl class="govuk-summary-list">
-
         <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
                 {{ i18n.company_number }}
             </dt>
-            <dd class="govuk-summary-list__value">
+            <dd class="govuk-summary-list__value" id="company-number">
                 {{ companyNumber }}
             </dd>
         </div>
@@ -20,7 +19,7 @@
             <dt class="govuk-summary-list__key">
                 {{ i18n.companyStatus }}
             </dt>
-            <dd class="govuk-summary-list__value">
+            <dd class="govuk-summary-list__value" id="company-status">
                 {{ status | capitalize }}
             </dd>
         </div>
@@ -29,21 +28,21 @@
             <dt class="govuk-summary-list__key">
                 {{ i18n.incorporated_on }}
             </dt>
-            <dd class="govuk-summary-list__value">
+            <dd class="govuk-summary-list__value" id="incorporated-on">
                 {{ incorporatedOn | Formatters.date }}
             </dd>
         </div>
-
     </dl>
 
     <form method="POST">
         <input type="hidden" name="company_number" value="{{ companyNumber }}">
-        <button type="submit" class="govuk-button" data-module="govuk-button">
+        <button id="confirm-company-button" type="submit" class="govuk-button" data-module="govuk-button">
             {{ i18n.confirm_button }}
         </button>
     </form>
 
     <p>
-        <a href="{{ PrefixedUrls.COMPANY_SEARCH }}" class="govuk-link">{{ i18n.choose_different }}</a>
+        <a id="choose-a-different-company-link" href="{{ PrefixedUrls.COMPANY_SEARCH }}" class="govuk-link">{{ i18n.choose_different }}</a>
     </p>
+
 {% endblock %}
