@@ -64,15 +64,12 @@ describe("validate form fields", () => {
             examplePresenterAccountDetails
         );
         const welshTranslationsPath = path.join(__dirname, "./../../../../locales/cy/enter-your-details.json");
-        let translationsWithoutErrors;
 
-        fs.readFile(welshTranslationsPath, 'utf8', (err, data) => {
-            translationsWithoutErrors = JSON.parse(data);
-            delete translationsWithoutErrors.enter_your_details_validation_errors;
-        });
+        const data = fs.readFileSync(welshTranslationsPath, 'utf8');
+        const translationsWithoutErrors = JSON.parse(data);
+        delete translationsWithoutErrors.enter_your_details_validation_errors;
 
         const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy").expect(200);
-
         Object.entries(translationsWithoutErrors).forEach(translation => expect(resp.text).toContain(translation[1]));
     });
 
