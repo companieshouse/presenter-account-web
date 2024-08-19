@@ -11,8 +11,9 @@ export const LanguageCodes = {
     CY: "cy"
 } as const;
 
+export const LanguageCodesString = [LanguageCodes.EN, LanguageCodes.CY];
+
 export const ContextKeys = {
-    IS_BUSINESS_REGISTERED: "isBusinessRegistered",
     PRESENTER_ACCOUNT_SESSION_KEY: "presenter_account_details",
 };
 
