@@ -2,7 +2,7 @@ import { LanguageNames, LocalesService } from "@companieshouse/ch-node-utils";
 import { env } from "../config/index";
 import { i18nCh } from "@companieshouse/ch-node-utils";
 import { Request } from "express";
-import { LanguageCodes, QueryLang } from "../constants";
+import { LanguageCodes, QueryParameters } from "../constants";
 
 export const selectLang = (lang: any): string => {
     switch (lang) {
@@ -50,6 +50,6 @@ export function getLocalesField(fieldName: string, req: Request): string {
 export function getLanguageChoice(req: Request): string {
     // If LOCALES_ENABLED false only set to english
     const query_value = "true" === process.env.LOCALES_ENABLED ? req.query.lang : LanguageCodes.EN;
-    const session_value = req.session?.getExtraData<string>(QueryLang);
+    const session_value = req.session?.getExtraData<string>(QueryParameters.LANG);
     return selectLang(query_value || session_value);
 }
