@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import { createAndLogError, logger } from "../../../utils/logger";
-import { getIsBusinessRegisteredFromExtraData, setExtraDataIsBusinessRegistered } from "../../../utils/session";
 import { BaseViewData, GenericHandler, Redirect, ViewModel } from "../generic";
 import { PrefixedUrls } from "../../../constants";
-import { addLangToUrl, getLocalesField, selectLang } from "../../../utils/localise";
+import { getLocalesField } from "../../../utils/localise";
+import { env } from "../../../config";
+import { getPresenterAccountDetails, setPresenterAccountDetails } from "../../../utils/session";
 
 interface IsBusinessRegisteredViewData extends BaseViewData {
-    isBusinessRegistered?: boolean;
+    isBusinessRegistered?: string;
 }
 
 const isBusinessRegisteredKey = "is-business-registered";
@@ -24,9 +25,9 @@ export class IsBusinessRegisteredHandler extends GenericHandler<IsBusinessRegist
         return {
             ...baseViewData,
             title: "Is the business you work for registered with Companies House? – File package accounts with Companies House – GOV.UK",
-            backURL: null,
+            backURL: env.FEATURE_FLAG_GDS_START_PAGE_290424 ? env.GDS_START_PAGE_LINK : PrefixedUrls.HOME,
             currentUrl: PrefixedUrls.IS_BUSINESS_REGISTERED,
-            isBusinessRegistered: getIsBusinessRegisteredFromExtraData(req),
+            isBusinessRegistered: String(getPresenterAccountDetails(req)?.isBusinessRegistered),
         };
     }
 
@@ -42,7 +43,6 @@ export class IsBusinessRegisteredHandler extends GenericHandler<IsBusinessRegist
         };
     }
 
-
     async executePost(req: Request, _res: Response): Promise<ViewModel<IsBusinessRegisteredViewData> | Redirect> {
         const viewData = this.getViewData(req);
         if (req.session === undefined) {
@@ -51,10 +51,9 @@ export class IsBusinessRegisteredHandler extends GenericHandler<IsBusinessRegist
 
         const isRegistered = req.body[isBusinessRegisteredKey];
 
-        const userIsBusinessRegisteredIsTrue = isRegistered === 'true' || isRegistered === 'false' ? true : undefined;
-        const userIsBusinessRegisteredBool = isRegistered === 'false' ? false : userIsBusinessRegisteredIsTrue;
+        const isBusinessRegistered = this.isBusinessRegistered(isRegistered);
 
-        if (userIsBusinessRegisteredBool === undefined) {
+        if (isBusinessRegistered === undefined) {
             viewData.errors.business_registered = { "summary": getLocalesField("is_business_registered_non_selection_error_message_summary", req) };
             return {
                 templatePath: IsBusinessRegisteredHandler.templatePath,
@@ -62,13 +61,26 @@ export class IsBusinessRegisteredHandler extends GenericHandler<IsBusinessRegist
             };
         }
         logger.debug(`is business registered with companies house: ${JSON.stringify(isRegistered)}`);
-        setExtraDataIsBusinessRegistered(req, isRegistered);
+        const detail = { ...getPresenterAccountDetails(req), isBusinessRegistered };
+        setPresenterAccountDetails(req, detail);
 
-        if (userIsBusinessRegisteredBool) {
-            return { redirect: addLangToUrl("company-search", selectLang(req.query.lang)) };
+        if (isBusinessRegistered) {
+            return { redirect: "company-search" };
         } else {
-            return { redirect: addLangToUrl("enter-business-name", selectLang(req.query.lang)) };
+            return { redirect: "enter-business-name" };
         }
 
     }
+
+    private isBusinessRegistered(isRegistered: string|undefined): boolean|undefined {
+        const TRUE = 'true';
+        const FALSE = 'false';
+        if (isRegistered !== undefined && [TRUE, FALSE].includes(isRegistered)){
+            return isRegistered === TRUE ? true : false;
+        } else {
+            return undefined;
+        }
+    }
+
+
 }
