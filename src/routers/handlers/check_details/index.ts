@@ -30,7 +30,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
         }
 
         if (details.address === undefined) {
-            throw new Error("Presenter account address has been set.");
+            throw new Error("Presenter account address has not been set.");
         }
 
         return {
