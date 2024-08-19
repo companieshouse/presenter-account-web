@@ -6,12 +6,13 @@ import {
     ViewModel,
 } from "./../generic";
 import { logger } from "../../../utils/logger";
-import { type Address } from "private-api-sdk-node/src/services/presenter-account/types";
 import { getPresenterAccountDetails, cleanSession } from "../../../utils/session";
 import { PrefixedUrls } from "../../../constants";
 import { createOauthPrivateApiClient } from "../../../service/api.client.service";
 import { Result, failure } from "@companieshouse/api-sdk-node/dist/services/result";
 import { getLocalesField } from "../../../utils/localise";
+import { convertSessionDetailsToApiDetails } from "../../../utils/convert.details";
+import { type Address } from "private-api-sdk-node/dist/services/presenter-account/types";
 
 interface CheckDetailsViewData extends BaseViewData {
     address: Address;
@@ -26,6 +27,10 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
         const details = getPresenterAccountDetails(req);
         if (details === undefined) {
             throw new Error("Presenter account details not found in session.");
+        }
+
+        if (details.address === undefined) {
+            throw new Error("Presenter account address has not been set.");
         }
 
         return {
@@ -60,7 +65,8 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
             }
 
             const apiClient = createOauthPrivateApiClient(req);
-            return await apiClient.presenterAccountService.submitPresenterAccountDetails(details);
+            const apiDetails = convertSessionDetailsToApiDetails(details);
+            return await apiClient.presenterAccountService.submitPresenterAccountDetails(apiDetails);
         } catch (e: any) {
             const errorMessage = e.message ?? `${e}`;
             return failure(new Error(`Error submitting the presenter account details: ${errorMessage}`));

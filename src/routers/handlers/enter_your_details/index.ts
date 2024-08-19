@@ -1,10 +1,9 @@
 import { BaseViewData, GenericHandler, Redirect, ViewModel } from "./../generic";
 import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
-import { type Details, type Address } from "private-api-sdk-node/src/services/presenter-account/types";
 import { PrefixedUrls, countries } from "../../../constants";
-import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault } from "./../../../utils/session";
-import { isAddress, isLang } from "private-api-sdk-node/dist/services/presenter-account/types";
+import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault, PresenterSessionDetails } from "./../../../utils/session";
+import { type Details, type Address, isAddress, isLang } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { env } from "../../../config";
 import { getLocalesField } from "../../../utils/localise";
 
@@ -43,7 +42,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         const details = getPresenterAccountDetailsOrDefault(req);
 
         const viewData = this.getViewData(req);
-        viewData.address = details.address;
+        if (details.address !== undefined) {viewData.address = details.address;}
 
         return {
             templatePath: EnterYourDetailsHandler.templatePath,
@@ -53,7 +52,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
 
     public executePost(req: Request, _response: Response): ViewModel<EnterYourDetailsViewData> | Redirect {
         logger.info(`${this.constructor.name} post execute called`);
-        const details: Details =  getPresenterAccountDetailsOrDefault(req);
+        const details: PresenterSessionDetails =  getPresenterAccountDetailsOrDefault(req);
 
         const address = { ...req.body };
         if (isAddress(address)){

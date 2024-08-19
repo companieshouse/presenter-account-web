@@ -1,0 +1,9 @@
+{
+    "is_business_registered_title": "[CY]Is the business you work for registered with Companies House?[CY]",
+    "is_business_registered_yes": "[CY]Yes[CY]",
+    "is_business_registered_no": "[CY]No[CY]",
+    "is_business_registered_yes_hint": "[CY]You'll need to give the company number.[CY]",
+    "is_business_registered_no_hint": "[CY]You'll need to give the name of the business.[CY]",
+    "is_business_registered_non_selection_error_message_inline": "[CY]Select yes if the business is registered with Companies House[CY]",
+    "is_business_registered_non_selection_error_message_summary": "[CY]Select yes if the business is registered with Companies House[CY]"
+}

@@ -92,3 +92,7 @@ export interface ViewModel<T> {
     templatePath: string,
     viewData: T
 }
+
+export function isRedirect(o: any): o is Redirect {
+    return o !== undefined && o !== null && typeof o === 'object' && 'redirect' in o && typeof o.redirect === 'string';
+}

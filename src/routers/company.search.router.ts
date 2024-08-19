@@ -1,12 +1,12 @@
 import { Router } from "express";
 import { handleExceptions } from "../utils/async.handler";
 import { ExternalUrls } from "../constants";
-import { isBusinessRegistered } from "../utils/session";
+import { getPresenterAccountDetails } from "../utils/session";
 
 const router = Router();
 
 router.use('/', handleExceptions(async (req, res) => {
-    if (!isBusinessRegistered(req)) {
+    if (!getPresenterAccountDetails(req)?.isBusinessRegistered) {
         throw new Error('Not registered as a business');
     }
 

@@ -14,6 +14,12 @@ export const LanguageCodes = {
     CY: "cy"
 } as const;
 
+export const LanguageCodesString = [LanguageCodes.EN, LanguageCodes.CY];
+
+export const ContextKeys = {
+    PRESENTER_ACCOUNT_SESSION_KEY: "presenter_account_details",
+};
+
 export const Urls = {
     ACCESSIBILITY_STATEMENT: "/accessibility-statement",
     HOME: "/",
@@ -23,7 +29,8 @@ export const Urls = {
     ENTER_YOUR_DETAILS: "/enter-your-details",
     CHECK_DETAILS: "/check_details",
     CONFIRMATION: "/confirmation",
-    SUBMITTED: "/submitted"
+    SUBMITTED: "/submitted",
+    IS_BUSINESS_REGISTERED: "/is-business-registered",
 } as const;
 
 export const PrefixedUrls = {
@@ -36,6 +43,7 @@ export const PrefixedUrls = {
     CHECK_DETAILS: servicePathPrefix + Urls.CHECK_DETAILS,
     CONFIRMATION: servicePathPrefix + Urls.CONFIRMATION,
     SUBMITTED: servicePathPrefix + Urls.SUBMITTED,
+    IS_BUSINESS_REGISTERED: servicePathPrefix + Urls.IS_BUSINESS_REGISTERED,
     COOKIES: helpKeywordPrefix + "/cookies",
 } as const;
 

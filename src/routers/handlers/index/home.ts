@@ -25,7 +25,7 @@ export class HomeHandler extends GenericHandler<BaseViewData> {
 
         if (env.FEATURE_FLAG_GDS_START_PAGE_290424 === true) {
             logger.debug('GDS flag is on redirecting to the enter-your-details page');
-            const redirectURL = addLangToUrl(PrefixedUrls.ENTER_YOUR_DETAILS, selectLang(req.query.lang));
+            const redirectURL = addLangToUrl(PrefixedUrls.IS_BUSINESS_REGISTERED, selectLang(req.query.lang));
             return { redirect: redirectURL };
         }
 
