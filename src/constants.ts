@@ -4,7 +4,10 @@ export const servicePathPrefix = "/presenter-account";
 
 export const helpKeywordPrefix = "/help";
 
-export const QueryLang = "lang";
+export const QueryParameters = {
+    LANG: "lang",
+    COMPANY_NUMBER: "companyNumber"
+} as const;
 
 export const LanguageCodes = {
     EN: "en",
@@ -21,6 +24,8 @@ export const Urls = {
     ACCESSIBILITY_STATEMENT: "/accessibility-statement",
     HOME: "/",
     HEALTHCHECK: "/healthcheck",
+    COMPANY_SEARCH: "/company-search",
+    CONFIRM_COMPANY: "/confirm-company",
     ENTER_YOUR_DETAILS: "/enter-your-details",
     CHECK_DETAILS: "/check_details",
     CONFIRMATION: "/confirmation",
@@ -32,6 +37,8 @@ export const PrefixedUrls = {
     ACCESSIBILITY_STATEMENT: helpKeywordPrefix + Urls.ACCESSIBILITY_STATEMENT,
     HOME: servicePathPrefix + Urls.HOME,
     HEALTHCHECK: servicePathPrefix + Urls.HEALTHCHECK,
+    COMPANY_SEARCH: servicePathPrefix + Urls.COMPANY_SEARCH,
+    CONFIRM_COMPANY: servicePathPrefix + Urls.CONFIRM_COMPANY,
     ENTER_YOUR_DETAILS: servicePathPrefix + Urls.ENTER_YOUR_DETAILS,
     CHECK_DETAILS: servicePathPrefix + Urls.CHECK_DETAILS,
     CONFIRMATION: servicePathPrefix + Urls.CONFIRMATION,
@@ -49,6 +56,7 @@ export const ExternalUrls = {
     OPEN_GOVERNMENT_LICENSE: env.OPEN_GOVERNMENT_LICENSE_LINK,
     POLICIES: env.POLICIES_LINK,
     CONTACT_COMPANIES_HOUSE: env.CONTACT_COMPANIES_HOUSE,
+    COMPANY_LOOKUP: `/company-lookup/search?forward=${PrefixedUrls.CONFIRM_COMPANY}?companyNumber=%7BcompanyNumber%7D`,
     SIGNOUT: "/signout"
 } as const;
 

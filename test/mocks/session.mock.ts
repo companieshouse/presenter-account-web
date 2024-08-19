@@ -4,7 +4,7 @@ import { SignInInfoKeys } from "@companieshouse/node-session-handler/lib/session
 import { IAccessToken, ISignInInfo, IUserProfile } from "@companieshouse/node-session-handler/lib/session/model/SessionInterfaces";
 
 export const testSignedIn = 1;
-export const testUserProfile: IUserProfile = { id: 'someId' };
+export const testUserProfile: IUserProfile = { id: 'someId', email: 'demo@ch.gov.uk' };
 export const testAccessToken: IAccessToken = { access_token: 'accessToken' };
 
 export function getSessionRequest(): Session {

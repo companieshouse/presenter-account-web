@@ -1,4 +1,4 @@
-import { QueryLang, LanguageCodes, ContextKeys } from "../constants";
+import { LanguageCodes, ContextKeys, QueryParameters } from "../constants";
 import { Request } from "express";
 import { type Name, type Address, isLang, isName, isAddress } from "private-api-sdk-node/dist/services/presenter-account/types";
 
@@ -11,6 +11,8 @@ export interface PresenterSessionDetails {
     name?: Name;
     address?: Address;
 }
+export const PRESENTER_ACCOUNT_SESSION_KEY = "presenter_account_details";
+export const COMPANY_NUMBER_SESSION_KEY = "companyNumber";
 
 
 export function getPresenterAccountDetails(req: Request): PresenterSessionDetails | undefined {
@@ -71,10 +73,11 @@ export function getPresenterAccountDetailsOrDefault(req: Request) {
 
 export function cleanSession(req: Request) {
     req.session?.setExtraData(ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY, undefined);
+    req.session?.deleteExtraData(COMPANY_NUMBER_SESSION_KEY);
 }
 
 export function cleanLanguage(req: Request) {
-    req.session?.deleteExtraData(QueryLang);
+    req.session?.deleteExtraData(QueryParameters.LANG);
 }
 
 function isPresenterSessionDetails(data: any): data is PresenterSessionDetails {
@@ -95,4 +98,12 @@ function isUserProfileSet(presenterAccountDetails: PresenterSessionDetails): boo
         presenterAccountDetails.email !== undefined && typeof presenterAccountDetails.email === "string" &&
         presenterAccountDetails.name !== undefined && isName(presenterAccountDetails.name)
     );
+}
+
+export function setCompanyNumber(req: Request, companyNumber: string) {
+    req.session?.setExtraData(COMPANY_NUMBER_SESSION_KEY, companyNumber);
+}
+
+export function getCompanyNumber(req: Request): string | undefined {
+    return req.session?.getExtraData(COMPANY_NUMBER_SESSION_KEY) ?? undefined;
 }
