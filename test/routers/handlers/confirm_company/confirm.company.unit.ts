@@ -1,4 +1,4 @@
-import { mockSession } from "../../../mocks/session.middleware.mock";
+import { mockSession, session } from "../../../mocks/session.middleware.mock";
 import { mockGetCompanyProfile } from "../../../mocks/api.client.mock";
 
 import app from "../../../../src/app";
@@ -6,8 +6,9 @@ import request from "supertest";
 import {  PrefixedUrls, QueryParameters } from "../../../../src/constants";
 import { CompanyProfile } from "@companieshouse/api-sdk-node/dist/services/company-profile";
 import { Resource } from "@companieshouse/api-sdk-node";
+import { COMPANY_NUMBER_SESSION_KEY } from "../../../../src/utils/session";
 
-describe("confirm company tests", () => {
+describe("get confirm company tests", () => {
     it('Should show the company details when page rendered', async () => {
         mockSession();
 
@@ -45,5 +46,20 @@ describe("confirm company tests", () => {
 
         expect(response.status).toBe(500);
         expect(response.text).toContain('Sorry there is a problem with the service');
+    });
+});
+
+describe('post company profile tests', () => {
+    it('should set the company number in the session after post', async () => {
+        mockSession();
+
+        const companyNumber = '00006400';
+        const response = await request(app)
+            .post(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`);
+
+        
+        expect(response.status).toBe(302);
+        expect(response.header['location']).toEqual(PrefixedUrls.ENTER_YOUR_DETAILS);
+        expect(session.getExtraData(COMPANY_NUMBER_SESSION_KEY)).toEqual(companyNumber);
     });
 });
