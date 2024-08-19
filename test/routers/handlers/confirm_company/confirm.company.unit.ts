@@ -59,6 +59,21 @@ describe("get confirm company tests", () => {
         expect(response.status).toBe(500);
         expect(response.text).toContain('Sorry there is a problem with the service');
     });
+
+    it("Should show an error if company profile service returns a non 200 status code", async () => {
+        mockSession();
+        mockGetCompanyProfile.mockReturnValueOnce({
+            status: 500,
+            data: {
+                message:'something went wrong',
+            },
+        });
+
+        const response = await request(app)
+            .get(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=00006400`);
+
+        expect(response.status).toBe(500);
+    });
 });
 
 describe('post company profile tests', () => {
