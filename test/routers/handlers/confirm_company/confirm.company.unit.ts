@@ -65,7 +65,7 @@ describe("get confirm company tests", () => {
         mockGetCompanyProfile.mockReturnValueOnce({
             status: 500,
             data: {
-                message:'something went wrong',
+                message: 'something went wrong',
             },
         });
 
@@ -84,7 +84,7 @@ describe('post company profile tests', () => {
         const response = await request(app)
             .post(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`);
 
-        
+
         expect(response.status).toBe(302);
         expect(response.header['location']).toEqual(PrefixedUrls.ENTER_YOUR_DETAILS);
         expect(session.getExtraData(COMPANY_NUMBER_SESSION_KEY)).toEqual(companyNumber);

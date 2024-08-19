@@ -12,14 +12,14 @@ export class CompanyProfileService {
 
     async getCompanyProfile(companyNumber: string): Promise<Result<CompanyProfile, Error>> {
         let companyProfile: Resource<CompanyProfile>;
-        
+
         try {
             companyProfile = await this.apiClient.companyProfile.getCompanyProfile(companyNumber);
         } catch (e: any) {
             logger.error(`Error getting company profile for ${companyNumber}`);
             return failure(e);
         }
-        
+
         if (companyProfile.httpStatusCode !== 200) {
             logger.error(`Company Profile has return http status of ${companyProfile.httpStatusCode}`);
             return failure(new Error("Unable to process requested company number"));
