@@ -14,6 +14,6 @@ export function convertSessionDetailsToApiDetails(details: PresenterSessionDetai
     if (isDetails(apiDetails)) {
         return apiDetails;
     } else {
-        throw new Error(`Presenter Account Session Details to Presenter Account API Details failed`);
+        throw new Error(`Presenter account address has not been set.`);
     }
 }

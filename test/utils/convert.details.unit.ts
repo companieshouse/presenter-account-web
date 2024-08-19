@@ -12,7 +12,7 @@ describe("convert details from session to api", () => {
         } as unknown as PresenterSessionDetails
         expect(() => {
             convertSessionDetailsToApiDetails(sessionDetails)}
-        ).toThrow(new Error(`Presenter Account Session Details to Presenter Account API Details failed`));
+        ).toThrow(new Error(`Presenter account address has not been set.`));
     })
 }
 
