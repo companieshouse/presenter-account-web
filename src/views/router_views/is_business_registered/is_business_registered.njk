@@ -24,6 +24,7 @@
                 {
                   value: "true",
                   text: i18n.is_business_registered_yes,
+                  id: "is-business-registered-radio-button-true",
                   attributes: {'data-event-id': 'presenter-account-is-business-registered-selected-yes'},
                   hint: {
                     text: i18n.is_business_registered_yes_hint
@@ -32,6 +33,7 @@
                 {
                   value: "false",
                   text: i18n.is_business_registered_no,
+                  id: "is-business-registered-radio-button-false",
                   attributes: {'data-event-id': 'presenter-account-is-business-registered-selected-no'},
                   hint: {
                     text: i18n.is_business_registered_no_hint
@@ -43,6 +45,7 @@
         {{ govukButton({
           preventDoubleClick: true,
           text: i18n.continue,
+          id: "is-business-registered-submit-button",
           attributes: {'data-event-id': 'presenter-account-is-business-registered-continue'}
         }) }}
 
