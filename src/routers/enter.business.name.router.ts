@@ -3,6 +3,7 @@ import { handleExceptions } from "../utils/async.handler";
 import { noCacheMiddleware } from "../middleware/no.cache.middleware";
 import { validateEnterBusinessNameForm } from "../middleware/formvalidation.middleware";
 import { EnterBusinessNameHandler } from "./handlers/enter_business_name";
+import { getPresenterAccountDetails } from "../utils/session";
 
 const router = Router();
 
@@ -14,6 +15,12 @@ router.use(noCacheMiddleware);
 router.get("/", handleExceptions( async (req: Request, res: Response, _next: NextFunction) => {
     const handler = new EnterBusinessNameHandler();
     const { templatePath, viewData } = handler.executeGet(req, res);
+    const paDetails = getPresenterAccountDetails(req);
+    if (paDetails === undefined || paDetails.isBusinessRegistered === undefined) {
+        throw new Error('Is registered as a business question not answered, unable to enter business name');
+    } else if (paDetails.isBusinessRegistered){
+        throw new Error('Registered as a business already, unable to enter the business name');
+    }
     return res.render(templatePath, viewData);
 }));
 

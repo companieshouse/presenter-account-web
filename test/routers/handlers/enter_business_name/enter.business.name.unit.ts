@@ -3,7 +3,7 @@ import { session } from "../../../mocks/session.middleware.mock";
 import app from "../../../../src/app";
 import request from "supertest";
 import { ContextKeys, ExternalUrls, PrefixedUrls } from "../../../../src/constants";
-import { examplePresenterAccountDetails, presenterAccountDetailsWithBusinessName } from "../../../mocks/example.presenter.account.details.mock";
+import { paDetailsWithIsBusinessRegisteredFalse } from "../../../mocks/example.presenter.account.details.mock";
 
 const eightyCharacters = "éêëēĕėęěĝģğġĥħìíîïĩīĭįĵķĺļľŀłñńņňŋòóôõöøōŏőǿœŕŗřśŝşšţťŧùúûüũūŭůűųŵẁẃẅỳýŷÿźżž]*$/";
 
@@ -20,33 +20,36 @@ describe("validate form fields", () => {
     }
 
 
-    /*  it("should throw an error when no session", async () => {
-        await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME).expect(500);
+    it("should throw an error when no session", async () => {
+        const response = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME).expect(500);
+        expect(response.text).not.toContain("What is the name of the business?");
+        expect(response.text).toContain("Sorry there is a problem with the service");
     });
 
     it(`should throw error when session ${ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY} not set`, async () => {
         session.setExtraData(
             'some random session',
-            examplePresenterAccountDetails
+            paDetailsWithIsBusinessRegisteredFalse
         );
 
         await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME).expect(500);
-    });*/
+    });
 
-    it(`should render the enter your details page when session ${ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY} set`, async () => {
+    it(`should render the enter business name page when session ${ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY} set`, async () => {
+
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            examplePresenterAccountDetails
+            paDetailsWithIsBusinessRegisteredFalse
         );
 
         const resp = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME).expect(200);
         expect(resp.text).toContain("What is the name of the business?");
     });
 
-    it(`should render the enter your details page in Welsh with all translations when session ${ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY} and language set to English`, async () => {
+    it(`should render the enter business name page in Welsh with all translations when session ${ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY} and language set to English`, async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            presenterAccountDetailsWithBusinessName
+            paDetailsWithIsBusinessRegisteredFalse
         );
 
         const resp = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=en").expect(200);
@@ -57,7 +60,7 @@ describe("validate form fields", () => {
     it("Should not cache the HTMl on this page", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            examplePresenterAccountDetails
+            paDetailsWithIsBusinessRegisteredFalse
         );
 
         await request(app)
@@ -73,35 +76,35 @@ describe("validate form fields", () => {
         session.deleteExtraData("lang");
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            examplePresenterAccountDetails
+            paDetailsWithIsBusinessRegisteredFalse
         );
 
-        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(examplePresenterAccountDetails).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredFalse).expect(200);
 
         expect(response.text).toContain(ErrorMessagesEnglish.BUSINESS_NAME_BLANK);
     });
 
     it("should display errors for fields that go above max length",  async () => {
-        presenterAccountDetailsWithBusinessName.businessName = eightyCharacters + "x";
+        paDetailsWithIsBusinessRegisteredFalse.businessName = eightyCharacters + "x";
         session.setExtraData("lang", "en");
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            presenterAccountDetailsWithBusinessName
+            paDetailsWithIsBusinessRegisteredFalse
         );
-        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(presenterAccountDetailsWithBusinessName).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredFalse).expect(200);
 
         expect(response.text).toContain(ErrorMessagesEnglish.BUSINESS_NAME_LENGTH);
         expect(response.text).not.toContain(ErrorMessagesEnglish.BUSINESS_NAME_INVALID_CHARACTER);
     });
 
     it("should redirect when no errors displayed",  async () => {
-        presenterAccountDetailsWithBusinessName.businessName = eightyCharacters;
+        paDetailsWithIsBusinessRegisteredFalse.businessName = eightyCharacters;
         session.setExtraData("lang", "en");
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            presenterAccountDetailsWithBusinessName
+            paDetailsWithIsBusinessRegisteredFalse
         );
-        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(presenterAccountDetailsWithBusinessName).expect(302).expect("Location", PrefixedUrls.ENTER_YOUR_DETAILS);
+        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredFalse).expect(302).expect("Location", PrefixedUrls.ENTER_YOUR_DETAILS);
 
         expect(response.text).not.toContain(ErrorMessagesEnglish.BUSINESS_NAME_LENGTH);
         expect(response.text).not.toContain(ErrorMessagesEnglish.BUSINESS_NAME_INVALID_CHARACTER);
@@ -110,13 +113,13 @@ describe("validate form fields", () => {
 
 
     it("Should display errors for invalid business name", async () => {
-        presenterAccountDetailsWithBusinessName.businessName = "§§";
+        paDetailsWithIsBusinessRegisteredFalse.businessName = "§§";
         session.setExtraData("lang", "en");
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            presenterAccountDetailsWithBusinessName
+            paDetailsWithIsBusinessRegisteredFalse
         );
-        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(presenterAccountDetailsWithBusinessName).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredFalse).expect(200);
 
         expect(response.text).toContain(ErrorMessagesEnglish.BUSINESS_NAME_INVALID_CHARACTER);
         expect(response.text).not.toContain(ErrorMessagesEnglish.BUSINESS_NAME_LENGTH);
@@ -143,34 +146,34 @@ describe("Validate form fields with Welsh display", () => {
         "ENTER_BUSINESS_NAME_TITLE_INFO" = "[CY]If you&#39;re a sole trader, you should give your own name if you do not have a different business name that you trade under.[CY]"
     }
     it("should display Welsh errors for fields that go above max length",  async () => {
-        presenterAccountDetailsWithBusinessName.businessName = eightyCharacters + "x";
+        paDetailsWithIsBusinessRegisteredFalse.businessName = eightyCharacters + "x";
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            presenterAccountDetailsWithBusinessName
+            paDetailsWithIsBusinessRegisteredFalse
         );
-        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy").send(presenterAccountDetailsWithBusinessName).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy").send(paDetailsWithIsBusinessRegisteredFalse).expect(200);
 
         expect(response.text).toContain(ErrorMessagesWelsh.BUSINESS_NAME_LENGTH);
     });
 
     it("should display Welsh errors for missing mandatory fields",  async () => {
-        presenterAccountDetailsWithBusinessName.businessName = null;
+        paDetailsWithIsBusinessRegisteredFalse.businessName = null;
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            presenterAccountDetailsWithBusinessName
+            paDetailsWithIsBusinessRegisteredFalse
         );
 
-        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy").send(presenterAccountDetailsWithBusinessName).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy").send(paDetailsWithIsBusinessRegisteredFalse).expect(200);
 
         expect(response.text).toContain(ErrorMessagesWelsh.BUSINESS_NAME_BLANK);
         // expect(response.text).toContain("Mae yna broblem");
     });
 
 
-    it(`should render the enter your details page in Welsh with all translations when session ${ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY} and language set to Welsh`, async () => {
+    it(`should render the enter business name page in Welsh with all translations when session ${ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY} and language set to Welsh`, async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            presenterAccountDetailsWithBusinessName
+            paDetailsWithIsBusinessRegisteredFalse
         );
 
         const resp = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy").expect(200);
@@ -181,7 +184,7 @@ describe("Validate form fields with Welsh display", () => {
     it("should translate page title to Welsh",  async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            examplePresenterAccountDetails
+            paDetailsWithIsBusinessRegisteredFalse
         );
 
         const response = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy");

@@ -21,9 +21,9 @@ export const examplePresenterAccountDetails: Details = {
 };
 
 
-export const presenterAccountDetailsWithBusinessName: PresenterSessionDetails = {
+export const paDetailsWithIsBusinessRegisteredFalse: PresenterSessionDetails = {
     isBusinessRegistered: false,
-    businessName: "Test Company",
+    businessName: null,
     email: "example@email.com",
     userId: "123e4567-e89b-12d3-a456-426614174000",
     createdDate: "2022-01-01T00:00:00Z",
