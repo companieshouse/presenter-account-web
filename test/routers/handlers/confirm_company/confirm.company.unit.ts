@@ -3,7 +3,7 @@ import { mockGetCompanyProfile } from "../../../mocks/api.client.mock";
 
 import app from "../../../../src/app";
 import request from "supertest";
-import {  PrefixedUrls, QueryParameters } from "../../../../src/constants";
+import {  ContextKeys, PrefixedUrls, QueryParameters } from "../../../../src/constants";
 import { CompanyProfile } from "@companieshouse/api-sdk-node/dist/services/company-profile";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { COMPANY_NUMBER_SESSION_KEY } from "../../../../src/utils/session";
@@ -25,6 +25,8 @@ describe("get confirm company tests", () => {
             httpStatusCode: 200,
             resource: companyProfile as CompanyProfile
         } as Resource<CompanyProfile>;
+
+        session.setExtraData(ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY, { isBusinessRegistered: true });
 
         mockGetCompanyProfile.mockResolvedValueOnce(companyProfileResource);
 
