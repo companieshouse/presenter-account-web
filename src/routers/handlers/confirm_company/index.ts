@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 import { isValidCompanyNumber } from "../../../validation/company_number";
 import { CompanyProfileService } from "../../../service/company.profile.service";
 import { CompanyProfile } from "@companieshouse/api-sdk-node/dist/services/company-profile";
-import { setCompanyNumber } from "../../../utils/session";
+import { setCompanyNameToPresenterAccountDetails, setCompanyNumber } from "../../../utils/session";
 
 interface ConfirmCompanyViewData extends BaseViewData {
     companyNumber: string
@@ -34,6 +34,8 @@ export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData
         const companyNumber = this.getCompanyNumberFromRequest(req);
 
         const { companyStatus: status, dateOfCreation: incorporatedOn, companyName } = await this.getCompanyProfile(req, companyNumber);
+
+        setCompanyNameToPresenterAccountDetails(req, companyName);
 
         const viewData = {
             ...this.getViewData(req),

@@ -16,6 +16,13 @@ import { type Address } from "private-api-sdk-node/dist/services/presenter-accou
 
 interface CheckDetailsViewData extends BaseViewData {
     address: Address;
+    businessName?: string;
+    companyName?: string;
+    isBusinessRegistered: boolean;
+    contactName: {
+        forename: string;
+        surname: string;
+    };
 }
 
 export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
@@ -33,12 +40,39 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
             throw new Error("Presenter account address has not been set.");
         }
 
+        if (details.isBusinessRegistered === undefined) {
+            throw new Error("Presenter account is business registered has not been set.");
+        }
+
+        if (details.name === undefined || details.name.forename === null || details.name.surname === null) {
+            throw new Error("Presenter account name/forename/surname has not been set.");
+        }
+
+
+        // if isBusinessRegistered is true; company name need to be set
+        if (details.companyName === undefined && details.isBusinessRegistered) {
+            throw new Error("Presenter account company name has not been set for a registered business.");
+        }
+
+        // if isBusinessRegistered is false; business name need to be set
+        if (details.businessName === undefined && !details.isBusinessRegistered) {
+            throw new Error("Presenter account business name has not been set for a registered business.");
+        }
+
+
         return {
             ...baseViewData,
             title: getLocalesField("check_your_answers_page_title", req),
             currentUrl: PrefixedUrls.CHECK_DETAILS,
             backURL: PrefixedUrls.ENTER_YOUR_DETAILS,
             address: details.address,
+            companyName: details.companyName,
+            businessName: details.businessName,
+            isBusinessRegistered: details.isBusinessRegistered,
+            contactName: {
+                forename: details.name!.forename,
+                surname: details.name!.surname
+            },
             viewName: 'check your details',
         };
     }
