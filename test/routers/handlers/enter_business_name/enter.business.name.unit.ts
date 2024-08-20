@@ -15,10 +15,9 @@ describe("validate form fields", () => {
         BUSINESS_NAME_INVALID_CHARACTER = "Business name must contain only valid characters"
     }
     enum ScreenFieldsEnglish{
-        "ENTER_BUSINESS_NAME_TITLE" = "What is the name of the business?",
-        "ENTER_BUSINESS_NAME_TITLE_INFO" = "If you&#39;re a sole trader, you should give your own name if you do not have a different business name that you trade under."
+        ENTER_BUSINESS_NAME_TITLE = "What is the name of the business?",
+        ENTER_BUSINESS_NAME_TITLE_INFO = "If you&#39;re a sole trader, you should give your own name if you do not have a different business name that you trade under."
     }
-
 
     it("should throw an error when no session", async () => {
         const response = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME).expect(500);
@@ -111,7 +110,6 @@ describe("validate form fields", () => {
         expect(response.text).toContain(`Redirecting to ${PrefixedUrls.ENTER_YOUR_DETAILS}`);
     });
 
-
     it("Should display errors for invalid business name", async () => {
         paDetailsWithIsBusinessRegisteredFalse.businessName = "§§";
         session.setExtraData("lang", "en");
@@ -142,8 +140,8 @@ describe("Validate form fields with Welsh display", () => {
         BUSINESS_NAME_INVALID_CHARACTER = "[CY]Business name must contain only valid characters[CY]"
     }
     enum ScreenFieldsWelsh{
-        "ENTER_BUSINESS_NAME_TITLE" = "[CY]What is the name of the business?[CY]",
-        "ENTER_BUSINESS_NAME_TITLE_INFO" = "[CY]If you&#39;re a sole trader, you should give your own name if you do not have a different business name that you trade under.[CY]"
+        ENTER_BUSINESS_NAME_TITLE = "[CY]What is the name of the business?[CY]",
+        ENTER_BUSINESS_NAME_TITLE_INFO = "[CY]If you&#39;re a sole trader, you should give your own name if you do not have a different business name that you trade under.[CY]"
     }
     it("should display Welsh errors for fields that go above max length",  async () => {
         paDetailsWithIsBusinessRegisteredFalse.businessName = eightyCharacters + "x";
@@ -166,7 +164,6 @@ describe("Validate form fields with Welsh display", () => {
         const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy").send(paDetailsWithIsBusinessRegisteredFalse).expect(200);
 
         expect(response.text).toContain(ErrorMessagesWelsh.BUSINESS_NAME_BLANK);
-        // expect(response.text).toContain("Mae yna broblem");
     });
 
 
