@@ -9,6 +9,8 @@ export interface PresenterSessionDetails {
     createdDate?: string;
     lang?: "en" | "cy";
     name?: Name;
+    companyName?: string;
+    businessName?: string;
     address?: Address;
 }
 export const PRESENTER_ACCOUNT_SESSION_KEY = "presenter_account_details";
@@ -39,6 +41,8 @@ export function populatePresenterAccountDetails(req: Request): PresenterSessionD
     };
     const presenterAccountDetails = getPresenterAccountDetails(req);
     const isBusinessRegistered = presenterAccountDetails?.isBusinessRegistered;
+    const companyName = presenterAccountDetails?.companyName;
+    const businessName = presenterAccountDetails?.businessName;
     const address = presenterAccountDetails?.address === undefined ? defaultAddress : getPresenterAccountDetails(req)?.address;
     const user_profile = req.session?.data?.signin_info?.user_profile;
     const createdDate = (new Date()).toISOString();
@@ -55,6 +59,8 @@ export function populatePresenterAccountDetails(req: Request): PresenterSessionD
         name: { forename, surname },
         createdDate,
         address,
+        companyName,
+        businessName,
         lang: LanguageCodes.EN
     } as PresenterSessionDetails;
 
@@ -106,4 +112,16 @@ export function setCompanyNumber(req: Request, companyNumber: string) {
 
 export function getCompanyNumber(req: Request): string | undefined {
     return req.session?.getExtraData(COMPANY_NUMBER_SESSION_KEY) ?? undefined;
+}
+
+export function setCompanyNameToPresenterAccountDetails(req: Request, companyName: string) {
+    const presenterAccountDetails = getPresenterAccountDetails(req);
+    if (presenterAccountDetails) {presenterAccountDetails.companyName = companyName;} else {throw new Error("Presenter Account Details is not set in session");}
+    setPresenterAccountDetails(req, presenterAccountDetails);
+}
+
+export function setBusinessNameToPresenterAccountDetails(req: Request, businessName: string) {
+    const presenterAccountDetails = getPresenterAccountDetails(req);
+    if (presenterAccountDetails) {presenterAccountDetails.businessName = businessName;} else {throw new Error("Presenter Account Details is not set in session");}
+    setPresenterAccountDetails(req, presenterAccountDetails);
 }
