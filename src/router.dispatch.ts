@@ -1,5 +1,5 @@
 import { Application, Router } from "express";
-import { HomeRouter, HealthCheckRouter, CheckDetailsRouter, ConfirmationRouter, EnterYourDetailsRouter, ConfirmCompanyRouter, CompanySearchRouter, IsBusinessRegisteredRouter } from "./routers";
+import { HomeRouter, HealthCheckRouter, CheckDetailsRouter, ConfirmationRouter, EnterYourDetailsRouter, ConfirmCompanyRouter, CompanySearchRouter, IsBusinessRegisteredRouter, EnterBusinessNameRouter } from "./routers";
 import { errorHandler, pageNotFound } from "./routers/handlers/errors";
 import { sessionMiddleware } from "./middleware/session.middleware";
 import { authenticationMiddleware } from "./middleware/authentication.middleware";
@@ -36,6 +36,7 @@ const routerDispatch = (app: Application) => {
     router.use(Urls.IS_BUSINESS_REGISTERED, IsBusinessRegisteredRouter);
     router.use(Urls.COMPANY_SEARCH, CompanySearchRouter);
     router.use(Urls.CONFIRM_COMPANY, ConfirmCompanyRouter);
+    router.use(Urls.ENTER_BUSINESS_NAME, EnterBusinessNameRouter);
     router.use(Urls.ENTER_YOUR_DETAILS, EnterYourDetailsRouter);
     router.use(Urls.CHECK_DETAILS, CheckDetailsRouter);
     router.use(Urls.CONFIRMATION, ConfirmationRouter);

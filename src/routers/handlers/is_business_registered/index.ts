@@ -62,13 +62,17 @@ export class IsBusinessRegisteredHandler extends GenericHandler<IsBusinessRegist
         }
         logger.debug(`is business registered with companies house: ${JSON.stringify(isRegistered)}`);
         const detail = { ...getPresenterAccountDetails(req), isBusinessRegistered };
-        setPresenterAccountDetails(req, detail);
+        let redirectUrl: string;
 
         if (isBusinessRegistered) {
-            return { redirect: "company-search" };
+            // Reset the business name value in session, when the business is registered
+            detail.businessName = null;
+            redirectUrl = PrefixedUrls.COMPANY_SEARCH;
         } else {
-            return { redirect: "enter-business-name" };
+            redirectUrl = PrefixedUrls.ENTER_BUSINESS_NAME;
         }
+        setPresenterAccountDetails(req, detail);
+        return { redirect: redirectUrl };
 
     }
 

@@ -4,6 +4,7 @@ import { type Name, type Address, isLang, isName, isAddress } from "private-api-
 
 export interface PresenterSessionDetails {
     isBusinessRegistered: boolean;
+    businessName?: string | null;
     email?: string;
     userId?: string;
     createdDate?: string;
@@ -39,6 +40,7 @@ export function populatePresenterAccountDetails(req: Request): PresenterSessionD
     };
     const presenterAccountDetails = getPresenterAccountDetails(req);
     const isBusinessRegistered = presenterAccountDetails?.isBusinessRegistered;
+    const businessName = isBusinessRegistered ? presenterAccountDetails?.businessName : null;
     const address = presenterAccountDetails?.address === undefined ? defaultAddress : getPresenterAccountDetails(req)?.address;
     const user_profile = req.session?.data?.signin_info?.user_profile;
     const createdDate = (new Date()).toISOString();
@@ -50,6 +52,7 @@ export function populatePresenterAccountDetails(req: Request): PresenterSessionD
     const { email, id, forename, surname } = user_profile;
     const presenterAccountDetailsObject = {
         isBusinessRegistered,
+        businessName,
         email: email,
         userId: id,
         name: { forename, surname },
