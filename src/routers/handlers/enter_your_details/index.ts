@@ -4,6 +4,7 @@ import { logger } from "../../../utils/logger";
 import { PrefixedUrls, countries } from "../../../constants";
 import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault, PresenterSessionDetails } from "./../../../utils/session";
 import { type Details, type Address, isAddress, isLang } from "private-api-sdk-node/dist/services/presenter-account/types";
+import { env } from "../../../config";
 import { getLocalesField } from "../../../utils/localise";
 
 interface EnterYourDetailsViewData extends BaseViewData{
@@ -29,7 +30,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
             ...baseViewData,
             title: getLocalesField("enter_your_details_page_title", req),
             currentUrl: PrefixedUrls.ENTER_YOUR_DETAILS,
-            backURL: PrefixedUrls.ENTER_BUSINESS_NAME,
+            backURL: env.FEATURE_FLAG_GDS_START_PAGE_290424 ? env.GDS_START_PAGE_LINK : PrefixedUrls.HOME,
             viewName: 'enter your details',
             countries: countriesWithChoose
         };
