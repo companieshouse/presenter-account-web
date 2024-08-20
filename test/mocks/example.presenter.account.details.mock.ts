@@ -1,4 +1,5 @@
 import { Details } from "private-api-sdk-node/src/services/presenter-account/types";
+import { PresenterSessionDetails } from "../../src/utils/session";
 
 export const examplePresenterAccountDetails: Details = {
     email: "example@email.com",
@@ -17,4 +18,11 @@ export const examplePresenterAccountDetails: Details = {
         postCode: "SA1 1ZZ"
     },
     lang: "en"
+};
+
+export const examplePresenterAccountDetailsInternal: PresenterSessionDetails = {
+    ...examplePresenterAccountDetails,
+    isBusinessRegistered: true,
+    companyName: "Test Company",
+    businessName: "Business Test Name"
 };
