@@ -95,12 +95,12 @@ describe("get confirm company tests", () => {
         } as Resource<CompanyProfile>;
 
         mockGetCompanyProfile.mockResolvedValueOnce(companyProfileResource);
-        
+
         const response = await request(app)
             .get(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=00006400`);
 
         expect(response.status).toBe(500);
-    })
+    });
 });
 
 describe('post company profile tests', () => {
