@@ -1,0 +1,9 @@
+{
+    "enter_business_name_page_title": "[CY]What is the name of the business?[CY]",
+    "enter_business_name_page_title_info": "[CY]If you're a sole trader, you should give your own name if you do not have a different business name that you trade under.[CY]",
+    "enter_business_name_validation_errors": {
+        "BUSINESS_NAME_BLANK": "[CY]Enter the business name.[CY]",
+        "BUSINESS_NAME_LENGTH": "[CY]Business name must be 80 characters or less[CY]",
+        "BUSINESS_NAME_INVALID_CHARACTER": "[CY]Business name must contain only valid characters[CY]"
+    }
+}

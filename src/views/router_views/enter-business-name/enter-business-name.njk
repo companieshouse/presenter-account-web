@@ -1,0 +1,34 @@
+{% extends "layouts/default.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% block main_content %}
+
+    <form class="form" action="{{Urls.ENTER_BUSINESS_NAME}}?lang={{lang}}" method="POST">
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <h1 class="govuk-fieldset__heading">
+                    {{ i18n.enter_business_name_page_title }}
+                </h1>
+            </legend>
+            <p class="govuk-hint">{{ i18n.enter_business_name_page_title_info }}</p>
+            {{ govukInput({
+                id: "business-name",
+                name: "businessName",
+                value: businessName,
+                errorMessage: { text: errors['business-name'].summary } if errors['business-name'] else null
+                }) 
+            }}
+            {{ govukButton({
+                text: i18n.continue,
+                type: "continue",
+                id: "continue",
+                attributes: {'data-event-id': 'presenter-account-enter-business-name-continue'},
+                preventDoubleClick: true,
+                classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-8"
+                }) 
+            }}
+        </fieldset>
+    </form>
+{% endblock%}

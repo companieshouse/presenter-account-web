@@ -28,7 +28,7 @@ describe("is business registered", () => {
         });
 
         expect(resp.status).toBe(302);
-        expect(resp.text).toContain("Redirecting to company-search");
+        expect(resp.text).toContain(`Redirecting to ${PrefixedUrls.COMPANY_SEARCH}`);
     });
 
     it("should redirect to business name when 'no' radio buttom is selected", async () => {
@@ -37,7 +37,7 @@ describe("is business registered", () => {
         });
 
         expect(resp.status).toBe(302);
-        expect(resp.text).toContain("Redirecting to enter-business-name");
+        expect(resp.text).toContain(`Redirecting to ${PrefixedUrls.ENTER_BUSINESS_NAME}`);
     });
 
     it("should check radiobox 'yes' when session is set to true", async () => {
