@@ -6,7 +6,7 @@ import request from "supertest";
 import {  ContextKeys, PrefixedUrls, QueryParameters } from "../../../../src/constants";
 import { CompanyProfile } from "@companieshouse/api-sdk-node/dist/services/company-profile";
 import { Resource } from "@companieshouse/api-sdk-node";
-import { COMPANY_NUMBER_SESSION_KEY } from "../../../../src/utils/session";
+import { PRESENTER_ACCOUNT_SESSION_KEY, PresenterSessionDetails } from "../../../../src/utils/session";
 
 describe("get confirm company tests", () => {
     it('Should show the company details when page rendered', async () => {
@@ -82,6 +82,10 @@ describe('post company profile tests', () => {
     it('should set the company number in the session after post', async () => {
         mockSession();
 
+        session.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, {
+            isBusinessRegistered: true
+        });
+
         const companyNumber = '00006400';
         const response = await request(app)
             .post(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`);
@@ -89,6 +93,6 @@ describe('post company profile tests', () => {
 
         expect(response.status).toBe(302);
         expect(response.header['location']).toEqual(PrefixedUrls.ENTER_YOUR_DETAILS);
-        expect(session.getExtraData(COMPANY_NUMBER_SESSION_KEY)).toEqual(companyNumber);
+        expect((session.getExtraData(PRESENTER_ACCOUNT_SESSION_KEY) as PresenterSessionDetails).companyNumber).toEqual(companyNumber);
     });
 });

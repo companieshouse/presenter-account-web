@@ -11,6 +11,13 @@ describe("convert details from session to api", () => {
         expect(convertSessionDetailsToApiDetails(sessionDetails)).toStrictEqual(examplePresenterAccountDetails);
     });
 
+    test("if companyNumber is set in session, it does not show up in api", () => {
+        const sessionDetails = { ...examplePresenterAccountDetails, isBusinessRequired: true,
+            companyNumber: "AB123456"
+        } as unknown as PresenterSessionDetails;
+        expect(convertSessionDetailsToApiDetails(sessionDetails)).toStrictEqual(examplePresenterAccountDetails);
+    });
+
     test("if session details is not a valid api details", () => {
         const sessionDetails = {
             isBusinessRegistered: false,
