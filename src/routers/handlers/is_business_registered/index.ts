@@ -28,6 +28,7 @@ export class IsBusinessRegisteredHandler extends GenericHandler<IsBusinessRegist
             backURL: env.FEATURE_FLAG_GDS_START_PAGE_290424 ? env.GDS_START_PAGE_LINK : PrefixedUrls.HOME,
             currentUrl: PrefixedUrls.IS_BUSINESS_REGISTERED,
             isBusinessRegistered: String(getPresenterAccountDetails(req)?.isBusinessRegistered),
+            viewName: 'is business registered',
         };
     }
 
