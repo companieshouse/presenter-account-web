@@ -66,7 +66,7 @@ export class IsBusinessRegisteredHandler extends GenericHandler<IsBusinessRegist
 
         if (isBusinessRegistered) {
             // Reset the business name value in session, when the business is registered
-            detail.businessName = null;
+            detail.businessName = "";
             redirectUrl = PrefixedUrls.COMPANY_SEARCH;
         } else {
             // Deleted the company number from session, when the business is not registered

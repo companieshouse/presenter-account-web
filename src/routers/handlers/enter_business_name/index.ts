@@ -58,7 +58,6 @@ export class EnterBusinessNameHandler extends GenericHandler<EnterBusinessNameVi
             // Set the business name in session, if business is not registered
             details.businessName = req.body.businessName;
         } else {
-            // TODO
             throw new Error('Business registered question not answered');
         }
         setPresenterAccountDetails(req, details);

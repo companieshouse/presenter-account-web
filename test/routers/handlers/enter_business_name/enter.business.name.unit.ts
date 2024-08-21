@@ -3,7 +3,7 @@ import { session } from "../../../mocks/session.middleware.mock";
 import app from "../../../../src/app";
 import request from "supertest";
 import { ContextKeys, ExternalUrls, PrefixedUrls } from "../../../../src/constants";
-import { paDetailsWithIsBusinessRegisteredFalse } from "../../../mocks/example.presenter.account.details.mock";
+import { paDetailsWithIsBusinessRegisteredFalse, paDetailsWithIsBusinessRegisteredTrue } from "../../../mocks/example.presenter.account.details.mock";
 
 const eightyCharacters = "éêëēĕėęěĝģğġĥħìíîïĩīĭįĵķĺļľŀłñńņňŋòóôõöøōŏőǿœŕŗřśŝşšţťŧùúûüũūŭůűųŵẁẃẅỳýŷÿźżž]*$/";
 
@@ -130,6 +130,17 @@ describe("validate form fields", () => {
             ExternalUrls.FEEDBACK
         );
     });
+
+    it("Should throw error when IsBusinessRegistered is true", async () => {
+        session.setExtraData("lang", "en");
+        session.setExtraData(
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+            paDetailsWithIsBusinessRegisteredTrue
+        );
+        const response = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredTrue).expect(500);
+        expect(response.text).not.toContain(ScreenFieldsEnglish.ENTER_BUSINESS_NAME_TITLE);
+        expect(response.text).not.toContain(ScreenFieldsEnglish.ENTER_BUSINESS_NAME_TITLE_INFO);
+    });
 });
 
 describe("Validate form fields with Welsh display", () => {
@@ -155,7 +166,7 @@ describe("Validate form fields with Welsh display", () => {
     });
 
     it("should display Welsh errors for missing mandatory fields",  async () => {
-        paDetailsWithIsBusinessRegisteredFalse.businessName = null;
+        paDetailsWithIsBusinessRegisteredFalse.businessName = "";
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             paDetailsWithIsBusinessRegisteredFalse

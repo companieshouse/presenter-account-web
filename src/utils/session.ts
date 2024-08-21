@@ -4,7 +4,7 @@ import { type Name, type Address, isLang, isName, isAddress } from "private-api-
 
 export interface PresenterSessionDetails {
     isBusinessRegistered: boolean;
-    businessName?: string | null;
+    businessName?: string;
     email?: string;
     userId?: string;
     createdDate?: string;
@@ -86,6 +86,7 @@ export function cleanLanguage(req: Request) {
 function isPresenterSessionDetails(data: any): data is PresenterSessionDetails {
     return (
         typeof data.isBusinessRegistered === "boolean" &&
+        data.businessName === undefined || typeof data.businessName === "string" &&
         data.email === undefined || typeof data.email === "string" &&
         data.userId === undefined || typeof data.userId === "string" &&
         data.createdDate === undefined || typeof data.createdDate === "string" &&

@@ -15,10 +15,10 @@ router.use(noCacheMiddleware);
 router.get("/", handleExceptions( async (req: Request, res: Response, _next: NextFunction) => {
     const handler = new EnterBusinessNameHandler();
     const { templatePath, viewData } = handler.executeGet(req, res);
-    const paDetails = getPresenterAccountDetails(req);
-    if (paDetails === undefined || paDetails.isBusinessRegistered === undefined) {
-        throw new Error('Is registered as a business question not answered, unable to enter business name');
-    } else if (paDetails.isBusinessRegistered){
+    const details = getPresenterAccountDetails(req);
+    if (details === undefined || details.isBusinessRegistered === undefined) {
+        throw new Error('isBusinessRegistered is not set. Journey in invalid state to enter business name.');
+    } else if (details.isBusinessRegistered){
         throw new Error('Registered as a business already, unable to enter the business name');
     }
     return res.render(templatePath, viewData);
