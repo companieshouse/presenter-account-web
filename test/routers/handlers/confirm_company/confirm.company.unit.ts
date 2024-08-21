@@ -76,6 +76,31 @@ describe("get confirm company tests", () => {
 
         expect(response.status).toBe(500);
     });
+
+    it("Should return 500 when presenterAccountDetails in session is not available", async () => {
+        mockSession();
+
+        const companyNumber = '00006400';
+
+        const companyProfile = {
+            companyName: 'COMPANY NAME',
+            companyNumber,
+            dateOfCreation: '1983-04-05',
+            companyStatus: 'active',
+        } as Partial<CompanyProfile>;
+
+        const companyProfileResource = {
+            httpStatusCode: 200,
+            resource: companyProfile as CompanyProfile
+        } as Resource<CompanyProfile>;
+
+        mockGetCompanyProfile.mockResolvedValueOnce(companyProfileResource);
+        
+        const response = await request(app)
+            .get(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=00006400`);
+
+        expect(response.status).toBe(500);
+    })
 });
 
 describe('post company profile tests', () => {
@@ -94,5 +119,16 @@ describe('post company profile tests', () => {
         expect(response.status).toBe(302);
         expect(response.header['location']).toEqual(PrefixedUrls.ENTER_YOUR_DETAILS);
         expect((session.getExtraData(PRESENTER_ACCOUNT_SESSION_KEY) as PresenterSessionDetails).companyNumber).toEqual(companyNumber);
+    });
+
+    it('should return 500 when set the company number in the session after post, when presenterAccountDetails is not present', async () => {
+        mockSession();
+
+        const companyNumber = '00006400';
+        const response = await request(app)
+            .post(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`);
+
+
+        expect(response.status).toBe(500);
     });
 });
