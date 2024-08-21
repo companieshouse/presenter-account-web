@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 import { isValidCompanyNumber } from "../../../validation/company_number";
 import { CompanyProfileService } from "../../../service/company.profile.service";
 import { CompanyProfile } from "@companieshouse/api-sdk-node/dist/services/company-profile";
-import { setCompanyNameToPresenterAccountDetails, setCompanyNumber } from "../../../utils/session";
+import { getPresenterAccountDetails, setPresenterAccountDetails } from "../../../utils/session";
 
 interface ConfirmCompanyViewData extends BaseViewData {
     companyNumber: string
@@ -35,7 +35,7 @@ export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData
 
         const { companyStatus: status, dateOfCreation: incorporatedOn, companyName } = await this.getCompanyProfile(req, companyNumber);
 
-        setCompanyNameToPresenterAccountDetails(req, companyName);
+        this.setCompanyName(req, companyName);
 
         const viewData = {
             ...this.getViewData(req),
@@ -91,11 +91,27 @@ export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData
 
         logger.info(`Company number '${companyNumber}' confirmed`);
 
-        setCompanyNumber(req, companyNumber);
+        this.setCompanyNumber(req, companyNumber);
 
         return {
             redirect: PrefixedUrls.ENTER_YOUR_DETAILS
         };
+    }
+
+    private setCompanyNumber(req: Request, companyNumber: string) {
+        const presenterAccountDetails = getPresenterAccountDetails(req);
+        if (presenterAccountDetails === undefined){
+            throw Error("Presenter account details is undefined, journey is in invalid state.");
+        }
+        setPresenterAccountDetails(req, { ...presenterAccountDetails, companyNumber });
+    }
+
+    private setCompanyName(req: Request, companyName: string) {
+        const presenterAccountDetails = getPresenterAccountDetails(req);
+        if (presenterAccountDetails === undefined){
+            throw Error("Presenter account details is undefined, journey is in invalid state.");
+        }
+        setPresenterAccountDetails(req, { ...presenterAccountDetails, companyName });
     }
 }
 
