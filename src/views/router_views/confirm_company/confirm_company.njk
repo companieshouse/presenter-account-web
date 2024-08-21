@@ -36,13 +36,15 @@
 
     <form method="POST">
         <input type="hidden" name="company_number" value="{{ companyNumber }}">
-        <button id="confirm-company-button" type="submit" class="govuk-button" data-module="govuk-button">
+        <button id="confirm-company-button" type="submit" class="govuk-button" data-module="govuk-button" data-event-id="presenter-account-is-business-registered-continue">
             {{ i18n.confirm_button }}
         </button>
+
     </form>
 
     <p>
-        <a id="choose-a-different-company-link" href="{{ PrefixedUrls.COMPANY_SEARCH }}" class="govuk-link">{{ i18n.choose_different }}</a>
+        <a id="choose-a-different-company-link" href="{{ PrefixedUrls.COMPANY_SEARCH }}" class="govuk-link" data-event-id="presenter-account-is-business-registered-choose-different">{{ i18n.choose_different }}</a>
     </p>
+
 
 {% endblock %}
