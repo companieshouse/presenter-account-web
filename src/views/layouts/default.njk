@@ -19,7 +19,7 @@
         {% endif %}
 
         {% if backURL %}
-            <a href="{{ backURL }}" class="govuk-back-link">{{i18n.back_button}}</a>
+            <a href="{{ backURL }}" class="govuk-back-link" data-event-id="presenter-account-web-back-link">{{i18n.back_button}}</a>
         {% endif %}
 
         {% if not error %}
