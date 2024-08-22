@@ -4,7 +4,7 @@ import { BaseViewData, GenericHandler, Redirect, ViewModel } from "../generic";
 import { PrefixedUrls } from "../../../constants";
 import { getLocalesField } from "../../../utils/localise";
 import { env } from "../../../config";
-import { getPresenterAccountDetails, setPresenterAccountDetails } from "../../../utils/session";
+import { COMPANY_NUMBER_SESSION_KEY, getPresenterAccountDetails, setPresenterAccountDetails } from "../../../utils/session";
 
 interface IsBusinessRegisteredViewData extends BaseViewData {
     isBusinessRegistered?: string;
@@ -63,13 +63,19 @@ export class IsBusinessRegisteredHandler extends GenericHandler<IsBusinessRegist
         }
         logger.debug(`is business registered with companies house: ${JSON.stringify(isRegistered)}`);
         const detail = { ...getPresenterAccountDetails(req), isBusinessRegistered };
-        setPresenterAccountDetails(req, detail);
+        let redirectUrl: string;
 
         if (isBusinessRegistered) {
-            return { redirect: "company-search" };
+            // Reset the business name value in session, when the business is registered
+            detail.businessName = "";
+            redirectUrl = PrefixedUrls.COMPANY_SEARCH;
         } else {
-            return { redirect: "enter-business-name" };
+            // Deleted the company number from session, when the business is not registered
+            req.session?.deleteExtraData(COMPANY_NUMBER_SESSION_KEY);
+            redirectUrl = PrefixedUrls.ENTER_BUSINESS_NAME;
         }
+        setPresenterAccountDetails(req, detail);
+        return { redirect: redirectUrl };
 
     }
 

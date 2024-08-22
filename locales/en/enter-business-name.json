@@ -1,0 +1,9 @@
+{
+    "enter_business_name_page_title": "What is the name of the business?",
+    "enter_business_name_page_title_info": "If you're a sole trader, you should give your own name if you do not have a different business name that you trade under.",
+    "enter_business_name_validation_errors": {
+        "BUSINESS_NAME_BLANK": "Enter the business name.",
+        "BUSINESS_NAME_LENGTH": "Business name must be 80 characters or less",
+        "BUSINESS_NAME_INVALID_CHARACTER": "Business name must contain only valid characters"
+    }
+}

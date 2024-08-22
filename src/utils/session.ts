@@ -42,6 +42,7 @@ export function populatePresenterAccountDetails(req: Request): PresenterSessionD
     };
     const presenterAccountDetails = getPresenterAccountDetails(req);
     const isBusinessRegistered = presenterAccountDetails?.isBusinessRegistered;
+    const businessName = isBusinessRegistered ? presenterAccountDetails?.businessName : null;
     const address = presenterAccountDetails?.address === undefined ? defaultAddress : getPresenterAccountDetails(req)?.address;
     const user_profile = req.session?.data?.signin_info?.user_profile;
     const createdDate = (new Date()).toISOString();
@@ -53,6 +54,7 @@ export function populatePresenterAccountDetails(req: Request): PresenterSessionD
     const { email, id, forename, surname } = user_profile;
     const presenterAccountDetailsObject = {
         isBusinessRegistered,
+        businessName,
         email: email,
         userId: id,
         name: { forename, surname },
@@ -87,6 +89,7 @@ function isPresenterSessionDetails(data: any): data is PresenterSessionDetails {
     return (
         typeof data.isBusinessRegistered === "boolean" &&
         data.companyName === undefined || typeof data.companyName === "string" &&
+        data.businessName === undefined || typeof data.businessName === "string" &&
         data.email === undefined || typeof data.email === "string" &&
         data.userId === undefined || typeof data.userId === "string" &&
         data.createdDate === undefined || typeof data.createdDate === "string" &&

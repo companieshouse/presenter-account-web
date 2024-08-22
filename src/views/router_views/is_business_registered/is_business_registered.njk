@@ -4,52 +4,53 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block main_content %}
-  {% set errorMessage = undefined %}
-  {% if errors.business_registered %}
-      {% set errorMessage = { text: i18n.is_business_registered_non_selection_error_message_inline, attributes: {'data-event-id': 'presenter-account-is-business-registered-error-no-selection'} } %}
-  {% endif %}
-  <div class="govuk-grid-row">
-      <form action="{{PrefixedUrls.IS_BUSINESS_REGISTERED}}?lang={{lang}}" method="post">
+    {% set errorMessage = undefined %}
+    {% if errors.business_registered %}
+        {% set errorMessage = { text: i18n.is_business_registered_non_selection_error_message_inline, attributes: {'data-event-id': 'presenter-account-is-business-registered-error-no-selection'} } %}
+    {% endif %}
+    <div class="govuk-grid-row">
+        <form action="{{PrefixedUrls.IS_BUSINESS_REGISTERED}}?lang={{lang}}" method="post">
             {{ govukRadios({
-              name: "is-business-registered",
-              value: isBusinessRegistered,
-              fieldset: {
-                legend: {
-                  text: i18n.is_business_registered_title,
-                  isPageHeading: true,
-                  classes: "govuk-fieldset__legend--xl"
-                }
-              },
-              items: [
-                {
-                  value: "true",
-                  text: i18n.is_business_registered_yes,
-                  id: "is-business-registered-radio-button-true",
-                  attributes: {'data-event-id': 'presenter-account-is-business-registered-selected-yes'},
-                  hint: {
-                    text: i18n.is_business_registered_yes_hint
-                  }
+                name: "is-business-registered",
+                value: isBusinessRegistered,
+                fieldset: {
+                    legend: {
+                    text: i18n.is_business_registered_title,
+                    isPageHeading: true,
+                    classes: "govuk-fieldset__legend--xl"
+                    }
                 },
-                {
-                  value: "false",
-                  text: i18n.is_business_registered_no,
-                  id: "is-business-registered-radio-button-false",
-                  attributes: {'data-event-id': 'presenter-account-is-business-registered-selected-no'},
-                  hint: {
-                    text: i18n.is_business_registered_no_hint
-                  }
-                }
-              ],
-              errorMessage: errorMessage
+                items: [
+                    {
+                        value: "true",
+                        text: i18n.is_business_registered_yes,
+                        id: "is-business-registered-radio-button-true",
+                        attributes: {'data-event-id': 'presenter-account-is-business-registered-selected-yes'},
+                        hint: {
+                            text: i18n.is_business_registered_yes_hint
+                        }
+                    },
+                    {
+                        value: "false",
+                        text: i18n.is_business_registered_no,
+                        id: "is-business-registered-radio-button-false",
+                        attributes: {'data-event-id': 'presenter-account-is-business-registered-selected-no'},
+                        hint: {
+                            text: i18n.is_business_registered_no_hint
+                        }
+                    }
+                ],
+                errorMessage: errorMessage
+                }) 
+            }}
+            {{ govukButton({
+                preventDoubleClick: true,
+                text: i18n.continue,
+                type: "submit",
+                id: "is-business-registered-submit-button",
+                attributes: {'data-event-id': 'presenter-account-is-business-registered-continue'}
             }) }}
-        {{ govukButton({
-          preventDoubleClick: true,
-          text: i18n.continue,
-          type: "submit",
-          id: "is-business-registered-submit-button",
-          attributes: {'data-event-id': 'presenter-account-is-business-registered-continue'}
-        }) }}
 
-      </form>
+        </form>
     </div>
 {% endblock %}
