@@ -70,7 +70,7 @@ describe("validate form fields", () => {
         delete translationsWithoutErrors.enter_your_details_validation_errors;
 
         const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy").expect(200);
-        Object.entries(translationsWithoutErrors).forEach(translation => expect(resp.text).toContain(translation[1]));
+        Object.entries(translationsWithoutErrors).forEach(translation => expect(resp.text.replace(/&#39;/g, "'")).toContain(translation[1]));
     });
 
     it("Should not cache the HTMl on this page", async () => {

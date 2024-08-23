@@ -1,4 +1,8 @@
 {
+    "tell_us_your_contact_details_title": "Tell us your contact details",
+    "tell_us_your_contact_details_title_info": "We'll use this if we need more information.",
+    "enter_your_details_page_first_name": "First name",
+    "enter_your_details_page_last_name": "Last name",
     "enter_your_details_page_title": "What is your correspondence address?",
     "enter_your_details_page_title_info": "We may use this to contact you about your account.",
     "enter_your_details_property_input_title": "Property name or number",

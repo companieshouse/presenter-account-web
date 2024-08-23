@@ -1,8 +1,12 @@
-{
+{   
+    "tell_us_your_contact_details_title": "[cy]Tell us your contact details[cy]",
+    "tell_us_your_contact_details_title_info": "[cy]We'll use this if we need more information.[cy]",
+    "enter_your_details_page_first_name": "[cy]First name[cy]",
+    "enter_your_details_page_last_name": "[cy]Last name[cy]",
     "enter_your_details_page_title": "Beth yw eich cyfeiriad gohebiaeth?",
     "enter_your_details_page_title_info": "Efallai y byddwn yn defnyddio hwn i gysylltu â chi am eich cyfrif.",
     "enter_your_details_property_input_title": "Enw neu rif eiddo",
-    "enter_your_details_property_input_title_info": "Er enghraifft, ‘Y Mill’ ‘116’ neu ‘Fflat 37a’.  Efallai y byddwn yn defnyddio hwn i gysylltu â chi am eich cyfrif.",
+    "enter_your_details_property_input_title_info": "Er enghraifft, 'Y Mill' '116' neu 'Fflat 37a'. Efallai y byddwn yn defnyddio hwn i gysylltu â chi am eich cyfrif.",
     "enter_your_details_address_line_1_input_title": "Llinell cyfeiriad 1",
     "enter_your_details_address_line_2_input_title": "Llinell cyfeiriad 2 (opsiynol)",
     "enter_your_details_town_input_title": "Dinas neu dref",
