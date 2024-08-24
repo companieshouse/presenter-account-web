@@ -19,10 +19,10 @@
                         text: i18n.enter_your_details_page_first_name
                     },
                     classes: "govuk-input govuk-!-width-two-thirds",
-                    id: "first-name",
-                    name: "firstName",
-                    value: address.firstName,
-                    errorMessage: { text: errors['first-name'].summary } if errors['first-name'] else null
+                    id: "forename",
+                    name: "forename",
+                    value: name.forename,
+                    errorMessage: { text: errors['forename'].summary } if errors['forename'] else null
                     }) 
                 }}
                 {{ govukInput({
@@ -30,10 +30,10 @@
                         text: i18n.enter_your_details_page_last_name
                     },
                     classes: "govuk-input govuk-!-width-two-thirds",
-                    id: "last-name",
-                    name: "lastName",
-                    value: address.lastName,
-                    errorMessage: { text: errors['last-name'].summary } if errors['first-name'] else null
+                    id: "surname",
+                    name: "surname",
+                    value: name.surname,
+                    errorMessage: { text: errors['surname'].summary } if errors['surname'] else null
                     }) 
                 }}
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
