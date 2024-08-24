@@ -138,7 +138,8 @@ describe("validate form fields", () => {
             addressLine1: testLength,
             addressLine2: testLength,
             postCode: testLength2,
-            townOrCity: testLength }).expect(302);
+            townOrCity: testLength,
+            ...examplePresenterAccountDetails.name }).expect(302);
 
         expect(response.text).not.toContain(ErrorMessagesEnglish.PREMISES_LENGTH);
         expect(response.text).not.toContain(ErrorMessagesEnglish.ADDRESS_LINE_1_LENGTH);
@@ -178,7 +179,7 @@ describe("validate form fields", () => {
         details = { ...examplePresenterAccountDetails };
 
         await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS)
-            .query(details.address).send(details.address).expect(302)
+            .query(details.address).send({ ...details.address, ...details.name }).expect(302)
             .expect("Location", PrefixedUrls.CHECK_DETAILS);
     });
 
@@ -223,7 +224,8 @@ describe("Validate form fields with Welsh display", () => {
             addressLine1: testLength,
             addressLine2: testLength,
             postCode: testLength2,
-            townOrCity: testLength }).expect(302);
+            townOrCity: testLength,
+            ...examplePresenterAccountDetails.name }).expect(302);
 
         expect(response.text).not.toContain(ErrorMessagesWelsh.PREMISES_LENGTH);
         expect(response.text).not.toContain(ErrorMessagesWelsh.ADDRESS_LINE_1_LENGTH);
