@@ -19,6 +19,8 @@ describe("validate form fields", () => {
         TOWN_OR_CITY_BLANK = "Town or city is required",
         POST_CODE_BLANK = "Postcode is required",
         COUNTRY_BLANK = "Please select a country",
+        FIRST_NAME_BLANK = "First name is required",
+        LAST_NAME_BLANK = "Last name is required",
 
         // Length Error Messages
         PREMISES_LENGTH = "Property name or number must be 40 characters or less",
@@ -26,13 +28,17 @@ describe("validate form fields", () => {
         ADDRESS_LINE_2_LENGTH = "Address line 2 must be 40 characters or less",
         TOWN_OR_CITY_LENGTH = "City or town must be 40 characters or less",
         POST_CODE_LENGTH = "Postcode/zip code must be 10 characters or less",
+        FIRST_NAME_LENGTH = "First name must be 32 characters or less",
+        LAST_NAME_LENGTH = "Last name must be 40 characters or less",
 
         // Invalid Character
         PREMISES_INVALID_CHARACTER = "Property name or number must have only valid characters",
         ADDRESS_LINE_1_INVALID_CHARACTER = "Address line 1 must have only valid characters",
         ADDRESS_LINE_2_INVALID_CHARACTER = "Address line 2 must have only valid characters",
         TOWN_OR_CITY_INVALID_CHARACTER = "Town or city must have only valid characters",
-        POST_CODE_INVALID_CHARACTER = "Postcode must have only valid characters"
+        POST_CODE_INVALID_CHARACTER = "Postcode must have only valid characters",
+        FIRST_NAME_INVALID_CHARACTER = "First name must contain only valid characters",
+        LAST_NAME_INVALID_CHARACTER = "Last name must contain only valid characters"
     }
 
     it("should throw an error when no session", async () => {
@@ -70,7 +76,7 @@ describe("validate form fields", () => {
         delete translationsWithoutErrors.enter_your_details_validation_errors;
 
         const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy").expect(200);
-        Object.entries(translationsWithoutErrors).forEach(translation => expect(resp.text).toContain(translation[1]));
+        Object.entries(translationsWithoutErrors).forEach(translation => expect(resp.text.replace(/&#39;/g, "'")).toContain(translation[1]));
     });
 
     it("Should not cache the HTMl on this page", async () => {
@@ -103,6 +109,8 @@ describe("validate form fields", () => {
         expect(response.text).toContain(ErrorMessagesEnglish.TOWN_OR_CITY_BLANK);
         expect(response.text).toContain(ErrorMessagesEnglish.POST_CODE_BLANK);
         expect(response.text).toContain(ErrorMessagesEnglish.COUNTRY_BLANK);
+        expect(response.text).toContain(ErrorMessagesEnglish.FIRST_NAME_BLANK);
+        expect(response.text).toContain(ErrorMessagesEnglish.LAST_NAME_BLANK);
     });
 
     it("should display errors for fields that go above max length",  async () => {
@@ -118,16 +126,20 @@ describe("validate form fields", () => {
             addressLine1: testLength,
             addressLine2: testLength,
             postCode: testLength.substring(0, 11),
-            townOrCity: testLength }).expect(200);
+            townOrCity: testLength,
+            forename: testLength.slice(0, 33),
+            surname: testLength }).expect(200);
 
         expect(response.text).toContain(ErrorMessagesEnglish.PREMISES_LENGTH);
         expect(response.text).toContain(ErrorMessagesEnglish.ADDRESS_LINE_1_LENGTH);
         expect(response.text).toContain(ErrorMessagesEnglish.ADDRESS_LINE_2_LENGTH);
         expect(response.text).toContain(ErrorMessagesEnglish.POST_CODE_LENGTH);
         expect(response.text).toContain(ErrorMessagesEnglish.TOWN_OR_CITY_LENGTH);
+        expect(response.text).toContain(ErrorMessagesEnglish.FIRST_NAME_LENGTH);
+        expect(response.text).toContain(ErrorMessagesEnglish.LAST_NAME_LENGTH);
     });
 
-    it.each([[fortyCharacters.slice(0, 20), fortyCharacters.slice(0, 5)], ["x", "y"], [fortyCharacters, fortyCharacters.substring(0, 10)]])("should not display errors for fields that are beneath or equal to max length",  async (testLength: string, testLength2: string) => {
+    it.each([[fortyCharacters.slice(0, 39), fortyCharacters.slice(0, 9), fortyCharacters.slice(0, 31)], ["x", "y", "z"], [fortyCharacters, fortyCharacters.substring(0, 10), fortyCharacters.slice(0, 32)]])("should not display errors for fields that are beneath or equal to max length",  async (testLength: string, testLength2: string, testLength3: string) => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
@@ -138,13 +150,17 @@ describe("validate form fields", () => {
             addressLine1: testLength,
             addressLine2: testLength,
             postCode: testLength2,
-            townOrCity: testLength }).expect(302);
+            townOrCity: testLength,
+            forename: testLength3,
+            surname: testLength }).expect(302);
 
         expect(response.text).not.toContain(ErrorMessagesEnglish.PREMISES_LENGTH);
         expect(response.text).not.toContain(ErrorMessagesEnglish.ADDRESS_LINE_1_LENGTH);
         expect(response.text).not.toContain(ErrorMessagesEnglish.ADDRESS_LINE_2_LENGTH);
         expect(response.text).not.toContain(ErrorMessagesEnglish.POST_CODE_LENGTH);
         expect(response.text).not.toContain(ErrorMessagesEnglish.TOWN_OR_CITY_LENGTH);
+        expect(response.text).not.toContain(ErrorMessagesEnglish.FIRST_NAME_LENGTH);
+        expect(response.text).not.toContain(ErrorMessagesEnglish.LAST_NAME_LENGTH);
     });
 
     it("Should display errors for invalid fields", async () => {
@@ -159,6 +175,8 @@ describe("validate form fields", () => {
             townOrCity: "§§",
             addressLine1: "±±",
             addressLine2: "±±",
+            forename: "§§",
+            surname: "§§"
         }).expect(200);
 
         expect(response.text).toContain(ErrorMessagesEnglish.PREMISES_INVALID_CHARACTER);
@@ -166,6 +184,8 @@ describe("validate form fields", () => {
         expect(response.text).toContain(ErrorMessagesEnglish.ADDRESS_LINE_2_INVALID_CHARACTER);
         expect(response.text).toContain(ErrorMessagesEnglish.POST_CODE_INVALID_CHARACTER);
         expect(response.text).toContain(ErrorMessagesEnglish.TOWN_OR_CITY_INVALID_CHARACTER);
+        expect(response.text).toContain(ErrorMessagesEnglish.FIRST_NAME_INVALID_CHARACTER);
+        expect(response.text).toContain(ErrorMessagesEnglish.LAST_NAME_INVALID_CHARACTER);
 
     });
 
@@ -178,7 +198,7 @@ describe("validate form fields", () => {
         details = { ...examplePresenterAccountDetails };
 
         await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS)
-            .query(details.address).send(details.address).expect(302)
+            .query(details.address).send({ ...details.address, ...details.name }).expect(302)
             .expect("Location", PrefixedUrls.CHECK_DETAILS);
     });
 
@@ -223,7 +243,8 @@ describe("Validate form fields with Welsh display", () => {
             addressLine1: testLength,
             addressLine2: testLength,
             postCode: testLength2,
-            townOrCity: testLength }).expect(302);
+            townOrCity: testLength,
+            ...examplePresenterAccountDetails.name }).expect(302);
 
         expect(response.text).not.toContain(ErrorMessagesWelsh.PREMISES_LENGTH);
         expect(response.text).not.toContain(ErrorMessagesWelsh.ADDRESS_LINE_1_LENGTH);

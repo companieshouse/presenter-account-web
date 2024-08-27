@@ -8,6 +8,34 @@
 
         <form class="form" action="{{Urls.ENTER_YOUR_DETAILS}}?lang={{lang}}" method="POST">
             <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                    <h1 class="govuk-fieldset__heading">
+                        {{ i18n.tell_us_your_contact_details_title }}
+                    </h1>
+                </legend>
+                <p class="govuk-hint">{{ i18n.tell_us_your_contact_details_title_info }}</p>
+                {{ govukInput({
+                    label: {
+                        text: i18n.enter_your_details_page_first_name
+                    },
+                    classes: "govuk-input govuk-!-width-two-thirds",
+                    id: "forename",
+                    name: "forename",
+                    value: name.forename,
+                    errorMessage: { text: errors['forename'].summary } if errors['forename'] else null
+                    }) 
+                }}
+                {{ govukInput({
+                    label: {
+                        text: i18n.enter_your_details_page_last_name
+                    },
+                    classes: "govuk-input govuk-!-width-two-thirds",
+                    id: "surname",
+                    name: "surname",
+                    value: name.surname,
+                    errorMessage: { text: errors['surname'].summary } if errors['surname'] else null
+                    }) 
+                }}
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                     <h1 class="govuk-fieldset__heading">
                         {{ i18n.enter_your_details_page_title }}
