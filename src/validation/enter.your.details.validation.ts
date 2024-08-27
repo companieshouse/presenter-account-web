@@ -31,6 +31,12 @@ export const formValidation = (req: Request) => {
     ];
 };
 
+/**
+ * Validates req.body.premises
+ * @param req
+ * @param CHARACTER_LENGTH
+ * @returns ValidationChain
+ */
 function premiseValidation(req: Request, CHARACTER_LENGTH: {[key: string]: number}) {
     return body("premises")
         .not().isEmpty({ ignore_whitespace: true })
@@ -41,6 +47,12 @@ function premiseValidation(req: Request, CHARACTER_LENGTH: {[key: string]: numbe
         .withMessage(getLocalesField("enter_your_details_validation_errors.PREMISES_INVALID_CHARACTER", req));
 }
 
+/**
+ * Validates req.body.addressLine1
+ * @param req
+ * @param CHARACTER_LENGTH
+ * @returns ValidationChain
+ */
 function addressLine1Validation(req: Request, CHARACTER_LENGTH: {[key: string]: number}) {
     return body("addressLine1")
         .not().isEmpty({ ignore_whitespace: true })
@@ -51,6 +63,12 @@ function addressLine1Validation(req: Request, CHARACTER_LENGTH: {[key: string]: 
         .withMessage(getLocalesField("enter_your_details_validation_errors.ADDRESS_LINE_1_INVALID_CHARACTER", req));
 }
 
+/**
+ * Validates req.body.addressLine2
+ * @param req
+ * @param CHARACTER_LENGTH
+ * @returns ValidationChain
+ */
 function addressLine2Validation(req: Request, CHARACTER_LENGTH: {[key: string]: number}) {
     return body("addressLine2")
         .isLength({ max: CHARACTER_LENGTH.addressLine2 })
@@ -59,6 +77,12 @@ function addressLine2Validation(req: Request, CHARACTER_LENGTH: {[key: string]: 
         .withMessage(getLocalesField("enter_your_details_validation_errors.ADDRESS_LINE_2_INVALID_CHARACTER", req));
 }
 
+/**
+ * Validates req.body.townOrCity
+ * @param req
+ * @param CHARACTER_LENGTH
+ * @returns ValidationChain
+ */
 function townOrCityValidation(req: Request, CHARACTER_LENGTH: {[key: string]: number}) {
     return body("townOrCity")
         .not().isEmpty({ ignore_whitespace: true })
@@ -69,6 +93,12 @@ function townOrCityValidation(req: Request, CHARACTER_LENGTH: {[key: string]: nu
         .withMessage(getLocalesField("enter_your_details_validation_errors.TOWN_OR_CITY_INVALID_CHARACTER", req));
 }
 
+/**
+ * Validates req.body.postCode
+ * @param req
+ * @param CHARACTER_LENGTH
+ * @returns ValidationChain
+ */
 function postCodeValidation(req: Request, CHARACTER_LENGTH: {[key: string]: number}) {
     return body("postCode")
         .not().isEmpty({ ignore_whitespace: true })
@@ -79,12 +109,23 @@ function postCodeValidation(req: Request, CHARACTER_LENGTH: {[key: string]: numb
         .withMessage(getLocalesField("enter_your_details_validation_errors.POST_CODE_INVALID_CHARACTER", req));
 }
 
+/**
+ * Validates req.body.country
+ * @param req
+ * @returns ValidationChain
+ */
 function countryValidation(req: Request) {
     return body("country")
         .not().isIn(["choose"])
         .withMessage(getLocalesField("enter_your_details_validation_errors.COUNTRY_BLANK", req));
 }
 
+/**
+ * Validates req.body.forename
+ * @param req
+ * @param CHARACTER_LENGTH
+ * @returns ValidationChain
+ */
 function forenameValidation(req: Request, CHARACTER_LENGTH: {[key: string]: number}) {
     return body("forename")
         .not().isEmpty({ ignore_whitespace: true })
@@ -95,6 +136,12 @@ function forenameValidation(req: Request, CHARACTER_LENGTH: {[key: string]: numb
         .withMessage(getLocalesField("enter_your_details_validation_errors.FIRST_NAME_INVALID_CHARACTER", req));
 }
 
+/**
+ * Validates req.body.surname
+ * @param req
+ * @param CHARACTER_LENGTH
+ * @returns ValidationChain
+ */
 function surnameValidation(req: Request, CHARACTER_LENGTH: {[key: string]: number}) {
     return body("surname")
         .not().isEmpty({ ignore_whitespace: true })
