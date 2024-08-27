@@ -47,7 +47,7 @@ export function convertValidationErrorsToErrorManifestType(errors: ValidationErr
 }
 
 function orderErrors(errors: ErrorManifestValidationType){
-    const order = ['premises', 'address-line-1', 'address-line-2', 'town-or-city', 'post-code', 'country'];
+    const order = ['premises', 'address-line-1', 'address-line-2', 'town-or-city', 'post-code', 'country', 'forename', 'surname'];
     const reorderErrors: ErrorManifestValidationType = {};
     order.forEach(key => {
         if (Object.prototype.hasOwnProperty.call(errors, key)){

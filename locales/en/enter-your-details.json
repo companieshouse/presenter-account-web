@@ -1,4 +1,8 @@
 {
+    "tell_us_your_contact_details_title": "Tell us your contact details",
+    "tell_us_your_contact_details_title_info": "We'll use this if we need more information.",
+    "enter_your_details_page_first_name": "First name",
+    "enter_your_details_page_last_name": "Last name",
     "enter_your_details_page_title": "What is your correspondence address?",
     "enter_your_details_page_title_info": "We may use this to contact you about your account.",
     "enter_your_details_property_input_title": "Property name or number",
@@ -17,17 +21,23 @@
         "TOWN_OR_CITY_BLANK": "Town or city is required",
         "POST_CODE_BLANK": "Postcode is required",
         "COUNTRY_BLANK": "Please select a country",
+        "FIRST_NAME_BLANK": "First name is required",
+        "LAST_NAME_BLANK": "Last name is required",
 
-        "PREMISES_LENGTH": "Property name or number must be 40 characters or less",
-        "ADDRESS_LINE_1_LENGTH": "Address line 1 must be 40 characters or less",
-        "ADDRESS_LINE_2_LENGTH": "Address line 2 must be 40 characters or less",
-        "TOWN_OR_CITY_LENGTH": "City or town must be 40 characters or less",
-        "POST_CODE_LENGTH": "Postcode/zip code must be 10 characters or less",
+        "PREMISES_LENGTH": "Property name or number must be <length> characters or less",
+        "ADDRESS_LINE_1_LENGTH": "Address line 1 must be <length> characters or less",
+        "ADDRESS_LINE_2_LENGTH": "Address line 2 must be <length> characters or less",
+        "TOWN_OR_CITY_LENGTH": "City or town must be <length> characters or less",
+        "POST_CODE_LENGTH": "Postcode/zip code must be <length> characters or less",
+        "FIRST_NAME_LENGTH": "First name must be <length> characters or less",
+        "LAST_NAME_LENGTH": "Last name must be <length> characters or less",
 
         "PREMISES_INVALID_CHARACTER": "Property name or number must have only valid characters",
         "ADDRESS_LINE_1_INVALID_CHARACTER": "Address line 1 must have only valid characters",
         "ADDRESS_LINE_2_INVALID_CHARACTER": "Address line 2 must have only valid characters",
         "TOWN_OR_CITY_INVALID_CHARACTER": "Town or city must have only valid characters",
-        "POST_CODE_INVALID_CHARACTER": "Postcode must have only valid characters"
+        "POST_CODE_INVALID_CHARACTER": "Postcode must have only valid characters",
+        "FIRST_NAME_INVALID_CHARACTER": "First name must contain only valid characters",
+        "LAST_NAME_INVALID_CHARACTER": "Last name must contain only valid characters"
     }
 }

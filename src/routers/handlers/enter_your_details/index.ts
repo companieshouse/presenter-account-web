@@ -3,12 +3,13 @@ import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
 import { PrefixedUrls, countries } from "../../../constants";
 import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault, PresenterSessionDetails } from "./../../../utils/session";
-import { type Details, type Address, isAddress, isLang } from "private-api-sdk-node/dist/services/presenter-account/types";
+import { type Details, type Address, isAddress, isLang, Name, isName } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { env } from "../../../config";
 import { getLocalesField } from "../../../utils/localise";
 
 interface EnterYourDetailsViewData extends BaseViewData{
     address: Address ;
+    name: Name;
     countries: Array<{value: string, text: string, selected?: boolean}>;
 }
 
@@ -42,7 +43,9 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         const details = getPresenterAccountDetailsOrDefault(req);
 
         const viewData = this.getViewData(req);
+
         if (details.address !== undefined) {viewData.address = details.address;}
+        if (details.name !== undefined){ viewData.name = details.name;}
 
         return {
             templatePath: EnterYourDetailsHandler.templatePath,
@@ -54,12 +57,34 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         logger.info(`${this.constructor.name} post execute called`);
         const details: PresenterSessionDetails =  getPresenterAccountDetailsOrDefault(req);
 
-        const address = { ...req.body };
+        const { premises, addressLine1, addressLine2, townOrCity, country, postCode, forename, surname } = req.body;
+
+        const address: Address = {
+            premises,
+            addressLine1,
+            addressLine2,
+            townOrCity,
+            country,
+            postCode,
+        };
+
+        const name: Name = {
+            forename,
+            surname,
+        };
+
         if (isAddress(address)){
             details.address = address;
         } else {
             throw new Error("Incorrect Address format set for presenter account details");
         }
+
+        if (isName(name)){
+            details.name = name;
+        } else {
+            throw new Error("Incorrect name given for presenter account details");
+        }
+
         const lang = (req.query.lang ?? req.session?.getExtraData("lang")) as Details["lang"];
         if (isLang(lang)){
             details.lang = lang;

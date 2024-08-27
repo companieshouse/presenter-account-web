@@ -38,7 +38,9 @@ export function populatePresenterAccountDetails(req: Request): PresenterSessionD
         postCode: '',
         country: '',
         addressLine1: '',
-        townOrCity: ''
+        townOrCity: '',
+        forename: '',
+        surname: ''
     };
     const presenterAccountDetails = getPresenterAccountDetails(req);
     const isBusinessRegistered = presenterAccountDetails?.isBusinessRegistered;
