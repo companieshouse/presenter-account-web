@@ -25,7 +25,7 @@ export const examplePresenterAccountDetailsInternal: PresenterSessionDetails = {
     isBusinessRegistered: true,
     companyName: "Test Company",
     businessName: "Business Test Name"
-}
+};
 
 export const paDetailsWithIsBusinessRegisteredFalse: PresenterSessionDetails = {
     isBusinessRegistered: false,
