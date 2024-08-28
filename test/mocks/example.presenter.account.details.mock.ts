@@ -1,4 +1,3 @@
-import { Details } from "private-api-sdk-node/src/services/presenter-account/types";
 import { PresenterSessionDetails } from "../../src/utils/session";
 
 export const examplePresenterAccountDetails: PresenterSessionDetails = {

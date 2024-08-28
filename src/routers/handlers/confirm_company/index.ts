@@ -86,7 +86,7 @@ export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData
 
     public async executePost(req: Request, _res: Response): Promise<Redirect> {
         const companyNumber = this.getCompanyNumberFromRequest(req);
-        const { companyName } = await this.getCompanyProfile(req, companyNumber)
+        const { companyName } = await this.getCompanyProfile(req, companyNumber);
         logger.info(`Company number '${companyNumber}' confirmed`);
 
 

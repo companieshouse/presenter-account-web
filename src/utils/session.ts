@@ -71,8 +71,11 @@ export function populatePresenterAccountDetails(req: Request): PresenterSessionD
 export function getPresenterAccountDetailsOrDefault(req: Request) {
     let details = getPresenterAccountDetails(req);
     // details is not set or userProfile is not set
-    if (details === undefined || !isUserProfileSet(details)) {
+    if (details === undefined) {
         details = populatePresenterAccountDetails(req);
+        setPresenterAccountDetails(req, details);
+    } else if (!isUserProfileSet(details)) {
+        details = { ...details, ...populatePresenterAccountDetails(req) };
         setPresenterAccountDetails(req, details);
     }
     return details;
