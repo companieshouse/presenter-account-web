@@ -1,7 +1,7 @@
 import { Details } from "private-api-sdk-node/src/services/presenter-account/types";
 import { PresenterSessionDetails } from "../../src/utils/session";
 
-export const examplePresenterAccountDetails: PresenterSessionDetails = {
+export const examplePresenterAccountDetails: Details = {
     email: "example@email.com",
     userId: "123e4567-e89b-12d3-a456-426614174000",
     createdDate: "2022-01-01T00:00:00Z",
@@ -17,17 +17,9 @@ export const examplePresenterAccountDetails: PresenterSessionDetails = {
         country: "Cymru",
         postCode: "SA1 1ZZ"
     },
-    lang: "en",
-    isBusinessRegistered: false
+    lang: "en"
 };
 
-export const examplePresenterAccountDetailsInternal: PresenterSessionDetails = {
-    ...examplePresenterAccountDetails,
-    isBusinessRegistered: true,
-    companyName: "Test Company",
-    companyNumber: "01234567",
-    businessName: "Business Test Name"
-};
 
 export const paDetailsWithIsBusinessRegisteredFalse: PresenterSessionDetails = {
     isBusinessRegistered: false,

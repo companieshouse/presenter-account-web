@@ -4,8 +4,6 @@ import { type Name, type Address, isLang, isName, isAddress } from "private-api-
 
 export interface PresenterSessionDetails {
     isBusinessRegistered: boolean;
-    companyName?: string;
-    companyNumber?: string;
     businessName?: string;
     email?: string;
     userId?: string;
@@ -90,7 +88,6 @@ export function cleanLanguage(req: Request) {
 function isPresenterSessionDetails(data: any): data is PresenterSessionDetails {
     return (
         typeof data.isBusinessRegistered === "boolean" &&
-        data.companyName === undefined || typeof data.companyName === "string" &&
         data.businessName === undefined || typeof data.businessName === "string" &&
         data.email === undefined || typeof data.email === "string" &&
         data.userId === undefined || typeof data.userId === "string" &&
@@ -107,4 +104,12 @@ function isUserProfileSet(presenterAccountDetails: PresenterSessionDetails): boo
         presenterAccountDetails.email !== undefined && typeof presenterAccountDetails.email === "string" &&
         presenterAccountDetails.name !== undefined && isName(presenterAccountDetails.name)
     );
+}
+
+export function setCompanyNumber(req: Request, companyNumber: string) {
+    req.session?.setExtraData(COMPANY_NUMBER_SESSION_KEY, companyNumber);
+}
+
+export function getCompanyNumber(req: Request): string | undefined {
+    return req.session?.getExtraData(COMPANY_NUMBER_SESSION_KEY) ?? undefined;
 }

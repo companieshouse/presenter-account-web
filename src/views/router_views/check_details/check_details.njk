@@ -1,9 +1,7 @@
 {% extends "layouts/default.njk" %}
 
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-{% set contact_name %}
-    {{ contactName.forename }} {{ contactName.surname }}
-{% endset %}
+
 {% block main_content %}
     <h1 class="govuk-heading-l">{{i18n.check_your_answers_before_submit}}</h1>
 
@@ -17,87 +15,10 @@
         {{ address.country }}<br>
         {{ address.postCode }}
     {% endmacro %}
-    
 
-
-    {% if isBusinessRegistered %}
-        {% set isRegistered = "Yes" %}
-        {% set businessKey = i18n.company %}
-        {% set businessValue = companyName %}
-        {% set businessChangeUrl = Urls.COMPANY_SEARCH %}
-        {% set businessId = "change-company-button" %}
-        {% set businessEventId = "presenter-account-check-details-select-change-company" %}
-        {% set businessVisuallyHiddenText = "company" %}
-    {% else %}
-        {% set isRegistered = "No" %}
-        {% set businessKey = i18n.business_name %}
-        {% set businessValue = businessName %}
-        {% set businessChangeUrl = Urls.ENTER_BUSINESS_NAME %}
-        {% set businessId = "change-business-name-button" %}
-        {% set businessEventId = "presenter-account-check-details-select-change-business-name" %}
-        {% set businessVisuallyHiddenText = "business name" %}
-    {% endif %}
 
     {{ govukSummaryList({
         "rows": [
-            {
-                "key": {
-                    "text": i18n.is_your_business_registered
-                },
-                "value": {
-                    text: isRegistered
-                },
-                "actions": {
-                    "items": [
-                        {
-                            "href": Urls.IS_BUSINESS_REGISTERED,
-                            "text": i18n.change,
-                            "id": "change-is-business-registered-button",
-                            attributes: {'data-event-id': 'presenter-account-check-details-select-change-is-business-registered'},
-                            visuallyHiddenText: "is business registered"
-                        }
-                    ]
-                }
-            },
-            {
-                "key": {
-                    text: businessKey
-                },
-                "value": {
-                    text: businessValue
-                },
-                "actions": {
-                    "items": [
-                        {
-                            "href": businessChangeUrl,
-                            "text": i18n.change,
-                            "id": businessId,
-                            attributes: {'data-event-id': businessEventId},
-                            visuallyHiddenText: businessVisuallyHiddenText
-                        }
-                    ]
-                }
-            },
-            {
-                "key": {
-                    "text": i18n.contact_name
-                },
-                "value": {
-                    text: contact_name
-                },
-                "actions": {
-                    "items": [
-                        {
-                            "href": Urls.ENTER_YOUR_DETAILS,
-                                "text": i18n.change,
-                                "id": "change-address-button",
-                                attributes: {'data-event-id': 'presenter-account-check-details-select-change-name'},
-                                "visuallyHiddenText": "contact name"
-
-                        }
-                    ]
-                }
-            },
             {
                 "key": {
                     "text": i18n.address
@@ -110,8 +31,7 @@
                         {
                                 "href": Urls.ENTER_YOUR_DETAILS,
                                 "text": i18n.change,
-                                "id": "change-address-button",
-                                "attributes": {'data-event-id': 'presenter-account-check-details-select-change-address'},
+                                attributes: {'data-event-id': 'presenter-account-check-details-select-change'},
                                 "visuallyHiddenText": "address"
                         }
                     ]
