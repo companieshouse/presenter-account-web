@@ -35,8 +35,6 @@ export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData
 
         const { companyStatus: status, dateOfCreation: incorporatedOn, companyName } = await this.getCompanyProfile(req, companyNumber);
 
-        this.setCompanyName(req, companyName);
-
         const viewData = {
             ...this.getViewData(req),
             companyNumber,
@@ -88,9 +86,11 @@ export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData
 
     public async executePost(req: Request, _res: Response): Promise<Redirect> {
         const companyNumber = this.getCompanyNumberFromRequest(req);
-
+        const { companyName } = await this.getCompanyProfile(req, companyNumber)
         logger.info(`Company number '${companyNumber}' confirmed`);
 
+
+        this.setCompanyName(req, companyName);
         this.setCompanyNumber(req, companyNumber);
 
         return {

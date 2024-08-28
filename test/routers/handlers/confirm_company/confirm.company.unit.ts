@@ -76,10 +76,15 @@ describe("get confirm company tests", () => {
 
         expect(response.status).toBe(500);
     });
+});
 
-    it("Should return 500 when presenterAccountDetails in session is not available", async () => {
+describe('post company profile tests', () => {
+    it('should set the company number in the session after post', async () => {
         mockSession();
 
+        session.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, {
+            isBusinessRegistered: true
+        });
         const companyNumber = '00006400';
 
         const companyProfile = {
@@ -96,22 +101,6 @@ describe("get confirm company tests", () => {
 
         mockGetCompanyProfile.mockResolvedValueOnce(companyProfileResource);
 
-        const response = await request(app)
-            .get(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=00006400`);
-
-        expect(response.status).toBe(500);
-    });
-});
-
-describe('post company profile tests', () => {
-    it('should set the company number in the session after post', async () => {
-        mockSession();
-
-        session.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, {
-            isBusinessRegistered: true
-        });
-
-        const companyNumber = '00006400';
         const response = await request(app)
             .post(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`);
 
