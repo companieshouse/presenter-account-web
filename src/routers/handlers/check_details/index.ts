@@ -48,14 +48,14 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
         if (details.address === undefined) {
             throw new Error("Presenter account address has not been set.");
         }
-        return details.address
+        return details.address;
     }
 
     private validateUserName(details: PresenterSessionDetails) {
         if (details.name === undefined || details.name.forename === null || details.name.surname === null) {
             throw new Error("Presenter account name/forename/surname has not been set.");
         }
-        return { forename: details.name.forename, surname: details.name.surname }
+        return { forename: details.name.forename, surname: details.name.surname };
     }
 
     public getViewData(req: Request): CheckDetailsViewData {
@@ -77,7 +77,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
             companyName: details.companyName,
             businessName: details.businessName,
             isBusinessRegistered: details.isBusinessRegistered,
-            contactName:  this.validateUserName(details),
+            contactName: this.validateUserName(details),
             viewName: 'check your details',
         };
     }

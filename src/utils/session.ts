@@ -75,7 +75,7 @@ export function getPresenterAccountDetailsOrDefault(req: Request) {
         details = populatePresenterAccountDetails(req);
         setPresenterAccountDetails(req, details);
     } else if (!isUserProfileSet(details)) {
-        details = {...details, ...populatePresenterAccountDetails(req)}
+        details = { ...details, ...populatePresenterAccountDetails(req) };
         setPresenterAccountDetails(req, details);
     }
     return details;
