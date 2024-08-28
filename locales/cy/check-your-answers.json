@@ -1,7 +1,11 @@
 {
-    "address": "Cyfeiriad",
+    "address": "[CY]Correspondence address[CY]",
     "change": "Newid",
     "check_your_answers_before_submit": "Gwiriwch eich atebion cyn cyflwyno eich cais.",
     "submit": "Cyflwyno",
-    "check_your_answers_page_title": "Gwiriwch eich atebion cyn cyflwyno eich cais."
+    "check_your_answers_page_title": "Gwiriwch eich atebion cyn cyflwyno eich cais.",
+    "company": "[CY]Company[CY]",
+    "contact_name": "[CY]Contact name[CY]",
+    "business_name": "[CY]Business name[CY]",
+    "is_your_business_registered": "[CY]Is the business you work for registered with Companies House?[CY]"
 }

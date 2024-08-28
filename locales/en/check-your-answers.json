@@ -1,7 +1,11 @@
 {
-    "address": "Address",
+    "address": "Correspondence address",
     "change": "Change",
     "check_your_answers_before_submit": "Check your answers before submitting your application.",
     "submit": "Submit",
-    "check_your_answers_page_title": "Application submitted - Apply for a Companies House online filing presenter account"
+    "check_your_answers_page_title": "Application submitted - Apply for a Companies House online filing presenter account",
+    "company": "Company",
+    "contact_name": "Contact name",
+    "business_name": "Business name",
+    "is_your_business_registered": "Is the business you work for registered with Companies House?"
 }
