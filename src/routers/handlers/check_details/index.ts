@@ -6,7 +6,7 @@ import {
     ViewModel,
 } from "./../generic";
 import { logger } from "../../../utils/logger";
-import { getPresenterAccountDetails, cleanSession } from "../../../utils/session";
+import { getPresenterAccountDetails, cleanSession, PresenterSessionDetails } from "../../../utils/session";
 import { PrefixedUrls } from "../../../constants";
 import { createOauthPrivateApiClient } from "../../../service/api.client.service";
 import { Result, failure } from "@companieshouse/api-sdk-node/dist/services/result";
@@ -28,26 +28,10 @@ interface CheckDetailsViewData extends BaseViewData {
 export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
     private static templatePath = "router_views/check_details/check_details";
 
-    public getViewData(req: Request): CheckDetailsViewData {
-        const baseViewData = super.getViewData(req);
-
-        const details = getPresenterAccountDetails(req);
-        if (details === undefined) {
-            throw new Error("Presenter account details not found in session.");
-        }
-
-        if (details.address === undefined) {
-            throw new Error("Presenter account address has not been set.");
-        }
-
+    private validateCompanyDetails(details: PresenterSessionDetails) {
         if (details.isBusinessRegistered === undefined) {
             throw new Error("Presenter account is business registered has not been set.");
         }
-
-        if (details.name === undefined || details.name.forename === null || details.name.surname === null) {
-            throw new Error("Presenter account name/forename/surname has not been set.");
-        }
-
 
         // if isBusinessRegistered is true; company name need to be set
         if (details.companyName === undefined && details.isBusinessRegistered) {
@@ -58,24 +42,46 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
         if (details.businessName === undefined && !details.isBusinessRegistered) {
             throw new Error("Presenter account business name has not been set for a registered business.");
         }
+    }
 
+    private validateUserAddress(details: PresenterSessionDetails) {
+        if (details.address === undefined) {
+            throw new Error("Presenter account address has not been set.");
+        }
+        return details.address
+    }
+
+    private validateUserName(details: PresenterSessionDetails) {
+        if (details.name === undefined || details.name.forename === null || details.name.surname === null) {
+            throw new Error("Presenter account name/forename/surname has not been set.");
+        }
+        return { forename: details.name.forename, surname: details.name.surname }
+    }
+
+    public getViewData(req: Request): CheckDetailsViewData {
+        const baseViewData = super.getViewData(req);
+
+        const details = getPresenterAccountDetails(req);
+        if (details === undefined) {
+            throw new Error("Presenter account details not found in session.");
+        }
+
+        this.validateCompanyDetails(details);
 
         return {
             ...baseViewData,
             title: getLocalesField("check_your_answers_page_title", req),
             currentUrl: PrefixedUrls.CHECK_DETAILS,
             backURL: PrefixedUrls.ENTER_YOUR_DETAILS,
-            address: details.address,
+            address: this.validateUserAddress(details),
             companyName: details.companyName,
             businessName: details.businessName,
             isBusinessRegistered: details.isBusinessRegistered,
-            contactName: {
-                forename: details.name!.forename,
-                surname: details.name!.surname
-            },
+            contactName:  this.validateUserName(details),
             viewName: 'check your details',
         };
     }
+
 
     public executeGet(
         req: Request,
