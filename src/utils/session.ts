@@ -44,7 +44,7 @@ export function populatePresenterAccountDetails(req: Request): PresenterSessionD
     };
     const presenterAccountDetails = getPresenterAccountDetails(req);
     const isBusinessRegistered = presenterAccountDetails?.isBusinessRegistered;
-    const businessName = isBusinessRegistered ? presenterAccountDetails?.businessName : null;
+    const businessName = isBusinessRegistered ? undefined : presenterAccountDetails?.businessName;
     const address = presenterAccountDetails?.address === undefined ? defaultAddress : getPresenterAccountDetails(req)?.address;
     const user_profile = req.session?.data?.signin_info?.user_profile;
     const createdDate = (new Date()).toISOString();
