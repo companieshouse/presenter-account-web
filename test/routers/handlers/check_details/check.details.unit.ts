@@ -208,7 +208,7 @@ describe("check details tests", () => {
             examplePresenterAccountDetailsInternal.address!.postCode
         );
         expect(resp.text).toContain(
-            examplePresenterAccountDetailsInternal.companyName + " (" + examplePresenterAccountDetailsInternal.companyNumber + ")"
+            `${examplePresenterAccountDetailsInternal.companyName} (${examplePresenterAccountDetailsInternal.companyNumber})`
         );
         expect(resp.text).toContain(
             "Yes"
@@ -262,7 +262,7 @@ describe("check details tests", () => {
             "No"
         );
         expect(resp.text).not.toContain(
-            examplePresenterAccountDetailsInternal.companyName + " (" + examplePresenterAccountDetailsInternal.companyNumber + ")"
+            `${examplePresenterAccountDetailsInternal.companyName} (${examplePresenterAccountDetailsInternal.companyNumber})`
         );
         expect(resp.text).toContain(
             "Business name"
