@@ -18,6 +18,7 @@ interface CheckDetailsViewData extends BaseViewData {
     address: Address;
     businessName?: string;
     companyName?: string;
+    companyNumber?: string;
     isBusinessRegistered: boolean;
     contactName: {
         forename: string;
@@ -75,6 +76,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
             backURL: PrefixedUrls.ENTER_YOUR_DETAILS,
             address: this.validateUserAddress(details),
             companyName: details.companyName,
+            companyNumber: details.companyNumber,
             businessName: details.businessName,
             isBusinessRegistered: details.isBusinessRegistered,
             contactName: this.validateUserName(details),
