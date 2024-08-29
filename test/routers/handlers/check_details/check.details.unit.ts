@@ -4,7 +4,7 @@ import { session, mockSession } from "../../../mocks/session.middleware.mock";
 import app from "../../../../src/app";
 import request from "supertest";
 import { ContextKeys, ExternalUrls, PrefixedUrls } from "../../../../src/constants";
-import { examplePresenterAccountDetails } from "../../../mocks/example.presenter.account.details.mock";
+import { examplePresenterAccountDetails, examplePresenterAccountDetailsInternal } from "../../../mocks/example.presenter.account.details.mock";
 
 import { success } from "@companieshouse/api-sdk-node/dist/services/result";
 
@@ -14,7 +14,7 @@ describe("check details tests", () => {
     it("Should render the Check Details page with a successful status code", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            examplePresenterAccountDetails
+            examplePresenterAccountDetailsInternal
         );
 
         const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
@@ -22,10 +22,119 @@ describe("check details tests", () => {
         expect(resp.status).toBe(200);
     });
 
-    it("Should not cache the HTMl on this page", async () => {
+    it("Should error if presenter account session is missing isBusinessRegistered", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
+        );
+
+        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+
+        expect(resp.status).toBe(500);
+    });
+
+    it("Should error if presenter account session is missing name", async () => {
+        const missingName = {
+            ...examplePresenterAccountDetailsInternal,
+            name: undefined
+        };
+        session.setExtraData(
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+            missingName
+        );
+
+        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+
+        expect(resp.status).toBe(500);
+    });
+
+    it("Should error if presenter account session is missing forename", async () => {
+        const missingForename = {
+            ...examplePresenterAccountDetailsInternal,
+            name: {
+                forename: null,
+                surname: "Surname"
+            }
+        };
+        session.setExtraData(
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+            missingForename
+        );
+
+        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+
+        expect(resp.status).toBe(500);
+    });
+
+    it("Should error if presenter account session is missing forename", async () => {
+        const missingSurname = {
+            ...examplePresenterAccountDetailsInternal,
+            name: {
+                forename: "forename1234",
+                surname: null
+            }
+        };
+        session.setExtraData(
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+            missingSurname
+        );
+
+        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+
+        expect(resp.status).toBe(500);
+    });
+
+    it("Should error if presenter account session is missing name", async () => {
+        const missingName = {
+            ...examplePresenterAccountDetailsInternal,
+            name: undefined
+        };
+        session.setExtraData(
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+            missingName
+        );
+
+        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+
+        expect(resp.status).toBe(500);
+    });
+
+    it("Should error if presenter account session is missing companyName", async () => {
+        const isRegisteredWithoutCompanyName = {
+            ...examplePresenterAccountDetailsInternal,
+            isBusinessRegistered: true,
+            companyName: undefined
+        };
+        session.setExtraData(
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+            isRegisteredWithoutCompanyName
+        );
+
+        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+
+        expect(resp.status).toBe(500);
+    });
+
+    it("Should error if presenter account session is missing businessName", async () => {
+        const isRegisteredWithoutBusinessName = {
+            ...examplePresenterAccountDetailsInternal,
+            isBusinessRegistered: false,
+            businessName: undefined
+        };
+        session.setExtraData(
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+            isRegisteredWithoutBusinessName
+        );
+
+        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+
+        expect(resp.status).toBe(500);
+    });
+
+    it("Should not cache the HTMl on this page", async () => {
+        session.setExtraData(
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetailsInternal
         );
 
         await request(app)
@@ -40,7 +149,7 @@ describe("check details tests", () => {
     it("Should display the correct heading on the Check Details page", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            examplePresenterAccountDetails
+            examplePresenterAccountDetailsInternal
         );
 
         const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
@@ -53,7 +162,7 @@ describe("check details tests", () => {
     it("should translate page title to Welsh",  async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            examplePresenterAccountDetails
+            examplePresenterAccountDetailsInternal
         );
 
         const response = await request(app).get(PrefixedUrls.CHECK_DETAILS + "?lang=cy");
@@ -64,7 +173,7 @@ describe("check details tests", () => {
     it("Should include a Change button link on the Check Details page", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            examplePresenterAccountDetails
+            examplePresenterAccountDetailsInternal
         );
 
         const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
@@ -75,35 +184,101 @@ describe("check details tests", () => {
     it("Should display the correct Presenter Account details on the Check Details page", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            examplePresenterAccountDetails
+            examplePresenterAccountDetailsInternal
         );
 
         const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.text).toContain(
-            examplePresenterAccountDetails.address.premises
+            examplePresenterAccountDetailsInternal.address!.premises
         );
         expect(resp.text).toContain(
-            examplePresenterAccountDetails.address.addressLine1
+            examplePresenterAccountDetailsInternal.address!.addressLine1
         );
         expect(resp.text).toContain(
-            examplePresenterAccountDetails.address.addressLine2
+            examplePresenterAccountDetailsInternal.address!.addressLine2
         );
         expect(resp.text).toContain(
-            examplePresenterAccountDetails.address.townOrCity
+            examplePresenterAccountDetailsInternal.address!.townOrCity
         );
         expect(resp.text).toContain(
-            examplePresenterAccountDetails.address.country
+            examplePresenterAccountDetailsInternal.address!.country
         );
         expect(resp.text).toContain(
-            examplePresenterAccountDetails.address.postCode
+            examplePresenterAccountDetailsInternal.address!.postCode
+        );
+        expect(resp.text).toContain(
+            examplePresenterAccountDetailsInternal.companyName
+        );
+        expect(resp.text).toContain(
+            "Yes"
+        );
+        expect(resp.text).toContain(
+            examplePresenterAccountDetailsInternal.companyName
+        );
+        expect(resp.text).toContain(
+            examplePresenterAccountDetailsInternal.name?.forename + " " + examplePresenterAccountDetailsInternal.name?.surname
+        );
+        expect(resp.text).not.toContain(
+            examplePresenterAccountDetailsInternal.businessName
+        );
+    });
+
+    it("Should display the correct Presenter Account details on the Check Details page with business not registered", async () => {
+        const exampleNonRegisteredBusinessDetails = {
+            ...examplePresenterAccountDetailsInternal,
+            isBusinessRegistered: false
+        };
+
+        session.setExtraData(
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+            exampleNonRegisteredBusinessDetails
+        );
+
+        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+
+        expect(resp.text).toContain(
+            exampleNonRegisteredBusinessDetails.address!.premises
+        );
+        expect(resp.text).toContain(
+            exampleNonRegisteredBusinessDetails.address!.addressLine1
+        );
+        expect(resp.text).toContain(
+            exampleNonRegisteredBusinessDetails.address!.addressLine2
+        );
+        expect(resp.text).toContain(
+            exampleNonRegisteredBusinessDetails.address!.townOrCity
+        );
+        expect(resp.text).toContain(
+            exampleNonRegisteredBusinessDetails.address!.country
+        );
+        expect(resp.text).toContain(
+            exampleNonRegisteredBusinessDetails.address!.postCode
+        );
+        expect(resp.text).not.toContain(
+            "Yes"
+        );
+        expect(resp.text).toContain(
+            "No"
+        );
+        expect(resp.text).not.toContain(
+            exampleNonRegisteredBusinessDetails.companyName
+        );
+        expect(resp.text).toContain(
+            "Business name"
+        );
+        expect(resp.text).toContain(
+            exampleNonRegisteredBusinessDetails.name?.forename + " " + exampleNonRegisteredBusinessDetails.name?.surname
+        );
+        expect(resp.text).toContain(
+            exampleNonRegisteredBusinessDetails.businessName
         );
     });
 
     it("Should display the correct feeback url for check_details page", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            examplePresenterAccountDetails
+            examplePresenterAccountDetailsInternal
         );
 
         const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
@@ -114,7 +289,7 @@ describe("check details tests", () => {
     });
 
     it("Should redirect to the Confirmation page after successfully submitting the Presenter Account details", async () => {
-        const details = examplePresenterAccountDetails;
+        const details = examplePresenterAccountDetailsInternal;
         mockSubmitPresenterAccountDetails.mockReturnValue(success(undefined));
 
         await request(app)
@@ -127,7 +302,7 @@ describe("check details tests", () => {
     it("Should clean the session after successfully submitting the Presenter Account details", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            examplePresenterAccountDetails
+            examplePresenterAccountDetailsInternal
         );
 
         mockSubmitPresenterAccountDetails.mockReturnValue(success(undefined));
@@ -139,7 +314,7 @@ describe("check details tests", () => {
     });
 
     it("Should display an error page when there is an error in submitting the Presenter Account details", async () => {
-        const details = examplePresenterAccountDetails;
+        const details = examplePresenterAccountDetailsInternal;
         mockSubmitPresenterAccountDetails.mockImplementation(() => {
             throw new Error("Error submitting details");
         });
@@ -169,7 +344,7 @@ describe("check details tests", () => {
         mockSession();
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-            examplePresenterAccountDetails
+            examplePresenterAccountDetailsInternal
         );
 
         mockSubmitPresenterAccountDetails.mockReturnValue(success(undefined));
