@@ -289,6 +289,10 @@ describe("check details tests", () => {
     });
 
     it("Should redirect to the Confirmation page after successfully submitting the Presenter Account details - isBusinessRegistered true", async () => {
+        session.setExtraData(
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetailsInternal
+        );
         const details = examplePresenterAccountDetailsInternal;
         mockSubmitPresenterAccountDetails.mockReturnValue(success(undefined));
 
@@ -301,6 +305,10 @@ describe("check details tests", () => {
 
 
     it("Should redirect to the Confirmation page after successfully submitting the Presenter Account details - isBusinessRegistered false", async () => {
+        session.setExtraData(
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetailsInternalRegisteredFalse
+        );
         const details = examplePresenterAccountDetailsInternalRegisteredFalse;
         mockSubmitPresenterAccountDetails.mockReturnValue(success(undefined));
 
