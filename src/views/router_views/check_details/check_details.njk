@@ -23,7 +23,7 @@
     {% if isBusinessRegistered %}
         {% set isRegistered = "Yes" %}
         {% set businessKey = i18n.company %}
-        {% set businessValue = companyName %}
+        {% set businessValue = companyName + " (" + companyNumber + ")" %}
         {% set businessChangeUrl = Urls.COMPANY_SEARCH %}
         {% set businessId = "change-company-button" %}
         {% set businessEventId = "presenter-account-check-details-select-change-company" %}
