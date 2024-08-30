@@ -14,7 +14,6 @@ export function convertSessionDetailsToApiDetails(details: PresenterSessionDetai
     const apiDetails = {
         email: details.email,
         userId: details.userId,
-        createdDate: details.createdDate,
         company: details.isBusinessRegistered ? company : business,
         lang: details.lang,
         name: details.name,
@@ -23,6 +22,6 @@ export function convertSessionDetailsToApiDetails(details: PresenterSessionDetai
     if (isDetails(apiDetails)) {
         return apiDetails;
     } else {
-        throw new Error(`Presenter account address has not been set.`);
+        throw new Error(`Presenter account was unable to be set.`);
     }
 }
