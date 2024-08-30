@@ -24,6 +24,13 @@ export const examplePresenterAccountDetailsInternal: PresenterSessionDetails = {
     ...examplePresenterAccountDetails,
     isBusinessRegistered: true,
     companyName: "Test Company",
+    businessName: "Business Test Name",
+    companyNumber: "12345678"
+};
+
+export const examplePresenterAccountDetailsInternalRegisteredFalse: PresenterSessionDetails = {
+    ...examplePresenterAccountDetails,
+    companyName: "Test Company",
     companyNumber: "01234567",
     businessName: "Business Test Name"
 };

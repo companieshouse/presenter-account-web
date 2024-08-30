@@ -4,7 +4,7 @@ import { session, mockSession } from "../../../mocks/session.middleware.mock";
 import app from "../../../../src/app";
 import request from "supertest";
 import { ContextKeys, ExternalUrls, PrefixedUrls } from "../../../../src/constants";
-import { examplePresenterAccountDetails, examplePresenterAccountDetailsInternal } from "../../../mocks/example.presenter.account.details.mock";
+import { examplePresenterAccountDetails, examplePresenterAccountDetailsInternal, examplePresenterAccountDetailsInternalRegisteredFalse } from "../../../mocks/example.presenter.account.details.mock";
 
 import { success } from "@companieshouse/api-sdk-node/dist/services/result";
 
@@ -208,7 +208,7 @@ describe("check details tests", () => {
             examplePresenterAccountDetailsInternal.address!.postCode
         );
         expect(resp.text).toContain(
-            `${examplePresenterAccountDetailsInternal.companyName} (${examplePresenterAccountDetailsInternal.companyNumber})`
+            examplePresenterAccountDetailsInternal.companyName
         );
         expect(resp.text).toContain(
             "Yes"
@@ -262,7 +262,7 @@ describe("check details tests", () => {
             "No"
         );
         expect(resp.text).not.toContain(
-            `${examplePresenterAccountDetailsInternal.companyName} (${examplePresenterAccountDetailsInternal.companyNumber})`
+            exampleNonRegisteredBusinessDetails.companyName
         );
         expect(resp.text).toContain(
             "Business name"
@@ -288,7 +288,11 @@ describe("check details tests", () => {
         );
     });
 
-    it("Should redirect to the Confirmation page after successfully submitting the Presenter Account details", async () => {
+    it("Should redirect to the Confirmation page after successfully submitting the Presenter Account details - isBusinessRegistered true", async () => {
+        session.setExtraData(
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetailsInternal
+        );
         const details = examplePresenterAccountDetailsInternal;
         mockSubmitPresenterAccountDetails.mockReturnValue(success(undefined));
 
@@ -297,6 +301,32 @@ describe("check details tests", () => {
             .send(details)
             .expect(302)
             .expect("Location", PrefixedUrls.CONFIRMATION);
+    });
+
+
+    it("Should redirect to the Confirmation page after successfully submitting the Presenter Account details - isBusinessRegistered false", async () => {
+        session.setExtraData(
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetailsInternalRegisteredFalse
+        );
+        const details = examplePresenterAccountDetailsInternalRegisteredFalse;
+        mockSubmitPresenterAccountDetails.mockReturnValue(success(undefined));
+
+        await request(app)
+            .post(PrefixedUrls.CHECK_DETAILS)
+            .send(details)
+            .expect(302)
+            .expect("Location", PrefixedUrls.CONFIRMATION);
+    });
+
+    it("Should redirect to the Confirmation page after failed submitting the Presenter Account details when registered has no company number", async () => {
+        const details = { ...examplePresenterAccountDetailsInternalRegisteredFalse, isBusinessRegistered: true };
+        mockSubmitPresenterAccountDetails.mockReturnValue(success(undefined));
+
+        await request(app)
+            .post(PrefixedUrls.CHECK_DETAILS)
+            .send(details)
+            .expect(500);
     });
 
     it("Should clean the session after successfully submitting the Presenter Account details", async () => {
