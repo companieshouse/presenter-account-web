@@ -8,7 +8,6 @@ describe("convert details from session to api", () => {
     const apiDetails = {
         email: "example@email.com",
         userId: "123e4567-e89b-12d3-a456-426614174000",
-        createdDate: "2022-01-01T00:00:00Z",
         lang: "en",
         company: {
             companyName: "...company",
@@ -57,7 +56,7 @@ describe("convert details from session to api", () => {
         expect(() => {
             convertSessionDetailsToApiDetails(sessionDetails);
         }
-        ).toThrow(new Error(`Presenter account address has not been set.`));
+        ).toThrow(new Error(`Presenter account was unable to be set.`));
     });
 }
 
