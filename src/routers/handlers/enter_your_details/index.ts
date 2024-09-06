@@ -2,9 +2,8 @@ import { BaseViewData, GenericHandler, Redirect, ViewModel } from "./../generic"
 import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
 import { PrefixedUrls, countries } from "../../../constants";
-import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault, PresenterSessionDetails } from "./../../../utils/session";
+import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault, PresenterSessionDetails, COMPANY_NUMBER_SESSION_KEY } from "./../../../utils/session";
 import { type Details, type Address, isAddress, isLang, Name, isName } from "private-api-sdk-node/dist/services/presenter-account/types";
-import { env } from "../../../config";
 import { getLocalesField } from "../../../utils/localise";
 
 interface EnterYourDetailsViewData extends BaseViewData{
@@ -27,11 +26,14 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
         const chooseCountry = getLocalesField("enter_your_details_choose_country", req);
 
         const countriesWithChoose = [ { value: "choose", text: chooseCountry, selected: true }, ...countries ];
+
+        const companyNumber: string | undefined = req.session?.getExtraData(COMPANY_NUMBER_SESSION_KEY);
+
         return {
             ...baseViewData,
             title: getLocalesField("enter_your_details_page_title", req),
             currentUrl: PrefixedUrls.ENTER_YOUR_DETAILS,
-            backURL: env.FEATURE_FLAG_GDS_START_PAGE_290424 ? env.GDS_START_PAGE_LINK : PrefixedUrls.HOME,
+            backURL: EnterYourDetailsHandler.setBackUrl(companyNumber),
             viewName: 'enter your details',
             countries: countriesWithChoose
         };
@@ -97,5 +99,12 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
 
     public static getTemplatePath(){
         return this.templatePath;
+    }
+
+    private static setBackUrl(companyNumber: string | undefined): string{
+        if (companyNumber) {
+            return `${PrefixedUrls.CONFIRM_COMPANY}?companyNumber=${companyNumber}`;
+        }
+        return PrefixedUrls.ENTER_BUSINESS_NAME;
     }
 }

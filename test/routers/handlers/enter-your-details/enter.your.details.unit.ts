@@ -312,4 +312,37 @@ describe("Validate form fields with Welsh display", () => {
 
         expect(response.text).toContain("<title>Beth yw eich cyfeiriad gohebiaeth?</title>");
     });
+
+    describe("", () => {
+        it(`should set backurl as ${PrefixedUrls.CONFIRM_COMPANY}?companyNumber=007`, async () => {
+            session.setExtraData(
+                ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+                examplePresenterAccountDetails
+            );
+            session.setExtraData(
+                "companyNumber",
+                "007"
+            );
+
+            const response = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en");
+
+            expect(response.text).toContain("/confirm-company?companyNumber=007");
+            expect(response.text).not.toContain("/enter-business-name");
+        });
+
+        it(`should set backurl as ${PrefixedUrls.ENTER_BUSINESS_NAME}`, async () => {
+            session.setExtraData(
+                ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+                examplePresenterAccountDetails
+            );
+            session.deleteExtraData(
+                "companyNumber"
+            );
+
+            const response = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en");
+
+            expect(response.text).not.toContain("/confirm-company?companyNumber=007");
+            expect(response.text).toContain("/enter-business-name");
+        });
+    });
 });
