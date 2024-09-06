@@ -1,8 +1,8 @@
 {   
-    "tell_us_your_contact_details_title": "[cy]Tell us your contact details[cy]",
-    "tell_us_your_contact_details_title_info": "[cy]We'll use this if we need more information.[cy]",
-    "enter_your_details_page_first_name": "[cy]First name[cy]",
-    "enter_your_details_page_last_name": "[cy]Last name[cy]",
+    "tell_us_your_contact_details_title": "Dywedwch wrthym eich manylion cyswllt",
+    "tell_us_your_contact_details_title_info": "Byddwn yn defnyddio hwn os bydd angen mwy o wybodaeth arnom.",
+    "enter_your_details_page_first_name": "Enw cyntaf",
+    "enter_your_details_page_last_name": "Cyfenw",
     "enter_your_details_page_title": "Beth yw eich cyfeiriad gohebiaeth?",
     "enter_your_details_page_title_info": "Efallai y byddwn yn defnyddio hwn i gysylltu â chi am eich cyfrif.",
     "enter_your_details_property_input_title": "Enw neu rif eiddo",
@@ -21,23 +21,23 @@
         "TOWN_OR_CITY_BLANK": "Mae angen dinas neu dref",
         "POST_CODE_BLANK": "Mae angen cod post",
         "COUNTRY_BLANK": "Dewiswch wlad",
-        "FIRST_NAME_BLANK": "[cy]First name is required[cy]",
-        "LAST_NAME_BLANK": "[cy]Last name is required[cy]",
+        "FIRST_NAME_BLANK": "Enw cyntaf yn ofynnol",
+        "LAST_NAME_BLANK": "Cyfenw yn ofynnol",
 
         "PREMISES_LENGTH": "Rhaid i enw neu rif eiddo fod yn <length> nod neu lai.",
         "ADDRESS_LINE_1_LENGTH": "Rhaid i linell cyfeiriad 1 fod yn <length> nod neu lai",
         "ADDRESS_LINE_2_LENGTH": "Rhaid i linell cyfeiriad 2 fod yn <length> nod neu lai",
         "TOWN_OR_CITY_LENGTH": "Rhaid i'r dref neu'r dref fod yn <length> nod neu lai",
         "POST_CODE_LENGTH": "Rhaid i'r cod post / cod zip fod yn <length> nod neu lai",
-        "FIRST_NAME_LENGTH": "[cy]First name must be <length> characters or less[cy]",
-        "LAST_NAME_LENGTH": "[cy]Last name must be <length> characters or less[cy]",
+        "FIRST_NAME_LENGTH": "Rhaid i'r enw cyntaf fod yn <length> nod neu lai",
+        "LAST_NAME_LENGTH": "Rhaid i'r cyfenw fod yn <length> nod neu lai",
 
         "PREMISES_INVALID_CHARACTER": "Rhaid i enw neu rif eiddo fod â nodau dilys yn unig.",
         "ADDRESS_LINE_1_INVALID_CHARACTER": "Rhaid i linell cyfeiriad 1 fod â nodau dilys yn unig.",
         "ADDRESS_LINE_2_INVALID_CHARACTER": "Rhaid i linell cyfeiriad 2 fod â nodau dilys yn unig.",
         "TOWN_OR_CITY_INVALID_CHARACTER": "Rhaid i'r dref neu'r ddinas fod â nodau dilys yn unig.",
         "POST_CODE_INVALID_CHARACTER": "Rhaid i'r cod post fod â nodau dilys yn unig.",
-        "FIRST_NAME_INVALID_CHARACTER": "[cy]First name must contain only valid characters[cy]",
-        "LAST_NAME_INVALID_CHARACTER": "[cy]Last name must contain only valid characters[cy]"
+        "FIRST_NAME_INVALID_CHARACTER": "Rhaid i'r enw cyntaf gynnwys nod dilys yn unig",
+        "LAST_NAME_INVALID_CHARACTER": "Rhaid i'r cyfenw gynnwys nod dilys yn unig"
     }
 }
