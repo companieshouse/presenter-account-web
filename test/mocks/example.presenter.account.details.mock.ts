@@ -17,7 +17,8 @@ export const examplePresenterAccountDetails: PresenterSessionDetails = {
         postCode: "SA1 1ZZ"
     },
     lang: "en",
-    isBusinessRegistered: false
+    isBusinessRegistered: false,
+    companyNumber: "007"
 };
 
 export const examplePresenterAccountDetailsInternal: PresenterSessionDetails = {
