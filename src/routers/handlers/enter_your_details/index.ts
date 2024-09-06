@@ -2,7 +2,7 @@ import { BaseViewData, GenericHandler, Redirect, ViewModel } from "./../generic"
 import { Request, Response } from "express";
 import { logger } from "../../../utils/logger";
 import { PrefixedUrls, countries } from "../../../constants";
-import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault, PresenterSessionDetails, COMPANY_NUMBER_SESSION_KEY } from "./../../../utils/session";
+import { setPresenterAccountDetails, getPresenterAccountDetailsOrDefault, PresenterSessionDetails, getPresenterAccountDetails } from "./../../../utils/session";
 import { type Details, type Address, isAddress, isLang, Name, isName } from "private-api-sdk-node/dist/services/presenter-account/types";
 import { getLocalesField } from "../../../utils/localise";
 
@@ -27,7 +27,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
 
         const countriesWithChoose = [ { value: "choose", text: chooseCountry, selected: true }, ...countries ];
 
-        const companyNumber: string | undefined = req.session?.getExtraData(COMPANY_NUMBER_SESSION_KEY);
+        const companyNumber: string | undefined = getPresenterAccountDetails(req)?.companyNumber;
 
         return {
             ...baseViewData,
@@ -102,7 +102,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
     }
 
     private static setBackUrl(companyNumber: string | undefined): string{
-        if (companyNumber) {
+        if (typeof companyNumber === "string") {
             return `${PrefixedUrls.CONFIRM_COMPANY}?companyNumber=${companyNumber}`;
         }
         return PrefixedUrls.ENTER_BUSINESS_NAME;

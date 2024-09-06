@@ -313,15 +313,11 @@ describe("Validate form fields with Welsh display", () => {
         expect(response.text).toContain("<title>Beth yw eich cyfeiriad gohebiaeth?</title>");
     });
 
-    describe("", () => {
+    describe("Check backUrl for enter your details page", () => {
         it(`should set backurl as ${PrefixedUrls.CONFIRM_COMPANY}?companyNumber=007`, async () => {
             session.setExtraData(
                 ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
                 examplePresenterAccountDetails
-            );
-            session.setExtraData(
-                "companyNumber",
-                "007"
             );
 
             const response = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en");
@@ -331,12 +327,10 @@ describe("Validate form fields with Welsh display", () => {
         });
 
         it(`should set backurl as ${PrefixedUrls.ENTER_BUSINESS_NAME}`, async () => {
+            const details = { ...examplePresenterAccountDetails, companyNumber: undefined };
             session.setExtraData(
                 ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
-                examplePresenterAccountDetails
-            );
-            session.deleteExtraData(
-                "companyNumber"
+                details
             );
 
             const response = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en");
