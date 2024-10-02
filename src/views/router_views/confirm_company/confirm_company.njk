@@ -1,6 +1,7 @@
 {% extends "layouts/default.njk" %}
 
 {% block main_content %}
+
     <h1 class="govuk-heading-xl">{{ i18n.confirm_company_title }}</h1>
 
     <h1 id="company-name-header" class="govuk-heading-l">{{ companyName }}</h1>
@@ -20,7 +21,11 @@
                 {{ i18n.companyStatus }}
             </dt>
             <dd class="govuk-summary-list__value" id="company-status">
-                {{ status | capitalize }}
+                {% if status === "active" %}
+                    {{ i18n.active }}
+                {% else %}
+                    {{ status }}
+                {% endif %}
             </dd>
         </div>
 
