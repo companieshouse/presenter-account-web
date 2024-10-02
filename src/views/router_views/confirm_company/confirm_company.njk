@@ -21,11 +21,7 @@
                 {{ i18n.companyStatus }}
             </dt>
             <dd class="govuk-summary-list__value" id="company-status">
-                {% if status === "active" %}
-                    {{ i18n.active }}
-                {% else %}
-                    {{ status }}
-                {% endif %}
+                {{ status }}
             </dd>
         </div>
 
