@@ -19,20 +19,6 @@ Having cloned the project into your project root, run the following commands:
 
 ```npm install```
 
-### Config Set-up
-
-- The web-starter uses environment variables for configuration.
-
-- The config file is located at `src/config/.env.example` and should be copied over to `src/config/.env`. This is because `.env.example` is versioned and does not contain any sensitive information whereas `.env` (which is the actual config file used by the app) is not versioned due to the fact that it may (or may not) be used to store sensitive application information e.g passwords, certificate paths, API keys, etc...
-
-- You will need to tweak some values in `.env` to suit your local set up e.g. port number, hostname, SSL settings, etc...
-
-- Of particular note is the `CDN_HOST` value. You may:
-  - leave it empty to use locally built assets, or
-  - use the `staging` or `prod` value to gain access to assets not available in your local environment e.g. vendor specific libraries like jQuery (this is because the `govuk-frontend` and `govuk_frontend_toolkit` npm packages do not ship with vendor specific libraries).
-  - You can get the production value from the Platform Team or by viewing the page source of the [DevHub](https://developer.company-information.service.gov.uk/) page.
-  - At the time of writing, this value is `//drv45oe4qnhl0.cloudfront.net` but can change at any time. Always ensure you have the most recent value when using it.
-
 ### SSL Set-up
 
 - If you wish to work with ssl-enabled endpoints locally, ensure you turn the `NODE_SSL_ENABLED` property to `ON` in the config and also provide paths to your private key and certificate.
@@ -126,4 +112,4 @@ Empty directories and files, wherever you find them, are only there for complete
   
 ### 7. Docker Support
 
-- The repository supports docker and the docker architecture can be modified by modifying the Dockerfile. The dockerignore file can be used to specifying which files will be copied into the container.
+- The repository supports docker and the docker architecture can be modified by modifying the Dockerfile. The dockerignore file can be used to specifying which files will be copied into the container. This only applies to the contains of ecs-image-build directory and runtime variables are handle else where.
