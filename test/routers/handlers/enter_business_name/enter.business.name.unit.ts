@@ -146,13 +146,13 @@ describe("validate form fields", () => {
 describe("Validate form fields with Welsh display", () => {
 
     enum ErrorMessagesWelsh {
-        BUSINESS_NAME_BLANK = "[CY]Enter the business name.[CY]",
-        BUSINESS_NAME_LENGTH = "[CY]Business name must be 80 characters or less[CY]",
-        BUSINESS_NAME_INVALID_CHARACTER = "[CY]Business name must contain only valid characters[CY]"
+        BUSINESS_NAME_BLANK = "Cofnodwch enw busnesu",
+        BUSINESS_NAME_LENGTH = "Rhaid i&#39;r enw busnes fod yn 80 nod neu lai",
+        BUSINESS_NAME_INVALID_CHARACTER = "Rhaid i&#39;r enw busnes gynnwys nodau dilys yn unig"
     }
     enum ScreenFieldsWelsh{
-        ENTER_BUSINESS_NAME_TITLE = "[CY]What is the name of the business?[CY]",
-        ENTER_BUSINESS_NAME_TITLE_INFO = "[CY]If you&#39;re a sole trader, you should give your own name if you do not have a different business name that you trade under.[CY]"
+        ENTER_BUSINESS_NAME_TITLE = "Beth yw enw&#39;r busnes?",
+        ENTER_BUSINESS_NAME_TITLE_INFO = "Os ydych yn unig fasnachwr, dylech roi enw eich hun os nad oes gennych enw busnes gwahanol yr ydych ym masnach o dan."
     }
     it("should display Welsh errors for fields that go above max length",  async () => {
         paDetailsWithIsBusinessRegisteredFalse.businessName = eightyCharacters + "x";
