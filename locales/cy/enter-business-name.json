@@ -2,7 +2,7 @@
     "enter_business_name_page_title": "Beth yw enw'r busnes?",
     "enter_business_name_page_title_info": "Os ydych yn unig fasnachwr, dylech roi enw eich hun os nad oes gennych enw busnes gwahanol yr ydych ym masnach o dan.",
     "enter_business_name_validation_errors": {
-        "BUSINESS_NAME_BLANK": "Cofnodwch enw busnesu",
+        "BUSINESS_NAME_BLANK": "Cofnodwch enw busnes",
         "BUSINESS_NAME_LENGTH": "Rhaid i'r enw busnes fod yn 80 nod neu lai",
         "BUSINESS_NAME_INVALID_CHARACTER": "Rhaid i'r enw busnes gynnwys nodau dilys yn unig"
     }
