@@ -118,7 +118,7 @@ export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData
 
     private appendCompanyNumberQuery(url: String, req: Request) {
         const companyNumber = this.getCompanyNumberFromRequest(req);
-        return url + "?" + QueryParameters.COMPANY_NUMBER + "=" + companyNumber;
+        return `${url}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`;
     }
 }
 
