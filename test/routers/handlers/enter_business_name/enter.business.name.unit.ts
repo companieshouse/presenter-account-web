@@ -146,7 +146,7 @@ describe("validate form fields", () => {
 describe("Validate form fields with Welsh display", () => {
 
     enum ErrorMessagesWelsh {
-        BUSINESS_NAME_BLANK = "Cofnodwch enw busnesu",
+        BUSINESS_NAME_BLANK = "Cofnodwch enw busnes",
         BUSINESS_NAME_LENGTH = "Rhaid i&#39;r enw busnes fod yn 80 nod neu lai",
         BUSINESS_NAME_INVALID_CHARACTER = "Rhaid i&#39;r enw busnes gynnwys nodau dilys yn unig"
     }
