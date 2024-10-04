@@ -1,8 +1,8 @@
 {
-    "confirm_company_title": "Welsh translation not implemented",
-    "company_number": "Welsh translation not implemented",
-    "companyStatus": "Welsh translation not implemented",
-    "incorporated_on": "Welsh translation not implemented",
-    "confirm_button": "Welsh translation not implemented",
-    "choose_different": "Welsh translation not implemented"
+    "confirm_company_title": "Cadarnhau mai hwn yw'r cwmni cywir",
+    "company_number": "Rhif cwmni",
+    "companyStatus": "Statws",
+    "incorporated_on": "Dyddiad corffori",
+    "confirm_button": "Cadarnhau a pharhau",
+    "choose_different": "Dewis cwmni gwahanol"
 }

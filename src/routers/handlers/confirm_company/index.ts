@@ -1,6 +1,6 @@
 import { logger } from "../../../utils/logger";
 import { PrefixedUrls, QueryParameters } from "../../../constants";
-import { getLocalesField } from "../../../utils/localise";
+import { addLangToUrl, getLanguageChoice, getLocalesField } from "../../../utils/localise";
 import { BaseViewData, GenericHandler, Redirect, ViewModel } from "../generic";
 import { Request, Response } from "express";
 import { isValidCompanyNumber } from "../../../validation/company_number";
@@ -21,9 +21,11 @@ export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData
     public getViewData(req: Request): ConfirmCompanyViewData {
         const baseViewData = super.getViewData(req);
 
+        const currentUrl = addLangToUrl(this.appendCompanyNumberQuery(PrefixedUrls.CONFIRM_COMPANY, req), getLanguageChoice(req));
+
         return {
             ...baseViewData,
-            currentUrl: PrefixedUrls.CONFIRM_COMPANY,
+            currentUrl,
             title: getLocalesField("confirm_company_title", req),
             viewName: 'confirm_company',
             backURL: PrefixedUrls.COMPANY_SEARCH
@@ -112,6 +114,11 @@ export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData
             throw Error("Presenter account details is undefined, journey is in invalid state.");
         }
         setPresenterAccountDetails(req, { ...presenterAccountDetails, companyName });
+    }
+
+    private appendCompanyNumberQuery(url: String, req: Request) {
+        const companyNumber = this.getCompanyNumberFromRequest(req);
+        return `${url}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`;
     }
 }
 
