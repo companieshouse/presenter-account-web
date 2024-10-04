@@ -120,4 +120,31 @@ describe('post company profile tests', () => {
 
         expect(response.status).toBe(500);
     });
+
+    it('should return 500 when presenter account details are unable to be found', async () => {
+
+        mockSession();
+
+        session.setExtraData(PRESENTER_ACCOUNT_SESSION_KEY, undefined);
+        const companyNumber = '00006400';
+
+        const companyProfile = {
+            companyName: 'COMPANY NAME',
+            companyNumber,
+            dateOfCreation: '1983-04-05',
+            companyStatus: 'active',
+        } as Partial<CompanyProfile>;
+
+        const companyProfileResource = {
+            httpStatusCode: 200,
+            resource: companyProfile as CompanyProfile
+        } as Resource<CompanyProfile>;
+
+        mockGetCompanyProfile.mockResolvedValueOnce(companyProfileResource);
+
+        const response = await request(app)
+            .post(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`);
+
+        expect(response.status).toBe(500);
+    });
 });
