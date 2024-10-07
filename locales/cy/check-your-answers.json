@@ -1,11 +1,11 @@
 {
-    "address": "[CY]Correspondence address[CY]",
+    "address": "Cyfeiriad gohebiaeth",
     "change": "Newid",
     "check_your_answers_before_submit": "Gwiriwch eich atebion cyn cyflwyno eich cais.",
     "submit": "Cyflwyno",
     "check_your_answers_page_title": "Gwiriwch eich atebion cyn cyflwyno eich cais.",
-    "company": "[CY]Company[CY]",
-    "contact_name": "[CY]Contact name[CY]",
-    "business_name": "[CY]Business name[CY]",
-    "is_your_business_registered": "[CY]Is the business you work for registered with Companies House?[CY]"
+    "company": "Cwmni",
+    "contact_name": "Enw'r busnes",
+    "business_name": "Enw cyswllt",
+    "is_your_business_registered": "Ydy'r busnes rydych chi'n gweithio iddo wedi cofrestru gyda Thŷ'r Cwmnïau?"
 }

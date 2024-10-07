@@ -229,7 +229,7 @@ describe("check details tests", () => {
             ...examplePresenterAccountDetailsInternal,
             isBusinessRegistered: false
         };
-
+        session.setExtraData("lang", "en");
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             exampleNonRegisteredBusinessDetails
