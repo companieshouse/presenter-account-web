@@ -152,7 +152,7 @@ describe("Validate form fields with Welsh display", () => {
     }
     enum ScreenFieldsWelsh{
         ENTER_BUSINESS_NAME_TITLE = "Beth yw enw&#39;r busnes?",
-        ENTER_BUSINESS_NAME_TITLE_INFO = "Os ydych yn unig fasnachwr, dylech roi enw eich hun os nad oes gennych enw busnes gwahanol yr ydych ym masnach o dan."
+        ENTER_BUSINESS_NAME_TITLE_INFO = "Os ydych yn unig fasnachwr, dylech roi enw eich hun os nad oes gennych enw busnes gwahanol yr ydych yn masnachu o dan."
     }
     it("should display Welsh errors for fields that go above max length",  async () => {
         paDetailsWithIsBusinessRegisteredFalse.businessName = eightyCharacters + "x";
