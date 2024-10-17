@@ -21,7 +21,7 @@
                 {{ i18n.companyStatus }}
             </dt>
             <dd class="govuk-summary-list__value" id="company-status">
-                {{ status | capitalize }}
+                {{ status | Locale.term(language) | capitalize }}
             </dd>
         </div>
 
@@ -30,7 +30,7 @@
                 {{ i18n.incorporated_on }}
             </dt>
             <dd class="govuk-summary-list__value" id="incorporated-on">
-                {{ incorporatedOn | Formatters.date }}
+                {{ incorporatedOn | Formatters.date(language) }}
             </dd>
         </div>
     </dl>
