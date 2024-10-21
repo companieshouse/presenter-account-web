@@ -52,7 +52,7 @@ function getLocalesFieldByLang(fieldName: string, language: string): string {
 }
 
 export function getLocalesValue(fieldName: string, lang?: string): string {
-    const language = selectLang(lang)
+    const language = selectLang(lang);
     return getLocalesFieldByLang(fieldName, language);
 }
 

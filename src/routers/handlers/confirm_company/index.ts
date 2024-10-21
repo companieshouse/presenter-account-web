@@ -12,8 +12,8 @@ interface ConfirmCompanyViewData extends BaseViewData {
     companyNumber: string
     status: string
     incorporatedOn: string
-    companyName: string,
-    language?: string
+    companyName: string
+    language: string
 }
 
 export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData> {
@@ -22,7 +22,7 @@ export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData
     public getViewData(req: Request): ConfirmCompanyViewData {
         const baseViewData = super.getViewData(req);
 
-        const languageChoice = getLanguageChoice(req)
+        const languageChoice = getLanguageChoice(req);
 
         const currentUrl = addLangToUrl(this.appendCompanyNumberQuery(PrefixedUrls.CONFIRM_COMPANY, req), languageChoice);
 
