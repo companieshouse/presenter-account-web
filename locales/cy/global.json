@@ -16,5 +16,17 @@
     "license_notice_post_link": "ac eithrio lle nodir yn wahanol.",
     "copyright": "Hawlfraint y Goron",
     "problem_detected": "Mae yna broblem",
-    "continue": "Parhau"
+    "continue": "Parhau",
+    "january": "Ionawr",
+    "february": "Chwefror",
+    "march": "Mawrth",
+    "april": "Ebrill",
+    "may": "Mai",
+    "june": "Mehefin",
+    "july": "Gorffennaf",
+    "august": "Awst",
+    "september": "Medi",
+    "october": "Hydref",
+    "november": "Tachwedd",
+    "december": "Rhagfyr"
 }

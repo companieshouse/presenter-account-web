@@ -4,5 +4,17 @@
     "companyStatus": "Statws",
     "incorporated_on": "Dyddiad corffori",
     "confirm_button": "Cadarnhau a pharhau",
-    "choose_different": "Dewis cwmni gwahanol"
+    "choose_different": "Dewis cwmni gwahanol",
+    "active": "Gweithredol",
+    "dissolved": "Wedi'i ddiddymu",
+    "liquidation": "Datodiad",
+    "receivership": "Derbynyddiad",
+    "converted-closed": "Wedi'i throsi ar gau",
+    "open": "Ar agor",
+    "closed": "Ar gau",
+    "insolvency-proceedings": "Trafodion ansolfedd",
+    "voluntary-arrangement": "Trefniant gwirfoddol",
+    "administration": "Yn nwylo gweinyddwyr",
+    "registered": "Wedi'i gofrestru",
+    "removed": "Wedi'i ddileu"
 }

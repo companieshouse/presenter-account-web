@@ -1,4 +1,5 @@
 import { Environment } from "nunjucks";
+import { getLocalesValue } from "./localise";
 
 export function addFormatters(env: Environment) {
     for (const [name, formatter] of Object.entries(Formatters)) {
@@ -11,7 +12,8 @@ const Formatters = {
 } as const;
 
 
-function formatDateString(dateString: string): string {
+function formatDateString(dateString: string, language?: string): string {
+
     const months: string[] = [
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -20,7 +22,7 @@ function formatDateString(dateString: string): string {
     const date = new Date(dateString);
 
     const day = date.getDate();
-    const month = months[date.getMonth()];
+    const month = getLocalesValue(months[date.getMonth()].toLowerCase(), language);
     const year = date.getFullYear();
 
     return `${day} ${month} ${year}`;

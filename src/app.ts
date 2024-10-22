@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import { env } from './config';
 import { ExternalUrls, PrefixedUrls, Urls, servicePathPrefix } from "./constants";
 import { addFormatters } from "./utils/formatters";
+import { addLocale } from "./utils/localise";
 
 const app = express();
 
@@ -49,6 +50,7 @@ njk.addGlobal("SERVICE_NAME", 'presenter-account-web');
 njk.addGlobal("PIWIK_URL", env.PIWIK_URL);
 njk.addGlobal("PIWIK_SITE_ID", env.PIWIK_SITE_ID);
 addFormatters(njk);
+addLocale(njk);
 
 
 // parse body into req.body

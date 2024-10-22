@@ -4,5 +4,17 @@
     "companyStatus": "Status",
     "incorporated_on": "Incorporated on",
     "confirm_button": "Confirm and continue",
-    "choose_different": "Choose a different company"
+    "choose_different": "Choose a different company",
+    "active": "Active",
+    "dissolved": "Dissolved",
+    "liquidation": "Liquidation",
+    "receivership": "Receivership",
+    "converted-closed": "Converted closed",
+    "open": "Open",
+    "closed": "Closed",
+    "insolvency-proceedings": "Insolvency proceedings",
+    "voluntary-arrangement": "Voluntary arrangement",
+    "administration": "Administration",
+    "registered": "Registered",
+    "removed": "Removed"
 }

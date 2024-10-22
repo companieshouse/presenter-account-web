@@ -13,6 +13,7 @@ interface ConfirmCompanyViewData extends BaseViewData {
     status: string
     incorporatedOn: string
     companyName: string
+    language: string
 }
 
 export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData> {
@@ -21,14 +22,17 @@ export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData
     public getViewData(req: Request): ConfirmCompanyViewData {
         const baseViewData = super.getViewData(req);
 
-        const currentUrl = addLangToUrl(this.appendCompanyNumberQuery(PrefixedUrls.CONFIRM_COMPANY, req), getLanguageChoice(req));
+        const languageChoice = getLanguageChoice(req);
+
+        const currentUrl = addLangToUrl(this.appendCompanyNumberQuery(PrefixedUrls.CONFIRM_COMPANY, req), languageChoice);
 
         return {
             ...baseViewData,
             currentUrl,
             title: getLocalesField("confirm_company_title", req),
             viewName: 'confirm_company',
-            backURL: PrefixedUrls.COMPANY_SEARCH
+            backURL: PrefixedUrls.COMPANY_SEARCH,
+            language: languageChoice
         };
     }
 
