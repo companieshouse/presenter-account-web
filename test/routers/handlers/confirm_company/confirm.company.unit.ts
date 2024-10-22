@@ -155,10 +155,10 @@ describe("Test confirm company with different status in Welsh", () => {
     companyStatusLanguageMap.set('dissolved', 'Wedi&#39;i ddiddymu');
     companyStatusLanguageMap.set('liquidation', 'Datodiad');
     companyStatusLanguageMap.set('receivership', 'Derbynyddiad');
-    companyStatusLanguageMap.set('converted-closed', 'Wedi&#39;i throsi-ar gau');
+    companyStatusLanguageMap.set('converted-closed', 'Wedi&#39;i throsi ar gau');
     companyStatusLanguageMap.set('open', 'Ar agor');
     companyStatusLanguageMap.set('closed', 'Ar gau');
-    companyStatusLanguageMap.set('insolvency-proceedings', 'Trafodion- ansolfedd');
+    companyStatusLanguageMap.set('insolvency-proceedings', 'Trafodion ansolfedd');
     companyStatusLanguageMap.set('voluntary-arrangement', 'Trefniant gwirfoddol');
     companyStatusLanguageMap.set('administration', 'Yn nwylo gweinyddwy');
     companyStatusLanguageMap.set('registered', 'Wedi&#39;i gofrestru');
