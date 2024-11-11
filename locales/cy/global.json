@@ -28,5 +28,7 @@
     "september": "Medi",
     "october": "Hydref",
     "november": "Tachwedd",
-    "december": "Rhagfyr"
+    "december": "Rhagfyr",
+    "yes": "Ydy",
+    "no": "Na"
 }
