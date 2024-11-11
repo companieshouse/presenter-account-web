@@ -11,6 +11,10 @@ import { success } from "@companieshouse/api-sdk-node/dist/services/result";
 describe("check details tests", () => {
     const changeButtonHtml = `a class="govuk-link" href="/presenter-account/enter-your-details"`;
 
+    beforeEach(() => {
+        session.setExtraData("lang", "en");
+    });
+
     it("Should render the Check Details page with a successful status code", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
@@ -224,12 +228,25 @@ describe("check details tests", () => {
         );
     });
 
+    it("Should display the correct Presenter Account details on the Check Details page", async () => {
+        session.setExtraData("lang", "cy");
+        session.setExtraData(
+            ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
+            examplePresenterAccountDetailsInternal
+        );
+
+        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+
+        expect(resp.text).toContain(
+            "Ydy"
+        );
+    });
+
     it("Should display the correct Presenter Account details on the Check Details page with business not registered", async () => {
         const exampleNonRegisteredBusinessDetails = {
             ...examplePresenterAccountDetailsInternal,
             isBusinessRegistered: false
         };
-        session.setExtraData("lang", "en");
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             exampleNonRegisteredBusinessDetails

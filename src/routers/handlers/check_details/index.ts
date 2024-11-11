@@ -27,7 +27,7 @@ interface CheckDetailsViewData extends BaseViewData {
 }
 
 export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
-    private static templatePath = "router_views/check_details/check_details";
+    private static readonly templatePath = "router_views/check_details/check_details";
 
     private validateCompanyDetails(details: PresenterSessionDetails) {
         if (details.isBusinessRegistered === undefined) {
@@ -53,7 +53,7 @@ export class CheckDetailsHandler extends GenericHandler<CheckDetailsViewData> {
     }
 
     private validateUserName(details: PresenterSessionDetails) {
-        if (details.name === undefined || details.name.forename === null || details.name.surname === null) {
+        if (details.name?.forename === null || details.name?.surname === null || details.name === undefined) {
             throw new Error("Presenter account name/forename/surname has not been set.");
         }
         return { forename: details.name.forename, surname: details.name.surname };

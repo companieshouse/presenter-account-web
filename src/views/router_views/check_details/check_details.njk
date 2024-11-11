@@ -21,7 +21,7 @@
 
 
     {% if isBusinessRegistered %}
-        {% set isRegistered = "Yes" %}
+        {% set isRegistered = i18n.yes %}
         {% set businessKey = i18n.company %}
         {% set businessValue = companyName + " (" + companyNumber + ")" %}
         {% set businessChangeUrl = Urls.COMPANY_SEARCH %}
@@ -29,7 +29,7 @@
         {% set businessEventId = "presenter-account-check-details-select-change-company" %}
         {% set businessVisuallyHiddenText = "company" %}
     {% else %}
-        {% set isRegistered = "No" %}
+        {% set isRegistered = i18n.no %}
         {% set businessKey = i18n.business_name %}
         {% set businessValue = businessName %}
         {% set businessChangeUrl = Urls.ENTER_BUSINESS_NAME %}

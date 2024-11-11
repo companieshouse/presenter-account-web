@@ -37,7 +37,7 @@
         "ADDRESS_LINE_2_INVALID_CHARACTER": "Rhaid i linell cyfeiriad 2 fod â nodau dilys yn unig.",
         "TOWN_OR_CITY_INVALID_CHARACTER": "Rhaid i'r dref neu'r ddinas fod â nodau dilys yn unig.",
         "POST_CODE_INVALID_CHARACTER": "Rhaid i'r cod post fod â nodau dilys yn unig.",
-        "FIRST_NAME_INVALID_CHARACTER": "Rhaid i'r enw cyntaf gynnwys nod dilys yn unig",
-        "LAST_NAME_INVALID_CHARACTER": "Rhaid i'r cyfenw gynnwys nod dilys yn unig"
+        "FIRST_NAME_INVALID_CHARACTER": "Rhaid i'r enw cyntaf gynnwys nodau dilys yn unig",
+        "LAST_NAME_INVALID_CHARACTER": "Rhaid i'r cyfenw gynnwys nodau dilys yn unig"
     }
 }
