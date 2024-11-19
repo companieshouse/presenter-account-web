@@ -19,19 +19,21 @@ describe("validate form fields", () => {
         ENTER_BUSINESS_NAME_TITLE_INFO = "If you&#39;re a sole trader, you should give your own name if you do not have a different business name that you trade under."
     }
 
-    it("should throw an error when no session", async () => {
-        const response = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME).expect(500);
+    it("should redirect when no session", async () => {
+        const response = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME).expect(302);
         expect(response.text).not.toContain("What is the name of the business?");
-        expect(response.text).toContain("Sorry there is a problem with the service");
+        expect(response.text).not.toContain("Sorry there is a problem with the service");
     });
 
-    it(`should throw error when session ${ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY} not set`, async () => {
+    it(`should redirect when session ${ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY} not set`, async () => {
         session.setExtraData(
             'some random session',
             paDetailsWithIsBusinessRegisteredFalse
         );
 
-        await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME).expect(500);
+        const response = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME).expect(302);
+        expect(response.text).not.toContain("What is the name of the business?");
+        expect(response.text).not.toContain("Sorry there is a problem with the service");
     });
 
     it(`should render the enter business name page when session ${ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY} set`, async () => {
