@@ -8,7 +8,7 @@ import { getPresenterAccountDetails } from "../utils/session";
 const router = Router();
 
 // Prevent caching on this page.
-// If the user presses the back button, it will render the page as it apeared previously using
+// If the user presses the back button, it will render the page as it appeared previously using
 // cached HTML even though the details could have already been submitted and session cleared.
 router.use(noCacheMiddleware);
 
