@@ -4,8 +4,6 @@ import { noCacheMiddleware } from "../middleware/no.cache.middleware";
 import { validateEnterBusinessNameForm } from "../middleware/formvalidation.middleware";
 import { EnterBusinessNameHandler } from "./handlers/enter_business_name";
 import { getPresenterAccountDetails } from "../utils/session";
-import { PrefixedUrls } from "../constants";
-import { logger } from "../utils/logger";
 
 const router = Router();
 
@@ -19,9 +17,7 @@ router.get("/", handleExceptions( async (req: Request, res: Response, _next: Nex
     const { templatePath, viewData } = handler.executeGet(req, res);
     const details = getPresenterAccountDetails(req);
     if (details === undefined || details.isBusinessRegistered === undefined) {
-        logger.error('isBusinessRegistered is not set. Journey in invalid state to enter business name. Return to is business registered page.');
-        res.redirect(PrefixedUrls.IS_BUSINESS_REGISTERED);
-        return
+        throw new Error('isBusinessRegistered is not set. Journey in invalid state to enter business name.');
     } else if (details.isBusinessRegistered){
         throw new Error('Registered as a business already, unable to enter the business name');
     }
