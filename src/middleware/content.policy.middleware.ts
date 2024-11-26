@@ -2,7 +2,7 @@ import { env } from "../config";
 import { HelmetOptions } from "helmet";
 
 export function prepareCSPConfig(nonce: string): HelmetOptions{
-    const CDN = env.CDN_HOST as string;
+    const CDN = env.CDN_HOST;
     const SELF = `'self'`;
     const NONCE = `'nonce-${nonce}'`;
     const ONE_YEAR_SECONDS = 31536000;

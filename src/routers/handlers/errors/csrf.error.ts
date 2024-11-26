@@ -19,8 +19,6 @@ export const csrfErrorHandler = (err: CsrfError | Error, _: Request,
 
     return res.status(403).render(
         "partials/error_csrf", {
-            // TODO: Complete this with any information required by your error
-            // template, the CSRF Error component requires no information currently
         }
     );
 };
