@@ -1,5 +1,6 @@
 import { mockSession, session } from "../../../mocks/session.middleware.mock";
 import { mockGetCompanyProfile } from "../../../mocks/api.client.mock";
+import mockCsrfProtectionMiddleware from "../../../mocks/csrf.protection.middleware.mock";
 
 import app from "../../../../src/app";
 import request from "supertest";
@@ -7,8 +8,14 @@ import {  ContextKeys, PrefixedUrls, QueryParameters } from "../../../../src/con
 import { CompanyProfile } from "@companieshouse/api-sdk-node/dist/services/company-profile";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { PRESENTER_ACCOUNT_SESSION_KEY, PresenterSessionDetails } from "../../../../src/utils/session";
+import { getRequestWithCookie, setCookie } from "../../../helper/requests";
 
 describe("get confirm company tests", () => {
+
+    beforeEach(() => {
+        mockCsrfProtectionMiddleware.mockClear();
+    });
+
     it('Should show the company details when page rendered', async () => {
         mockSession();
 
@@ -30,8 +37,7 @@ describe("get confirm company tests", () => {
 
         mockGetCompanyProfile.mockResolvedValueOnce(companyProfileResource);
 
-        const response = await request(app)
-            .get(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`);
+        const response = await getRequestWithCookie(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`);
 
         expect(response.status).toBe(200);
         expect(response.text).toContain('COMPANY NAME');
@@ -43,8 +49,7 @@ describe("get confirm company tests", () => {
     it('Should show an error if no company number provided', async () => {
         mockSession();
 
-        const response = await request(app)
-            .get(`${PrefixedUrls.CONFIRM_COMPANY}`);
+        const response = await getRequestWithCookie(`${PrefixedUrls.CONFIRM_COMPANY}`);
 
         expect(response.status).toBe(500);
         expect(response.text).toContain('Sorry there is a problem with the service');
@@ -55,8 +60,7 @@ describe("get confirm company tests", () => {
 
         mockGetCompanyProfile.mockRejectedValueOnce(new Error('Error' as any));
 
-        const response = await request(app)
-            .get(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=00006400`);
+        const response = await getRequestWithCookie(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=00006400`);
 
         expect(response.status).toBe(500);
         expect(response.text).toContain('Sorry there is a problem with the service');
@@ -71,14 +75,19 @@ describe("get confirm company tests", () => {
             },
         });
 
-        const response = await request(app)
-            .get(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=00006400`);
+        const response = await getRequestWithCookie(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=00006400`);
 
         expect(response.status).toBe(500);
     });
 });
 
 describe('post company profile tests', () => {
+
+    beforeEach(() => {
+        mockCsrfProtectionMiddleware.mockClear();
+    });
+
+
     it('should set the company number in the session after post', async () => {
         mockSession();
 
@@ -102,7 +111,8 @@ describe('post company profile tests', () => {
         mockGetCompanyProfile.mockResolvedValueOnce(companyProfileResource);
 
         const response = await request(app)
-            .post(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`);
+            .post(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`)
+            .set("Cookie", setCookie());
 
 
         expect(response.status).toBe(302);
@@ -115,7 +125,8 @@ describe('post company profile tests', () => {
 
         const companyNumber = '00006400';
         const response = await request(app)
-            .post(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`);
+            .post(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`)
+            .set("Cookie", setCookie());
 
 
         expect(response.status).toBe(500);
@@ -143,13 +154,20 @@ describe('post company profile tests', () => {
         mockGetCompanyProfile.mockResolvedValueOnce(companyProfileResource);
 
         const response = await request(app)
-            .post(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`);
+            .post(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`)
+            .set("Cookie", setCookie());
 
         expect(response.status).toBe(500);
     });
 });
 
 describe("Test confirm company with different status in Welsh", () => {
+
+    beforeEach(() => {
+        mockCsrfProtectionMiddleware.mockClear();
+    });
+
+
     const companyStatusLanguageMap = new Map();
     companyStatusLanguageMap.set('active', 'Gweithredol');
     companyStatusLanguageMap.set('dissolved', 'Wedi&#39;i ddiddymu');
@@ -185,8 +203,7 @@ describe("Test confirm company with different status in Welsh", () => {
 
             mockGetCompanyProfile.mockResolvedValueOnce(companyProfileResource);
 
-            const response = await request(app)
-                .get(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}&lang=cy`);
+            const response = await getRequestWithCookie(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}&lang=cy`);
 
             expect(response.status).toBe(200);
             expect(response.text).toContain('COMPANY NAME');
@@ -215,8 +232,7 @@ describe("Test confirm company with different status in Welsh", () => {
 
         mockGetCompanyProfile.mockResolvedValueOnce(companyProfileResource);
 
-        const response = await request(app)
-            .get(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}&lang=cy`);
+        const response = await getRequestWithCookie(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}&lang=cy`);
 
         expect(response.status).toBe(200);
         expect(response.text).toContain('COMPANY NAME');
@@ -227,6 +243,12 @@ describe("Test confirm company with different status in Welsh", () => {
 });
 
 describe("Test confirm company with different incorporated month in Welsh", () => {
+
+    beforeEach(() => {
+        mockCsrfProtectionMiddleware.mockClear();
+    });
+
+
     const monthLanguageMap = new Map();
     monthLanguageMap.set('01', 'Ionawr');
     monthLanguageMap.set('02', 'Chwefror');
@@ -262,8 +284,7 @@ describe("Test confirm company with different incorporated month in Welsh", () =
 
             mockGetCompanyProfile.mockResolvedValueOnce(companyProfileResource);
 
-            const response = await request(app)
-                .get(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}&lang=cy`);
+            const response = await getRequestWithCookie(`${PrefixedUrls.CONFIRM_COMPANY}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}&lang=cy`);
 
             expect(response.status).toBe(200);
             expect(response.text).toContain('COMPANY NAME');

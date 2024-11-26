@@ -1,5 +1,6 @@
 import { mockSubmitPresenterAccountDetails } from "../../../mocks/mock.presenter.account.service.mock";
 import { session, mockSession } from "../../../mocks/session.middleware.mock";
+import mockCsrfProtectionMiddleware from "../../../mocks/csrf.protection.middleware.mock";
 
 import app from "../../../../src/app";
 import request from "supertest";
@@ -7,8 +8,13 @@ import { ContextKeys, ExternalUrls, PrefixedUrls } from "../../../../src/constan
 import { examplePresenterAccountDetails, examplePresenterAccountDetailsInternal, examplePresenterAccountDetailsInternalRegisteredFalse } from "../../../mocks/example.presenter.account.details.mock";
 
 import { success } from "@companieshouse/api-sdk-node/dist/services/result";
+import { getRequestWithCookie, setCookie } from "../../../helper/requests";
 
 describe("check details tests", () => {
+    beforeEach(() => {
+        mockCsrfProtectionMiddleware.mockClear();
+    });
+
     const changeButtonHtml = `a class="govuk-link" href="/presenter-account/enter-your-details"`;
 
     beforeEach(() => {
@@ -21,7 +27,7 @@ describe("check details tests", () => {
             examplePresenterAccountDetailsInternal
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+        const resp = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.status).toBe(200);
     });
@@ -32,7 +38,7 @@ describe("check details tests", () => {
             examplePresenterAccountDetails
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+        const resp = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.status).toBe(500);
     });
@@ -47,7 +53,7 @@ describe("check details tests", () => {
             missingName
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+        const resp = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.status).toBe(500);
     });
@@ -65,7 +71,7 @@ describe("check details tests", () => {
             missingForename
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+        const resp = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.status).toBe(500);
     });
@@ -83,7 +89,7 @@ describe("check details tests", () => {
             missingSurname
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+        const resp = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.status).toBe(500);
     });
@@ -98,7 +104,7 @@ describe("check details tests", () => {
             missingName
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+        const resp = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.status).toBe(500);
     });
@@ -114,7 +120,7 @@ describe("check details tests", () => {
             isRegisteredWithoutCompanyName
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+        const resp = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.status).toBe(500);
     });
@@ -130,7 +136,7 @@ describe("check details tests", () => {
             isRegisteredWithoutBusinessName
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+        const resp = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.status).toBe(500);
     });
@@ -141,8 +147,7 @@ describe("check details tests", () => {
             examplePresenterAccountDetailsInternal
         );
 
-        await request(app)
-            .get(PrefixedUrls.CHECK_DETAILS)
+        await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS)
             .expect(200)
             .expect('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
             .expect('Pragma', 'no-cache')
@@ -156,7 +161,7 @@ describe("check details tests", () => {
             examplePresenterAccountDetailsInternal
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+        const resp = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.text).toContain(
             "Check your answers before submitting your application"
@@ -169,7 +174,7 @@ describe("check details tests", () => {
             examplePresenterAccountDetailsInternal
         );
 
-        const response = await request(app).get(PrefixedUrls.CHECK_DETAILS + "?lang=cy");
+        const response = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS + "?lang=cy");
 
         expect(response.text).toContain("<title>Gwiriwch eich atebion cyn cyflwyno eich cais.</title>");
     });
@@ -180,7 +185,7 @@ describe("check details tests", () => {
             examplePresenterAccountDetailsInternal
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+        const resp = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.text).toContain(changeButtonHtml);
     });
@@ -191,7 +196,7 @@ describe("check details tests", () => {
             examplePresenterAccountDetailsInternal
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+        const resp = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.text).toContain(
             examplePresenterAccountDetailsInternal.address!.premises
@@ -235,7 +240,7 @@ describe("check details tests", () => {
             examplePresenterAccountDetailsInternal
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+        const resp = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.text).toContain(
             "Ydy"
@@ -252,7 +257,7 @@ describe("check details tests", () => {
             exampleNonRegisteredBusinessDetails
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+        const resp = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.text).toContain(
             exampleNonRegisteredBusinessDetails.address!.premises
@@ -298,7 +303,7 @@ describe("check details tests", () => {
             examplePresenterAccountDetailsInternal
         );
 
-        const resp = await request(app).get(PrefixedUrls.CHECK_DETAILS);
+        const resp = await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS);
 
         expect(resp.text).toContain(
             ExternalUrls.FEEDBACK
@@ -315,6 +320,7 @@ describe("check details tests", () => {
 
         await request(app)
             .post(PrefixedUrls.CHECK_DETAILS)
+            .set("Cookie", setCookie())
             .send(details)
             .expect(302)
             .expect("Location", PrefixedUrls.CONFIRMATION);
@@ -331,6 +337,7 @@ describe("check details tests", () => {
 
         await request(app)
             .post(PrefixedUrls.CHECK_DETAILS)
+            .set("Cookie", setCookie())
             .send(details)
             .expect(302)
             .expect("Location", PrefixedUrls.CONFIRMATION);
@@ -342,6 +349,7 @@ describe("check details tests", () => {
 
         await request(app)
             .post(PrefixedUrls.CHECK_DETAILS)
+            .set("Cookie", setCookie())
             .send(details)
             .expect(500);
     });
@@ -355,7 +363,8 @@ describe("check details tests", () => {
         mockSubmitPresenterAccountDetails.mockReturnValue(success(undefined));
 
         await request(app)
-            .post(PrefixedUrls.CHECK_DETAILS);
+            .post(PrefixedUrls.CHECK_DETAILS)
+            .set("Cookie", setCookie());
 
         expect(session.getExtraData[ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY]).toBe(undefined);
     });
@@ -368,6 +377,7 @@ describe("check details tests", () => {
 
         await request(app)
             .post(PrefixedUrls.CHECK_DETAILS)
+            .set("Cookie", setCookie())
             .send(details)
             .expect(500);
     });
@@ -380,8 +390,7 @@ describe("check details tests", () => {
             undefined
         );
 
-        await request(app)
-            .get(PrefixedUrls.CHECK_DETAILS)
+        await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS)
             .expect(302)
             .expect("Location", PrefixedUrls.HOME);
     });
@@ -396,8 +405,7 @@ describe("check details tests", () => {
 
         mockSubmitPresenterAccountDetails.mockReturnValue(success(undefined));
 
-        await request(app)
-            .get(PrefixedUrls.CHECK_DETAILS)
+        await getRequestWithCookie(PrefixedUrls.CHECK_DETAILS)
             .expect(302)
             .expect("Location", PrefixedUrls.HOME);
     });
