@@ -17,26 +17,18 @@ import { createLoggerMiddleware } from "@companieshouse/structured-logging-node"
 import { env } from "./config";
 import Redis from "ioredis";
 import { v4 as uuidv4 } from "uuid";
+import { assignCspNonce } from "./middleware/csp.nonce.middleware";
 
 const routerDispatch = (app: Application) => {
-
-    const nonce = uuidv4();
-
     const router = Router();
 
-    const redis = new Redis(env.CACHE_SERVER);
-    const sessionStore = new SessionStore(redis);
-    const csrfMiddlewareOptions = {
-        sessionStore,
-        enabled: true,
-        sessionCookieName: env.COOKIE_NAME
-    };
+    const sessionStore = setupSessionStore();
 
-    // Set nonce ids
-    app.use((req, res, next) => {
-        res.locals.cspNonce = nonce;
-        next();
-    });
+    const csrfMiddlewareOptions = setupCSRFOptions(sessionStore);
+
+    // Assign the nonce value to be accessible within views
+    const nonce = uuidv4();
+    app.use(assignCspNonce(nonce));
 
     app.use(servicePathPrefix, router);
     router.use(LocalesMiddleware());
@@ -60,6 +52,16 @@ const routerDispatch = (app: Application) => {
     router.use(helmet(prepareCSPConfig(nonce)));
     router.use(userAuthRegex, validateUserMiddleware);
     router.use(localeMiddleware);
+    // Pages that are accessible after auth has taken place
+    afterAuthPages(router);
+
+    app.use(commonTemplateVariablesMiddleware);
+
+    errorPageHandlers(app);
+
+};
+
+const afterAuthPages = (router: Router) => {
     router.use(Urls.IS_BUSINESS_REGISTERED, IsBusinessRegisteredRouter);
     router.use(Urls.COMPANY_SEARCH, CompanySearchRouter);
     router.use(Urls.CONFIRM_COMPANY, ConfirmCompanyRouter);
@@ -67,12 +69,30 @@ const routerDispatch = (app: Application) => {
     router.use(Urls.ENTER_YOUR_DETAILS, EnterYourDetailsRouter);
     router.use(Urls.CHECK_DETAILS, CheckDetailsRouter);
     router.use(Urls.CONFIRMATION, ConfirmationRouter);
+};
 
-    app.use(commonTemplateVariablesMiddleware);
+const setupSessionStore = () => {
+    const redis = new Redis(env.CACHE_SERVER);
+    const sessionStore = new SessionStore(redis);
+    return sessionStore;
+};
 
+const setupCSRFOptions = (sessionStore: SessionStore) => {
+    return {
+        sessionStore,
+        enabled: true,
+        sessionCookieName: env.COOKIE_NAME
+    };
+};
+
+const errorPageHandlers = (app: Application) => {
     app.use(csrfErrorHandler);
     app.use(errorHandler);
     app.use("*", pageNotFound);
 };
 
+
 export default routerDispatch;
+
+
+
