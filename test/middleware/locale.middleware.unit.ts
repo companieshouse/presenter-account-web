@@ -1,9 +1,9 @@
 import { session } from "../mocks/session.middleware.mock";
+import mockCsrfProtectionMiddleware from "../mocks/csrf.protection.middleware.mock";
 
-import request from "supertest";
-import app from "../../src/app";
 import { examplePresenterAccountDetails } from "../mocks/example.presenter.account.details.mock";
 import { ContextKeys, PrefixedUrls } from "../../src/constants";
+import { getRequestWithCookie } from "../helper/requests";
 
 const CHOICE_EN = "?lang=en";
 const CHOICE_CY = "?lang=cy";
@@ -12,14 +12,21 @@ const CHOICE_CY_ALSO = "?foo=bar&lang=cy";
 const EN_NEW_SERVICE_TEXT = "This is a new service";
 const CY_NEW_SERVICE_TEXT = "Mae hwn yn wasanaeth newydd";
 
+
+
 describe("Locale middleware test", () => {
+
+    beforeEach(() => {
+        mockCsrfProtectionMiddleware.mockClear();
+    });
 
     test("If lang is not set to either en or cy. Default to English", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
-        const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS);
+
+        const resp = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS);
 
         expect(resp.text).toContain(EN_NEW_SERVICE_TEXT);
         expect(resp.status).toBe(200);
@@ -31,7 +38,9 @@ describe("Locale middleware test", () => {
             examplePresenterAccountDetails
         );
 
-        const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_EN);
+
+
+        const resp = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_EN);
 
         expect(resp.text).toContain(EN_NEW_SERVICE_TEXT);
         expect(resp.status).toBe(200);
@@ -43,7 +52,9 @@ describe("Locale middleware test", () => {
             examplePresenterAccountDetails
         );
 
-        const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_CY);
+
+
+        const resp = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_CY);
 
         expect(resp.text).toContain(CY_NEW_SERVICE_TEXT);
         expect(resp.status).toBe(200);
@@ -54,7 +65,9 @@ describe("Locale middleware test", () => {
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
-        const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_CY_ALSO);
+
+
+        const resp = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_CY_ALSO);
 
         expect(resp.text).toContain(CY_NEW_SERVICE_TEXT);
         expect(resp.status).toBe(200);
@@ -70,7 +83,9 @@ describe("Locale middleware test", () => {
                     ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
                     examplePresenterAccountDetails
                 );
-                const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_CY_ALSO);
+
+
+                const resp = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_CY_ALSO);
 
                 expect(resp.text).toContain(EN_NEW_SERVICE_TEXT);
                 expect(resp.status).toBe(200);
@@ -89,7 +104,9 @@ describe("Locale middleware test", () => {
                     ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
                     examplePresenterAccountDetails
                 );
-                const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_EN);
+
+
+                const resp = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_EN);
 
                 expect(resp.text).toContain(EN_NEW_SERVICE_TEXT);
                 expect(resp.status).toBe(200);
@@ -109,7 +126,9 @@ describe("Locale middleware test", () => {
                     ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
                     examplePresenterAccountDetails
                 );
-                const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_FOO);
+
+
+                const resp = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_FOO);
 
                 expect(resp.text).toContain(EN_NEW_SERVICE_TEXT);
                 expect(resp.status).toBe(200);
@@ -129,7 +148,9 @@ describe("Locale middleware test", () => {
                     ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
                     examplePresenterAccountDetails
                 );
-                const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_EN);
+
+
+                const resp = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS + CHOICE_EN);
 
                 expect(resp.text).toContain(EN_NEW_SERVICE_TEXT);
                 expect(resp.status).toBe(200);

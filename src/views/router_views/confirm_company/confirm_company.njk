@@ -1,4 +1,5 @@
 {% extends "layouts/default.njk" %}
+{% from "web-security-node/components/csrf-token-input/macro.njk" import csrfTokenInput %}
 
 {% block main_content %}
 
@@ -36,6 +37,11 @@
     </dl>
 
     <form method="POST">
+        {{
+        csrfTokenInput({
+            csrfToken: csrfToken
+        })
+        }}
         <input type="hidden" name="company_number" value="{{ companyNumber }}">
         <button id="confirm-company-button" type="submit" class="govuk-button" data-module="govuk-button" data-event-id="presenter-account-is-business-registered-continue">
             {{ i18n.confirm_button }}
