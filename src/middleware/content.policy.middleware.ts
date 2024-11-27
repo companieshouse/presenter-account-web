@@ -5,6 +5,7 @@ export function prepareCSPConfig(nonce: string): HelmetOptions{
     const CDN = env.CDN_HOST;
     const SELF = `'self'`;
     const NONCE = `'nonce-${nonce}'`;
+    const PIWIK_URL = env.PIWIK_URL;
     const ONE_YEAR_SECONDS = 31536000;
 
     return {
@@ -15,14 +16,8 @@ export function prepareCSPConfig(nonce: string): HelmetOptions{
                 fontSrc: [CDN],
                 imgSrc: [CDN],
                 styleSrc: [NONCE, CDN],
-                connectSrc: [SELF],
-                scriptSrc: [
-                    NONCE,
-                    CDN
-                ],
-                scriptSrcElem: [
-                    CDN
-                ],
+                connectSrc: [SELF, CDN, PIWIK_URL],
+                scriptSrc: [NONCE, CDN, PIWIK_URL],
                 objectSrc: [`'none'`]
             }
         },
