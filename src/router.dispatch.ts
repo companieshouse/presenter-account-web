@@ -73,8 +73,7 @@ const afterAuthPages = (router: Router) => {
 
 const setupSessionStore = () => {
     const redis = new Redis(env.CACHE_SERVER);
-    const sessionStore = new SessionStore(redis);
-    return sessionStore;
+    return new SessionStore(redis);
 };
 
 const setupCSRFOptions = (sessionStore: SessionStore) => {
