@@ -13,11 +13,9 @@ export let session = new Session();
 
 export const mockSession = () => session = getSessionRequest();
 
-mockSessionMiddleware.mockImplementation((_) => {
-    return (req: Request, res: Response, next: NextFunction) => {
-        req.session = session;
-        req.session.data.extra_data["payment-nonce"] = "123456";
-        next();
-    };
+// tell the mock what to return
+mockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
+    req.session = session;
+    req.session.data.extra_data["payment-nonce"] = "123456";
+    next();
 });
-
