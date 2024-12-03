@@ -1,5 +1,4 @@
 {% extends "layouts/default.njk" %}
-{% from "web-security-node/components/csrf-token-input/macro.njk" import csrfTokenInput %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
@@ -8,11 +7,6 @@
 {% block main_content %}
 
         <form class="form" action="{{Urls.ENTER_YOUR_DETAILS}}?lang={{lang}}" method="POST">
-            {{
-                csrfTokenInput({
-                    csrfToken: csrfToken
-                })
-            }}
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
                     <h1 class="govuk-fieldset__heading">

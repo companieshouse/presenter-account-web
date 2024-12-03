@@ -1,5 +1,4 @@
 {% extends "layouts/default.njk" %}
-{% from "web-security-node/components/csrf-token-input/macro.njk" import csrfTokenInput %}
 
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% set contact_name %}
@@ -122,11 +121,6 @@
     }) }}
 
     <form action="{{Urls.CHECK_DETAILS}}" method="POST">
-        {{
-            csrfTokenInput({
-                csrfToken: csrfToken
-            })
-        }}
         <button class="govuk-button" data-module="govuk-button" type="submit" id="submit" data-event-id="presenter-account-check-details-submit">
             {{i18n.submit}}
         </button>

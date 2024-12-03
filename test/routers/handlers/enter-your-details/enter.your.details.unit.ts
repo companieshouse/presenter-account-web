@@ -1,5 +1,4 @@
 import { session } from "../../../mocks/session.middleware.mock";
-import mockCsrfProtectionMiddleware from "../../../mocks/csrf.protection.middleware.mock";
 
 import app from "../../../../src/app";
 import request from "supertest";
@@ -7,7 +6,6 @@ import { ContextKeys, ExternalUrls, PrefixedUrls } from "../../../../src/constan
 import { examplePresenterAccountDetails } from "../../../mocks/example.presenter.account.details.mock";
 import fs from "fs";
 import path from "path";
-import { getRequestWithCookie, setCookie } from "../../../helper/requests";
 
 let details;
 const fortyCharacters = "90476895878092274478155001661579qwertyui";
@@ -43,12 +41,8 @@ describe("validate form fields", () => {
         LAST_NAME_INVALID_CHARACTER = "Last name must contain only valid characters"
     }
 
-    beforeEach(() => {
-        mockCsrfProtectionMiddleware.mockClear();
-    });
-
     it("should throw an error when no session", async () => {
-        await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS).expect(500);
+        await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS).expect(500);
     });
 
     it(`should throw error when session ${ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY} not set`, async () => {
@@ -56,8 +50,8 @@ describe("validate form fields", () => {
             'some random session',
             examplePresenterAccountDetails
         );
-        const resp = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS);
-        expect(resp.statusCode).toEqual(500);
+
+        await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS).expect(500);
     });
 
     it(`should render the enter your details page when session ${ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY} set`, async () => {
@@ -66,7 +60,7 @@ describe("validate form fields", () => {
             examplePresenterAccountDetails
         );
 
-        const resp = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS).expect(200);
+        const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS).expect(200);
         expect(resp.text).toContain("What is your correspondence address?");
     });
 
@@ -81,7 +75,7 @@ describe("validate form fields", () => {
         const translationsWithoutErrors = JSON.parse(data);
         delete translationsWithoutErrors.enter_your_details_validation_errors;
 
-        const resp = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy").expect(200);
+        const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy").expect(200);
         Object.entries(translationsWithoutErrors).forEach(translation => expect(resp.text.replace(/&#39;/g, "'")).toContain(translation[1]));
     });
 
@@ -91,7 +85,8 @@ describe("validate form fields", () => {
             examplePresenterAccountDetails
         );
 
-        await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS)
+        await request(app)
+            .get(PrefixedUrls.ENTER_YOUR_DETAILS)
             .expect(200)
             .expect('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
             .expect('Pragma', 'no-cache')
@@ -106,10 +101,8 @@ describe("validate form fields", () => {
             examplePresenterAccountDetails
         );
 
-        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS)
-            .set("Cookie", setCookie())
-            .send({
-                country: "choose" }).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send({
+            country: "choose" }).expect(200);
 
         expect(response.text).toContain(ErrorMessagesEnglish.PREMISES_BLANK);
         expect(response.text).toContain(ErrorMessagesEnglish.ADDRESS_LINE_1_BLANK);
@@ -127,17 +120,15 @@ describe("validate form fields", () => {
             examplePresenterAccountDetails
         );
         const testLength = fortyCharacters + "x";
-        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS)
-            .set("Cookie", setCookie())
-            .send({
-                ...examplePresenterAccountDetails.address,
-                premises: testLength,
-                addressLine1: testLength,
-                addressLine2: testLength,
-                postCode: testLength.substring(0, 11),
-                townOrCity: testLength,
-                forename: testLength.slice(0, 33),
-                surname: testLength }).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send({
+            ...examplePresenterAccountDetails.address,
+            premises: testLength,
+            addressLine1: testLength,
+            addressLine2: testLength,
+            postCode: testLength.substring(0, 11),
+            townOrCity: testLength,
+            forename: testLength.slice(0, 33),
+            surname: testLength }).expect(200);
 
         expect(response.text).toContain(ErrorMessagesEnglish.PREMISES_LENGTH);
         expect(response.text).toContain(ErrorMessagesEnglish.ADDRESS_LINE_1_LENGTH);
@@ -153,17 +144,15 @@ describe("validate form fields", () => {
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
-        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS)
-            .set("Cookie", setCookie())
-            .send({
-                ...examplePresenterAccountDetails.address,
-                premises: testLength,
-                addressLine1: testLength,
-                addressLine2: testLength,
-                postCode: testLength2,
-                townOrCity: testLength,
-                forename: testLength3,
-                surname: testLength }).expect(302);
+        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send({
+            ...examplePresenterAccountDetails.address,
+            premises: testLength,
+            addressLine1: testLength,
+            addressLine2: testLength,
+            postCode: testLength2,
+            townOrCity: testLength,
+            forename: testLength3,
+            surname: testLength }).expect(302);
 
         expect(response.text).not.toContain(ErrorMessagesEnglish.PREMISES_LENGTH);
         expect(response.text).not.toContain(ErrorMessagesEnglish.ADDRESS_LINE_1_LENGTH);
@@ -179,18 +168,16 @@ describe("validate form fields", () => {
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
-        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en")
-            .set("Cookie", setCookie())
-            .send({
-                ...examplePresenterAccountDetails.address,
-                premises: "§§",
-                postCode: "§§",
-                townOrCity: "§§",
-                addressLine1: "±±",
-                addressLine2: "±±",
-                forename: "§§",
-                surname: "§§"
-            }).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en").send({
+            ...examplePresenterAccountDetails.address,
+            premises: "§§",
+            postCode: "§§",
+            townOrCity: "§§",
+            addressLine1: "±±",
+            addressLine2: "±±",
+            forename: "§§",
+            surname: "§§"
+        }).expect(200);
 
         expect(response.text).toContain(ErrorMessagesEnglish.PREMISES_INVALID_CHARACTER);
         expect(response.text).toContain(ErrorMessagesEnglish.ADDRESS_LINE_1_INVALID_CHARACTER);
@@ -211,13 +198,12 @@ describe("validate form fields", () => {
         details = { ...examplePresenterAccountDetails };
 
         await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS)
-            .set("Cookie", setCookie())
             .query(details.address).send({ ...details.address, ...details.name }).expect(302)
             .expect("Location", PrefixedUrls.CHECK_DETAILS);
     });
 
     it("Should display the correct feeback url for enter_your_details page", async () => {
-        const resp = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS);
+        const resp = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS);
         expect(resp.text).toContain(
             ExternalUrls.FEEDBACK
         );
@@ -251,16 +237,14 @@ describe("Validate form fields with Welsh display", () => {
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
         );
-        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS)
-            .set("Cookie", setCookie())
-            .send({
-                ...examplePresenterAccountDetails.address,
-                premises: testLength,
-                addressLine1: testLength,
-                addressLine2: testLength,
-                postCode: testLength2,
-                townOrCity: testLength,
-                ...examplePresenterAccountDetails.name }).expect(302);
+        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS).send({
+            ...examplePresenterAccountDetails.address,
+            premises: testLength,
+            addressLine1: testLength,
+            addressLine2: testLength,
+            postCode: testLength2,
+            townOrCity: testLength,
+            ...examplePresenterAccountDetails.name }).expect(302);
 
         expect(response.text).not.toContain(ErrorMessagesWelsh.PREMISES_LENGTH);
         expect(response.text).not.toContain(ErrorMessagesWelsh.ADDRESS_LINE_1_LENGTH);
@@ -275,15 +259,13 @@ describe("Validate form fields with Welsh display", () => {
             examplePresenterAccountDetails
         );
         const testLength = fortyCharacters + "x";
-        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy")
-            .set("Cookie", setCookie())
-            .send({
-                ...examplePresenterAccountDetails.address,
-                premises: testLength,
-                addressLine1: testLength,
-                addressLine2: testLength,
-                postCode: testLength.substring(0, 11),
-                townOrCity: testLength }).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy").send({
+            ...examplePresenterAccountDetails.address,
+            premises: testLength,
+            addressLine1: testLength,
+            addressLine2: testLength,
+            postCode: testLength.substring(0, 11),
+            townOrCity: testLength }).expect(200);
 
         expect(response.text).toContain(ErrorMessagesWelsh.PREMISES_LENGTH);
         expect(response.text).toContain(ErrorMessagesWelsh.ADDRESS_LINE_1_LENGTH);
@@ -298,10 +280,8 @@ describe("Validate form fields with Welsh display", () => {
             examplePresenterAccountDetails
         );
 
-        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy")
-            .set("Cookie", setCookie())
-            .send({
-                country: "choose" }).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy").send({
+            country: "choose" }).expect(200);
 
         expect(response.text).toContain(ErrorMessagesWelsh.PREMISES_BLANK);
         expect(response.text).toContain(ErrorMessagesWelsh.ADDRESS_LINE_1_BLANK);
@@ -316,10 +296,8 @@ describe("Validate form fields with Welsh display", () => {
             examplePresenterAccountDetails
         );
 
-        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy")
-            .set("Cookie", setCookie())
-            .send({
-                country: "choose" }).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy").send({
+            country: "choose" }).expect(200);
 
         expect(response.text).toContain("Mae yna broblem");
     });
@@ -330,7 +308,7 @@ describe("Validate form fields with Welsh display", () => {
             examplePresenterAccountDetails
         );
 
-        const response = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy");
+        const response = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=cy");
 
         expect(response.text).toContain("<title>Beth yw eich cyfeiriad gohebiaeth?</title>");
     });
@@ -342,7 +320,7 @@ describe("Validate form fields with Welsh display", () => {
                 examplePresenterAccountDetails
             );
 
-            const response = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en");
+            const response = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en");
 
             expect(response.text).toContain("/confirm-company?companyNumber=007");
             expect(response.text).not.toContain("/enter-business-name");
@@ -355,7 +333,7 @@ describe("Validate form fields with Welsh display", () => {
                 details
             );
 
-            const response = await getRequestWithCookie(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en");
+            const response = await request(app).get(PrefixedUrls.ENTER_YOUR_DETAILS + "?lang=en");
 
             expect(response.text).not.toContain("/confirm-company?companyNumber=007");
             expect(response.text).toContain("/enter-business-name");
