@@ -1,13 +1,19 @@
 import { session } from "../../../mocks/session.middleware.mock";
+import mockCsrfProtectionMiddleware from "../../../mocks/csrf.protection.middleware.mock";
 
 import app from "../../../../src/app";
 import request from "supertest";
 import { ContextKeys, ExternalUrls, PrefixedUrls } from "../../../../src/constants";
 import { paDetailsWithIsBusinessRegisteredFalse, paDetailsWithIsBusinessRegisteredTrue } from "../../../mocks/example.presenter.account.details.mock";
+import { getRequestWithCookie, setCookie } from "../../../helper/requests";
 
 const eightyCharacters = "éêëēĕėęěĝģğġĥħìíîïĩīĭįĵķĺļľŀłñńņňŋòóôõöøōŏőǿœŕŗřśŝşšţťŧùúûüũūŭůűųŵẁẃẅỳýŷÿźżž]*$/";
 
 describe("validate form fields", () => {
+
+    beforeEach(() => {
+        mockCsrfProtectionMiddleware.mockClear();
+    });
 
     enum ErrorMessagesEnglish {
         BUSINESS_NAME_BLANK = "Enter the business name.",
@@ -20,7 +26,7 @@ describe("validate form fields", () => {
     }
 
     it("should throw an error when no session", async () => {
-        const response = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME).expect(500);
+        const response = await getRequestWithCookie(PrefixedUrls.ENTER_BUSINESS_NAME).expect(500);
         expect(response.text).not.toContain("What is the name of the business?");
         expect(response.text).toContain("Sorry there is a problem with the service");
     });
@@ -31,7 +37,7 @@ describe("validate form fields", () => {
             paDetailsWithIsBusinessRegisteredFalse
         );
 
-        await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME).expect(500);
+        await getRequestWithCookie(PrefixedUrls.ENTER_BUSINESS_NAME).expect(500);
     });
 
     it(`should render the enter business name page when session ${ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY} set`, async () => {
@@ -41,7 +47,7 @@ describe("validate form fields", () => {
             paDetailsWithIsBusinessRegisteredFalse
         );
 
-        const resp = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME).expect(200);
+        const resp = await getRequestWithCookie(PrefixedUrls.ENTER_BUSINESS_NAME).expect(200);
         expect(resp.text).toContain("What is the name of the business?");
     });
 
@@ -51,7 +57,7 @@ describe("validate form fields", () => {
             paDetailsWithIsBusinessRegisteredFalse
         );
 
-        const resp = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=en").expect(200);
+        const resp = await getRequestWithCookie(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=en").expect(200);
         expect(resp.text).toContain(ScreenFieldsEnglish.ENTER_BUSINESS_NAME_TITLE);
         expect(resp.text).toContain(ScreenFieldsEnglish.ENTER_BUSINESS_NAME_TITLE_INFO);
     });
@@ -62,8 +68,7 @@ describe("validate form fields", () => {
             paDetailsWithIsBusinessRegisteredFalse
         );
 
-        await request(app)
-            .get(PrefixedUrls.ENTER_BUSINESS_NAME)
+        await getRequestWithCookie(PrefixedUrls.ENTER_BUSINESS_NAME)
             .expect(200)
             .expect('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
             .expect('Pragma', 'no-cache')
@@ -78,7 +83,8 @@ describe("validate form fields", () => {
             paDetailsWithIsBusinessRegisteredFalse
         );
 
-        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredFalse).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredFalse)
+            .set("Cookie", setCookie()).expect(200);
 
         expect(response.text).toContain(ErrorMessagesEnglish.BUSINESS_NAME_BLANK);
     });
@@ -90,7 +96,8 @@ describe("validate form fields", () => {
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             paDetailsWithIsBusinessRegisteredFalse
         );
-        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredFalse).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredFalse)
+            .set("Cookie", setCookie()).expect(200);
 
         expect(response.text).toContain(ErrorMessagesEnglish.BUSINESS_NAME_LENGTH);
         expect(response.text).not.toContain(ErrorMessagesEnglish.BUSINESS_NAME_INVALID_CHARACTER);
@@ -103,7 +110,8 @@ describe("validate form fields", () => {
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             paDetailsWithIsBusinessRegisteredFalse
         );
-        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredFalse).expect(302).expect("Location", PrefixedUrls.ENTER_YOUR_DETAILS);
+        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredFalse)
+            .set("Cookie", setCookie()).expect(302).expect("Location", PrefixedUrls.ENTER_YOUR_DETAILS);
 
         expect(response.text).not.toContain(ErrorMessagesEnglish.BUSINESS_NAME_LENGTH);
         expect(response.text).not.toContain(ErrorMessagesEnglish.BUSINESS_NAME_INVALID_CHARACTER);
@@ -117,7 +125,8 @@ describe("validate form fields", () => {
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             paDetailsWithIsBusinessRegisteredFalse
         );
-        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredFalse).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredFalse)
+            .set("Cookie", setCookie()).expect(200);
 
         expect(response.text).toContain(ErrorMessagesEnglish.BUSINESS_NAME_INVALID_CHARACTER);
         expect(response.text).not.toContain(ErrorMessagesEnglish.BUSINESS_NAME_LENGTH);
@@ -125,7 +134,7 @@ describe("validate form fields", () => {
     });
 
     it("Should display the correct feeback url for enter_business_name page", async () => {
-        const resp = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME);
+        const resp = await getRequestWithCookie(PrefixedUrls.ENTER_BUSINESS_NAME);
         expect(resp.text).toContain(
             ExternalUrls.FEEDBACK
         );
@@ -137,7 +146,7 @@ describe("validate form fields", () => {
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             paDetailsWithIsBusinessRegisteredTrue
         );
-        const response = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredTrue).expect(500);
+        const response = await getRequestWithCookie(PrefixedUrls.ENTER_BUSINESS_NAME).send(paDetailsWithIsBusinessRegisteredTrue).expect(500);
         expect(response.text).not.toContain(ScreenFieldsEnglish.ENTER_BUSINESS_NAME_TITLE);
         expect(response.text).not.toContain(ScreenFieldsEnglish.ENTER_BUSINESS_NAME_TITLE_INFO);
     });
@@ -160,7 +169,8 @@ describe("Validate form fields with Welsh display", () => {
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             paDetailsWithIsBusinessRegisteredFalse
         );
-        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy").send(paDetailsWithIsBusinessRegisteredFalse).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy").send(paDetailsWithIsBusinessRegisteredFalse)
+            .set("Cookie", setCookie()).expect(200);
 
         expect(response.text).toContain(ErrorMessagesWelsh.BUSINESS_NAME_LENGTH);
     });
@@ -172,7 +182,9 @@ describe("Validate form fields with Welsh display", () => {
             paDetailsWithIsBusinessRegisteredFalse
         );
 
-        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy").send(paDetailsWithIsBusinessRegisteredFalse).expect(200);
+        const response = await request(app).post(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy")
+            .send(paDetailsWithIsBusinessRegisteredFalse).expect(200)
+            .set("Cookie", setCookie());
 
         expect(response.text).toContain(ErrorMessagesWelsh.BUSINESS_NAME_BLANK);
     });
@@ -184,7 +196,7 @@ describe("Validate form fields with Welsh display", () => {
             paDetailsWithIsBusinessRegisteredFalse
         );
 
-        const resp = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy").expect(200);
+        const resp = await getRequestWithCookie(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy").expect(200);
         expect(resp.text).toContain(ScreenFieldsWelsh.ENTER_BUSINESS_NAME_TITLE);
         expect(resp.text).toContain(ScreenFieldsWelsh.ENTER_BUSINESS_NAME_TITLE_INFO);
     });
@@ -195,7 +207,7 @@ describe("Validate form fields with Welsh display", () => {
             paDetailsWithIsBusinessRegisteredFalse
         );
 
-        const response = await request(app).get(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy");
+        const response = await getRequestWithCookie(PrefixedUrls.ENTER_BUSINESS_NAME + "?lang=cy");
 
         expect(response.text).toContain(`<title>${ScreenFieldsWelsh.ENTER_BUSINESS_NAME_TITLE}</title>`);
     });
