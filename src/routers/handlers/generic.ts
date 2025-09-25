@@ -44,7 +44,7 @@ export abstract class GenericHandler<T extends BaseViewData> {
         this.viewData = structuredClone(defaultBaseViewData) as T;
     }
 
-    processHandlerException (err: any): Object {
+    processHandlerException (err: any): object {
         if (err.name === "VALIDATION_ERRORS") {
             return err.stack;
         }

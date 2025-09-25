@@ -7,7 +7,7 @@ type JSONValue =
     // eslint-disable-next-line no-use-before-define
     | JSONArray;
 
-interface JSONArray extends Array<JSONValue> { }
+interface JSONArray extends Array<JSONValue> {} // eslint-disable-line
 
 export interface JSONObject {
     [x: string]: JSONValue;

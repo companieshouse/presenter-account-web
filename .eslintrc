@@ -1,17 +1,26 @@
 {
-    "ignorePatterns": ["views/", "node_modules/"],
-    "parserOptions": {
-        "ecmaVersion": 11,
-        "sourceType": "module",
-        "ecmaFeatures": {}
+    "env": {
+        "node": true,
+        "commonjs": true,
+        "jest": true,
+        "es2020": true
     },
-    "extends": ["eslint:recommended",
-                "plugin:@typescript-eslint/eslint-recommended",
-                "plugin:@typescript-eslint/recommended"],
+    "ignorePatterns": ["views/", "node_modules/"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
     "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
     "overrides": [
-         {
-            "files": ["*.test.ts"],
+        {
+            "files": ["*.unit.ts"],
             "rules": {
                 "no-unused-expressions": "off"
             }
@@ -28,11 +37,6 @@
                 "argsIgnorePattern": "^_"
             }
         ],
-        "@typescript-eslint/semi": [
-            "error",
-            "always"
-        ],
-        "@typescript-eslint/type-annotation-spacing": "error",
         "arrow-spacing": "error",
         "brace-style": [
             "error",
@@ -106,14 +110,5 @@
                 ]
             }
         ]
-    },
-    "plugins": [
-        "@typescript-eslint"
-    ],
-    "env": {
-        "node": true,
-        "commonjs": true,
-        "jest": true,
-        "es2020": true
     }
 }
