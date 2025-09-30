@@ -4,15 +4,12 @@ import { BaseViewData, GenericHandler, ViewModel } from "../generic";
 import { PrefixedUrls } from "../../../constants";
 import { getLocalesField } from "../../../utils/localise";
 
-interface ConfirmationViewData extends BaseViewData {
-}
 
-
-export class ConfirmationHandler extends GenericHandler<ConfirmationViewData> {
+export class ConfirmationHandler extends GenericHandler<BaseViewData> {
     public static templatePath = "router_views/confirmation/confirmation";
 
 
-    public getViewData(req: Request): ConfirmationViewData {
+    public getViewData(req: Request): BaseViewData {
         const baseViewData = super.getViewData(req);
 
         return {
@@ -24,7 +21,7 @@ export class ConfirmationHandler extends GenericHandler<ConfirmationViewData> {
     }
 
 
-    public execute (req: Request, _response: Response): ViewModel<ConfirmationViewData> {
+    public execute (req: Request, _response: Response): ViewModel<BaseViewData> {
         logger.info(`GET request to serve the confirmation screen`);
         return {
             templatePath: ConfirmationHandler.templatePath,

@@ -27,6 +27,6 @@ describe("Test CSRF Error Handler", () => {
 
         const error: Error = new CsrfError();
         csrfErrorHandler(error, mockRequest, mockResponse, mockNext);
-        expect(mockResponse.status(403)).toHaveBeenCalled;
+        expect(mockResponse.status).toHaveBeenCalledWith(403);
     });
 });

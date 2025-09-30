@@ -120,7 +120,7 @@ export class ConfirmCompanyHandler extends GenericHandler<ConfirmCompanyViewData
         setPresenterAccountDetails(req, { ...presenterAccountDetails, companyName });
     }
 
-    private appendCompanyNumberQuery(url: String, req: Request) {
+    private appendCompanyNumberQuery(url: string, req: Request) {
         const companyNumber = this.getCompanyNumberFromRequest(req);
         return `${url}?${QueryParameters.COMPANY_NUMBER}=${companyNumber}`;
     }

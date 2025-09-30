@@ -26,8 +26,8 @@ export function requirePresenterAccountDetailsMiddleware(req: Request, res: Resp
 
         // Presenter account details are in session and are correct type.
         next();
-    } catch (error) {
-        logger.error(`Presenter account detaails in session are of incorrect type. Clearing details and redirecting to the home spage for a new submission.`);
+    } catch (error) {  // eslint-disable-line
+        logger.error(`Presenter account details in session are of incorrect type. Clearing details and redirecting to the home page for a new submission.`);
         cleanSession(req);
         return res.redirect(pageIfDetailsAreIncorrect);
     }
