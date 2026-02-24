@@ -36,7 +36,7 @@ describe("confirmation tests", () => {
         );
     });
 
-    it("should translate page title to Welsh",  async () => {
+    it("should translate page title to Welsh", async () => {
 
         const response = await getRequestWithCookie(PrefixedUrls.CONFIRMATION + "?lang=cy");
 

@@ -99,7 +99,7 @@ describe("validate form fields", () => {
             .expect('Surrogate-Control', 'no-store');
     });
 
-    it("should display errors for missing mandatory fields",  async () => {
+    it("should display errors for missing mandatory fields", async () => {
         session.deleteExtraData("lang");
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
@@ -120,7 +120,7 @@ describe("validate form fields", () => {
         expect(response.text).toContain(ErrorMessagesEnglish.LAST_NAME_BLANK);
     });
 
-    it("should display errors for fields that go above max length",  async () => {
+    it("should display errors for fields that go above max length", async () => {
         session.setExtraData("lang", "en");
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
@@ -148,7 +148,7 @@ describe("validate form fields", () => {
         expect(response.text).toContain(ErrorMessagesEnglish.LAST_NAME_LENGTH);
     });
 
-    it.each([[fortyCharacters.slice(0, 39), fortyCharacters.slice(0, 9), fortyCharacters.slice(0, 31)], ["x", "y", "z"], [fortyCharacters, fortyCharacters.substring(0, 10), fortyCharacters.slice(0, 32)]])("should not display errors for fields that are beneath or equal to max length",  async (testLength: string, testLength2: string, testLength3: string) => {
+    it.each([[fortyCharacters.slice(0, 39), fortyCharacters.slice(0, 9), fortyCharacters.slice(0, 31)], ["x", "y", "z"], [fortyCharacters, fortyCharacters.substring(0, 10), fortyCharacters.slice(0, 32)]])("should not display errors for fields that are beneath or equal to max length", async (testLength: string, testLength2: string, testLength3: string) => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
@@ -202,7 +202,7 @@ describe("validate form fields", () => {
 
     });
 
-    it("should redirect when no errors displayed",  async () => {
+    it("should redirect when no errors displayed", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
@@ -246,7 +246,7 @@ describe("Validate form fields with Welsh display", () => {
         POST_CODE_INVALID_CHARACTER = "Rhaid i&#39;r &#39; â chymeriadau dilys yn unig"
     }
 
-    it.each([[fortyCharacters.slice(0, 20), fortyCharacters.slice(0, 5)], ["x", "y"], [fortyCharacters, fortyCharacters.substring(0, 10)]])("should not display errors for fields that are beneath or equal to max length for Welsh ",  async (testLength: string, testLength2: string) => {
+    it.each([[fortyCharacters.slice(0, 20), fortyCharacters.slice(0, 5)], ["x", "y"], [fortyCharacters, fortyCharacters.substring(0, 10)]])("should not display errors for fields that are beneath or equal to max length for Welsh ", async (testLength: string, testLength2: string) => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
@@ -269,7 +269,7 @@ describe("Validate form fields with Welsh display", () => {
         expect(response.text).not.toContain(ErrorMessagesWelsh.TOWN_OR_CITY_LENGTH);
     });
 
-    it("should display Welsh errors for fields that go above max length",  async () => {
+    it("should display Welsh errors for fields that go above max length", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
@@ -292,7 +292,7 @@ describe("Validate form fields with Welsh display", () => {
         expect(response.text).toContain(ErrorMessagesWelsh.TOWN_OR_CITY_LENGTH);
     });
 
-    it("should display Welsh errors for missing mandatory fields",  async () => {
+    it("should display Welsh errors for missing mandatory fields", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
@@ -310,7 +310,7 @@ describe("Validate form fields with Welsh display", () => {
         expect(response.text).toContain(ErrorMessagesWelsh.COUNTRY_BLANK);
     });
 
-    it("should display Welsh error title",  async () => {
+    it("should display Welsh error title", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails
@@ -324,7 +324,7 @@ describe("Validate form fields with Welsh display", () => {
         expect(response.text).toContain("Mae yna broblem");
     });
 
-    it("should translate page title to Welsh",  async () => {
+    it("should translate page title to Welsh", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetails

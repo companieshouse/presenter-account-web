@@ -168,7 +168,7 @@ describe("check details tests", () => {
         );
     });
 
-    it("should translate page title to Welsh",  async () => {
+    it("should translate page title to Welsh", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             examplePresenterAccountDetailsInternal
