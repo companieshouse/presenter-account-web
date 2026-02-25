@@ -4,7 +4,7 @@ import mockCsrfProtectionMiddleware from "../../../mocks/csrf.protection.middlew
 
 import app from "../../../../src/app";
 import request from "supertest";
-import {  ContextKeys, PrefixedUrls, QueryParameters } from "../../../../src/constants";
+import { ContextKeys, PrefixedUrls, QueryParameters } from "../../../../src/constants";
 import { CompanyProfile } from "@companieshouse/api-sdk-node/dist/services/company-profile";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { PRESENTER_ACCOUNT_SESSION_KEY, PresenterSessionDetails } from "../../../../src/utils/session";

@@ -57,7 +57,7 @@ export class EnterYourDetailsHandler extends GenericHandler<EnterYourDetailsView
 
     public executePost(req: Request, _response: Response): ViewModel<EnterYourDetailsViewData> | Redirect {
         logger.info(`${this.constructor.name} post execute called`);
-        const details: PresenterSessionDetails =  getPresenterAccountDetailsOrDefault(req);
+        const details: PresenterSessionDetails = getPresenterAccountDetailsOrDefault(req);
 
         const { premises, addressLine1, addressLine2, townOrCity, country, postCode, forename, surname } = req.body;
 

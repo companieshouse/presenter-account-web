@@ -11,17 +11,17 @@ const router = Router();
 // cached HTML even though the details could have already been submitted and session cleared.
 router.use(noCacheMiddleware);
 
-router.get("/", handleExceptions( async (req: Request, res: Response, _next: NextFunction) => {
+router.get("/", handleExceptions(async(req: Request, res: Response, _next: NextFunction) => {
     const handler = new EnterYourDetailsHandler();
     const { templatePath, viewData } = handler.executeGet(req, res);
     return res.render(templatePath, viewData);
 }));
 
-router.post("/", validateForm, handleExceptions( async (req: Request, res: Response, _next: NextFunction) => {
+router.post("/", validateForm, handleExceptions(async(req: Request, res: Response, _next: NextFunction) => {
     const handler = new EnterYourDetailsHandler();
     const handlerPostResp = handler.executePost(req, res);
 
-    if ('redirect' in handlerPostResp){
+    if ('redirect' in handlerPostResp) {
         return res.redirect(handlerPostResp.redirect);
     }
 

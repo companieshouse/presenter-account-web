@@ -1,7 +1,8 @@
+
 module.exports = {
     roots: ["<rootDir>"],
     testPathIgnorePatterns: ["/node_modules/", "/dist/"],
-    collectCoverageFrom: ["./src/**/*.ts"],
+    collectCoverageFrom: ["/src/**/*.ts"],
     coveragePathIgnorePatterns: ["/src/bin/"],
     preset: "ts-jest",
     testEnvironment: "node",
@@ -12,5 +13,6 @@ module.exports = {
     },
     globalSetup: "./test/global.setup.ts",
     testTimeout: 10000, // Set the timeout to 10 seconds (or any other appropriate value)
+    clearMocks: true,
     setupFilesAfterEnv: ["<rootDir>/test/mocks/all.middleware.mock.ts"],
 };

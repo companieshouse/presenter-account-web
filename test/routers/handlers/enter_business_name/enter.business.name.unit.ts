@@ -76,7 +76,7 @@ describe("validate form fields", () => {
             .expect('Surrogate-Control', 'no-store');
     });
 
-    it("should display errors for missing mandatory fields",  async () => {
+    it("should display errors for missing mandatory fields", async () => {
         session.deleteExtraData("lang");
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
@@ -89,7 +89,7 @@ describe("validate form fields", () => {
         expect(response.text).toContain(ErrorMessagesEnglish.BUSINESS_NAME_BLANK);
     });
 
-    it("should display errors for fields that go above max length",  async () => {
+    it("should display errors for fields that go above max length", async () => {
         paDetailsWithIsBusinessRegisteredFalse.businessName = eightyCharacters + "x";
         session.setExtraData("lang", "en");
         session.setExtraData(
@@ -103,7 +103,7 @@ describe("validate form fields", () => {
         expect(response.text).not.toContain(ErrorMessagesEnglish.BUSINESS_NAME_INVALID_CHARACTER);
     });
 
-    it("should redirect when no errors displayed",  async () => {
+    it("should redirect when no errors displayed", async () => {
         paDetailsWithIsBusinessRegisteredFalse.businessName = eightyCharacters;
         session.setExtraData("lang", "en");
         session.setExtraData(
@@ -163,7 +163,7 @@ describe("Validate form fields with Welsh display", () => {
         ENTER_BUSINESS_NAME_TITLE = "Beth yw enw&#39;r busnes?",
         ENTER_BUSINESS_NAME_TITLE_INFO = "Os ydych yn unig fasnachwr, dylech roi enw eich hun os nad oes gennych enw busnes gwahanol yr ydych yn masnachu o dan."
     }
-    it("should display Welsh errors for fields that go above max length",  async () => {
+    it("should display Welsh errors for fields that go above max length", async () => {
         paDetailsWithIsBusinessRegisteredFalse.businessName = eightyCharacters + "x";
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
@@ -175,7 +175,7 @@ describe("Validate form fields with Welsh display", () => {
         expect(response.text).toContain(ErrorMessagesWelsh.BUSINESS_NAME_LENGTH);
     });
 
-    it("should display Welsh errors for missing mandatory fields",  async () => {
+    it("should display Welsh errors for missing mandatory fields", async () => {
         paDetailsWithIsBusinessRegisteredFalse.businessName = "";
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
@@ -201,7 +201,7 @@ describe("Validate form fields with Welsh display", () => {
         expect(resp.text).toContain(ScreenFieldsWelsh.ENTER_BUSINESS_NAME_TITLE_INFO);
     });
 
-    it("should translate page title to Welsh",  async () => {
+    it("should translate page title to Welsh", async () => {
         session.setExtraData(
             ContextKeys.PRESENTER_ACCOUNT_SESSION_KEY,
             paDetailsWithIsBusinessRegisteredFalse

@@ -1,9 +1,8 @@
-import { LanguageNames, LocalesService } from "@companieshouse/ch-node-utils";
-import { env } from "../config/index";
-import { i18nCh } from "@companieshouse/ch-node-utils";
+import { LanguageNames, LocalesService, i18nCh } from "@companieshouse/ch-node-utils";
 import { Request } from "express";
-import { LanguageCodes, QueryParameters } from "../constants";
 import { Environment } from "nunjucks";
+import { env } from "../config/index";
+import { LanguageCodes, QueryParameters } from "../constants";
 
 export const selectLang = (lang: any): string => {
     switch (lang) {
@@ -46,8 +45,8 @@ function getLocalesFieldByLang(fieldName: string, language: string): string {
         const localesPath = localesSevice.localesFolder;
         const locales = i18nCh.getInstance(localesPath);
         return locales.resolveSingleKey(fieldName, language as string);
-    } catch (e){
-        throw new Error(`Unable to get locales file with ${fieldName}: ${e}`);
+    } catch (e) {
+        throw new Error(`Unable to get locales file with ${fieldName}: ${e}`);  // eslint-disable-line
     }
 }
 
