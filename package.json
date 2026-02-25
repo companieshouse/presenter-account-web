@@ -13,7 +13,7 @@
     "build": "tsc && cp -r src/views dist/ && cp -r src/config dist/",
     "lint": "eslint '{src,test}/**/*' *.mjs",
     "lint:fix": "eslint '{src,test}/**/*' *.mjs --fix",
-    "coverage": "jest --clearCache && jest --no-cache --coverage --forceExit --passWithNoTests",
+    "coverage": "jest --coverage --coverageProvider=v8 --passWithNoTests",
     "test:coverage": "npm run coverage",
     "test": "jest",
     "start": "node dist/server.js",
