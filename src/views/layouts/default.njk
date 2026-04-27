@@ -18,10 +18,6 @@
             {% include "../partials/signout-bar.njk" %}
         {% endif %}
 
-        {% if backURL %}
-            <a href="{{ backURL }}" class="govuk-back-link" data-event-id="presenter-account-web-back-link">{{i18n.back_button}}</a>
-        {% endif %}
-
         {% if not error %}
           {% include "locales-banner.njk" %}
         {% endif %}
