@@ -27,7 +27,7 @@ const routerDispatch = (app: Application) => {
     const csrfMiddlewareOptions = setupCSRFOptions(sessionStore);
 
     // Assign the nonce value to be accessible within views
-    const nonce = uuidv4();
+    const nonce: string = uuidv4();
     app.use(assignCspNonce(nonce));
 
     app.use(servicePathPrefix, router);

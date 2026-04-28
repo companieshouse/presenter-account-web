@@ -14,5 +14,11 @@
         </span>
     </p>
   </div>
+
+  {% if backURL %}
+  <div class="govuk-grid-column-one-half">
+    <a class="govuk-back-link " href="{{ backURL }}" data-event-id="presenter-account-web-back-link">{{i18n.back_button}}</a>
+  </div>
+  {% endif %}
 </div>
 
