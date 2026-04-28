@@ -29,7 +29,7 @@
     "@companieshouse/ch-node-utils": "^2.1.10",
     "@companieshouse/node-session-handler": "^5.2.6",
     "@companieshouse/structured-logging-node": "^2.0.4",
-    "@companieshouse/web-security-node": "^4.4.12",
+    "@companieshouse/web-security-node": "^4.4.18",
     "@types/supertest": "^6.0.2",
     "cookie-parser": "^1.4.7",
     "express": "^4.18.3",
@@ -41,9 +41,11 @@
     "nunjucks": "3.2.4",
     "private-api-sdk-node": "github:companieshouse/private-api-sdk-node#1.0.87",
     "tslib": "^2.6.3",
-    "uuid": "^9.0.1"
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.29.2",
+    "@babel/preset-typescript": "^7.28.5",
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.9.0",
     "@types/cookie-parser": "^1.4.7",
@@ -55,6 +57,7 @@
     "@types/nunjucks": "^3.2.6",
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^8.56.0",
+    "babel-jest": "^30.3.0",
     "chalk": "^5.3.0",
     "eslint": "^10.0.1",
     "globals": "^17.3.0",
