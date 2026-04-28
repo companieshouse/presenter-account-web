@@ -4,7 +4,6 @@ module.exports = {
     testPathIgnorePatterns: ["/node_modules/", "/dist/"],
     collectCoverageFrom: ["/src/**/*.ts"],
     coveragePathIgnorePatterns: ["/src/bin/"],
-//    preset: "ts-jest",
     testEnvironment: "node",
     verbose: true,
     testMatch: ["**/test/**/*.unit.[jt]s"],
